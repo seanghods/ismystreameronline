@@ -5,11 +5,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        bobsburgers: ['bobsburgers', 'sans-serif'],
+        logo: ['logo', 'sans-serif'],
+        game: ['game', 'sans-serif'],
       },
-      width: {
-        '1/10': '10%',
-        '1/8': '12.5%',
+      height: {
+        '10p': '10%',
+        '5p': '5%',
       },
     },
   },
