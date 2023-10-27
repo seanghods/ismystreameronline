@@ -3,6 +3,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import { TwitchIcon, YouTubeIcon, KickIcon } from './Icons';
 
 export function StreamList({ streamerData, title, gameFilter }) {
@@ -10,7 +12,8 @@ export function StreamList({ streamerData, title, gameFilter }) {
     <>
       <div className="streamer-list flex flex-col gap-6 items-center">
         <h2 className="font-logo text-3xl mb-5">{title}</h2>
-        <div className="flex font-logo w-4/5 text-center">
+        <div className="flex font-logo w-2/3 text-center">
+          <div className="w-6"></div>
           <div className="flex-1">
             <PersonIcon />
           </div>
@@ -30,18 +33,27 @@ export function StreamList({ streamerData, title, gameFilter }) {
         </div>
         {streamerData
           .filter(streamer => streamer.online === true)
+          .sort((a, b) => b.viewers - a.viewers)
           .map((streamer, index) => {
-            if (gameFilter && streamer.game !== gameFilter) return null;
+            if (gameFilter && streamer.game.name !== gameFilter) return null;
             return (
               <div
                 key={index}
-                className="flex font-logo w-4/5 p-2 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg"
+                className="flex font-game w-2/3 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg"
               >
+                <button
+                  onClick={() => {
+                    console.log('hi');
+                  }}
+                  className="w-6"
+                >
+                  <FavoriteBorderIcon />
+                </button>
                 <div className="flex-1">{streamer.name}</div>
                 <div className="flex-1">
                   {streamer.viewers.toLocaleString()}
                 </div>
-                <div className="flex-1">{streamer.game}</div>
+                <div className="flex-1">{streamer.game.name}</div>
                 <div className="flex-1 flex justify-center">
                   {streamer.platform == 'Twitch' ? (
                     <TwitchIcon />

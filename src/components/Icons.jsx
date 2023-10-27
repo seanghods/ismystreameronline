@@ -32,19 +32,32 @@ export function YouTubeIcon() {
 export function KickIcon() {
   return (
     <svg
+      width="25"
+      height="25"
+      viewBox="0 0 300 300"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="icon icon-tabler icon-tabler-brand-kick"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      strokeWidth="2"
-      stroke="currentColor"
-      fill="green"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 4h5v4h3v-2h2v-2h6v4h-2v2h-2v4h2v2h2v4h-6v-2h-2v-2h-3v4h-5z" />
+      <g clipPath="url(#clip0_9790_492437)">
+        <g clipPath="url(#clip1_9790_492437)">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M0 
+0H100V66.6667H133.333V33.3333H166.667V0H266.667V100H233.333V133.333H200V166.667H233.333V200H266.667V300H166.667V266.667H133.333V233.333H100V300H0V0ZM666.6670H400V300H300V0ZM533.333
+0H466.667V33.3333H433.333V266.667H466.667V300H533.333H633.333V200H533.333V100H633.333V0H533.333Z"
+            fill="#53FC18"
+          />
+        </g>
+      </g>
+      <defs>
+        <clipPath id="clip0_9790_492437">
+          <rect width="933" height="300" fill="white" />
+        </clipPath>
+        <clipPath id="clip1_9790_492437">
+          <rect width="933.333" height="300" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

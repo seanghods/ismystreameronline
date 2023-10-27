@@ -1,21 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { StreamList } from '../components/StreamList';
 
-export function GamePage({ streamerData, currentGameFilter }) {
+export function GamePage({ streamerData, gamesData }) {
   const gameSlug = useParams().name;
-  const gameUnSlug = deslugify(gameSlug);
-  function deslugify(slug) {
-    return slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
+  const game = gamesData.find(game => game.slugName == gameSlug);
+  const gameName = game.name;
+
   return (
     <>
       <StreamList
         streamerData={streamerData}
-        title={gameUnSlug}
-        gameFilter={currentGameFilter}
+        title={gameName}
+        gameFilter={gameName}
       />
     </>
   );

@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <>
-      <div className="flex h-5p w-full p-5 pr-12 justify-end mb-10">
+      <div className="flex h-12 w-full p-5 pr-12 justify-end mb-10">
         <div className="login-links flex gap-10">
           <input
             type="text"
