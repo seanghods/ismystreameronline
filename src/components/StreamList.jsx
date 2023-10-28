@@ -10,7 +10,7 @@ import { TwitchIcon, YouTubeIcon, KickIcon } from './Icons';
 export function StreamList({ streamerData, title, gameFilter }) {
   return (
     <>
-      <div className="streamer-list flex flex-col gap-6 items-center">
+      <div className="streamer-list flex flex-col gap-2 items-center">
         <h2 className="font-logo text-3xl mb-5">{title}</h2>
         <div className="flex font-logo w-2/3 text-center">
           <div className="w-6"></div>
@@ -39,7 +39,7 @@ export function StreamList({ streamerData, title, gameFilter }) {
             return (
               <div
                 key={index}
-                className="flex font-game w-2/3 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg"
+                className="flex font-game p-2 w-2/3 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg"
               >
                 <button
                   onClick={() => {

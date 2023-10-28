@@ -1,7 +1,7 @@
-export default function Header() {
+export default function Header({ setShowModal }) {
   return (
     <>
-      <div className="flex h-12 w-full p-5 pr-12 justify-end mb-10">
+      <div className="flex h-20 w-full p-5 justify-center mb-10">
         <div className="login-links flex gap-10">
           <input
             type="text"
@@ -10,8 +10,22 @@ export default function Header() {
             // onChange={handleChange}
             // value={searchInput}
           />
-          <button className="font-logo">Log In</button>
-          <button className="font-logo">Sign Up</button>
+          <button
+            onClick={() => {
+              setShowModal('log-in');
+            }}
+            className="font-logo"
+          >
+            Log In
+          </button>
+          <button
+            onClick={() => {
+              setShowModal('sign-up');
+            }}
+            className="font-logo"
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </>

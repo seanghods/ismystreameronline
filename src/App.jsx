@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import NavBar from './components/NavBar';
+import AccountModal from './components/AccountModal';
 import Home from './containers/Home';
 import NotFound from './containers/NotFound';
 import { GamePage } from './containers/GamePage';
@@ -57,6 +58,7 @@ function App() {
       totalViewers: 0,
     },
   ]);
+  const [showModal, setShowModal] = useState('');
   useEffect(() => {
     async function fetchStreamers() {
       const response = await fetch('/api/streamers');
@@ -92,9 +94,12 @@ function App() {
   }
   return (
     <>
+      {showModal ? (
+        <AccountModal showModal={showModal} setShowModal={setShowModal} />
+      ) : null}
       <NavBar gamesData={gamesData} />
       <div className="flex-col w-full">
-        <Header />
+        <Header setShowModal={setShowModal} />
         <Routes>
           <Route path="/" element={<Home streamerData={streamerData} />} />
           <Route
