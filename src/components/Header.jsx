@@ -1,4 +1,17 @@
+import { NavLink } from 'react-router-dom';
+
 export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
+  async function handleLogOut() {
+    const response = await fetch('/api/log-out');
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      setLoggedIn(false);
+    } else {
+      console.log(data.message);
+    }
+  }
   return (
     <>
       <div className="flex h-20 w-full p-5 justify-center mb-10">
@@ -12,10 +25,15 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
           />
           {loggedIn ? (
             <>
-              <button onClick={console.log('test')} className="font-logo">
-                Home
-              </button>
-              <button onClick={console.log('test')} className="font-logo">
+              <NavLink to="/favorites" className="font-logo flex items-center">
+                Favorites
+              </NavLink>
+              <button
+                onClick={() => {
+                  handleLogOut();
+                }}
+                className="font-logo"
+              >
                 Log Out
               </button>
             </>

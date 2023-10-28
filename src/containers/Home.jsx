@@ -1,6 +1,11 @@
 import { StreamList } from '../components/StreamList';
 
-export default function Home({ streamerData }) {
+export default function Home({
+  streamerData,
+  loggedIn,
+  favorites,
+  setFavorites,
+}) {
   return (
     <>
       <div className="welcome flex flex-col items-center gap-12 mb-24">
@@ -13,7 +18,13 @@ export default function Home({ streamerData }) {
           platforms
         </p>
       </div>
-      <StreamList streamerData={streamerData} title="Top Streamers" />
+      <StreamList
+        streamerData={streamerData}
+        title="Top Streamers"
+        loggedIn={loggedIn}
+        favorites={favorites}
+        setFavorites={setFavorites}
+      />
     </>
   );
 }

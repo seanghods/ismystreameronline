@@ -71,19 +71,19 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
     <>
       <div
         ref={modalRef}
-        className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 bg-gray-200 border-2 border-black shadow-xl shadow-[#106ae0] rounded-lg w-[350px] h-[450px]"
+        className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 bg-gray-200 border-2 border-black shadow-xl shadow-[#106ae0] rounded-lg w-[350px] "
       >
         {showModal == 'log-in' ? (
-          <LogInForm handleLogIn={handleLogIn} />
+          <LogInForm handleLogIn={handleLogIn} setShowModal={setShowModal} />
         ) : showModal == 'sign-up' ? (
-          <SignUpForm handleSignUp={handleSignUp} />
+          <SignUpForm handleSignUp={handleSignUp} setShowModal={setShowModal} />
         ) : null}
       </div>
     </>
   );
 }
 
-function LogInForm({ handleLogIn }) {
+function LogInForm({ handleLogIn, setShowModal }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Log In</h2>
@@ -111,11 +111,22 @@ function LogInForm({ handleLogIn }) {
           </button>
         </div>
       </form>
+      <div className="button flex justify-center m-5 font-game text-blue-400">
+        <p
+          className="w-[75px] text-center cursor-pointer"
+          onClick={e => {
+            e.stopPropagation();
+            setShowModal('sign-up');
+          }}
+        >
+          Sign Up
+        </p>
+      </div>
     </>
   );
 }
 
-function SignUpForm({ handleSignUp }) {
+function SignUpForm({ handleSignUp, setShowModal }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Sign Up</h2>
@@ -141,6 +152,17 @@ function SignUpForm({ handleSignUp }) {
           </button>
         </div>
       </form>
+      <div className="button text-center m-5 font-game text-blue-400 flex justify-center">
+        <p
+          className="w-[50px] cursor-pointer"
+          onClick={e => {
+            e.stopPropagation();
+            setShowModal('log-in');
+          }}
+        >
+          Log In
+        </p>
+      </div>
     </>
   );
 }
