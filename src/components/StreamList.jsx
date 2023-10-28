@@ -16,6 +16,7 @@ export function StreamList({
   filter,
   gameName,
 }) {
+  console.log(favorites);
   async function addFavorite(streamerId, setFavorites) {
     setFavorites(prevFavorites => [...prevFavorites, streamerId]);
     try {
@@ -73,7 +74,7 @@ export function StreamList({
     <>
       <div className="streamer-list flex flex-col gap-2 items-center">
         <h2 className="font-logo text-3xl mb-5">{title}</h2>
-        <div className="flex font-logo w-2/3 text-center">
+        <div className="labels flex font-logo w-2/3 text-center">
           <div className="w-6"></div>
           <div className="flex-1">
             <PersonIcon />
@@ -98,15 +99,24 @@ export function StreamList({
           </div>
         ) : null}
         {streamerData
-          .filter(streamer => streamer.online === true)
-          .sort((a, b) => b.viewers - a.viewers)
+          .filter(streamer =>
+            filter == 'favorites' ? true : streamer.online === true,
+          )
+          .filter(streamer =>
+            filter == 'game' && streamer.game.name !== gameName ? false : true,
+          )
+          .filter(streamer =>
+            filter == 'favorites' && !favorites.includes(streamer.id)
+              ? false
+              : true,
+          )
+          .sort((a, b) => {
+            if ((a.online && b.online) || (!a.online && !b.online)) {
+              return b.viewers - a.viewers;
+            }
+            return a.online ? -1 : 1;
+          })
           .map((streamer, index) => {
-            if (filter == 'game' && streamer.game.name !== gameName) {
-              return null;
-            }
-            if (filter == 'favorites' && !favorites.includes(streamer.id)) {
-              return null;
-            }
             return (
               <div
                 key={index}
@@ -145,9 +155,15 @@ export function StreamList({
                   ) : null}
                 </div>
                 <div className="flex-1">
-                  <button className="bg-[#0FFF50] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
-                    Online
-                  </button>
+                  {filter == 'favorites' && streamer.online == false ? (
+                    <button className="bg-[#a9a9a9] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
+                      Offline
+                    </button>
+                  ) : (
+                    <button className="bg-[#0FFF50] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
+                      Online
+                    </button>
+                  )}
                 </div>
               </div>
             );
