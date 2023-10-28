@@ -1,12 +1,19 @@
 import { useEffect, useRef } from 'react';
 
-export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
+export default function LoginModal({
+  showModal,
+  setShowModal,
+  setLoggedIn,
+  error,
+  setError,
+}) {
   const modalRef = useRef();
 
   useEffect(() => {
     function handleOutsideClick(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowModal('');
+        setError('');
       }
     }
 
@@ -18,7 +25,7 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
       clearTimeout(timer);
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [setShowModal]);
+  }, [setShowModal, setError]);
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -40,7 +47,7 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
     if (response.ok && data.success) {
       setShowModal('log-in');
     } else {
-      console.log(data.message);
+      setError('sign-up');
     }
   }
 
@@ -64,7 +71,7 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
       setLoggedIn(true);
       setShowModal('');
     } else {
-      console.log(data.message);
+      setError('log-in');
     }
   }
   return (
@@ -74,21 +81,29 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
         className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 bg-gray-200 border-2 border-black shadow-xl shadow-[#106ae0] rounded-lg w-[350px] "
       >
         {showModal == 'log-in' ? (
-          <LogInForm handleLogIn={handleLogIn} setShowModal={setShowModal} />
+          <LogInForm
+            handleLogIn={handleLogIn}
+            setShowModal={setShowModal}
+            error={error}
+          />
         ) : showModal == 'sign-up' ? (
-          <SignUpForm handleSignUp={handleSignUp} setShowModal={setShowModal} />
+          <SignUpForm
+            handleSignUp={handleSignUp}
+            setShowModal={setShowModal}
+            error={error}
+          />
         ) : null}
       </div>
     </>
   );
 }
 
-function LogInForm({ handleLogIn, setShowModal }) {
+function LogInForm({ handleLogIn, setShowModal, error }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Log In</h2>
       <form
-        className="flex flex-col p-12 gap-2 font-game"
+        className="flex flex-col p-12 pb-6 gap-2 font-game"
         id="log-in"
         onSubmit={handleLogIn}
       >
@@ -109,6 +124,11 @@ function LogInForm({ handleLogIn, setShowModal }) {
           <button className="bg-white rounded-lg w-1/2 text-center px-3 py-2 hover:bg-gray-300">
             Log In
           </button>
+          {error == 'log-in' ? (
+            <div className="font-game font-bold text-red-600 pt-5">
+              Error logging in <br /> Incorrect Credentials
+            </div>
+          ) : null}
         </div>
       </form>
       <div className="button flex justify-center m-5 font-game text-blue-400">
@@ -126,12 +146,12 @@ function LogInForm({ handleLogIn, setShowModal }) {
   );
 }
 
-function SignUpForm({ handleSignUp, setShowModal }) {
+function SignUpForm({ handleSignUp, setShowModal, error }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Sign Up</h2>
       <form
-        className="flex flex-col p-12 gap-2 font-game"
+        className="flex flex-col p-12 pb-6 gap-2 font-game"
         id="sign-up"
         onSubmit={handleSignUp}
       >
@@ -150,6 +170,11 @@ function SignUpForm({ handleSignUp, setShowModal }) {
           <button className="bg-white rounded-lg w-1/2 text-center px-3 py-2 hover:bg-gray-300">
             Sign Up
           </button>
+          {error == 'sign-up' ? (
+            <div className="font-game font-bold text-red-600 pt-5">
+              Error signing up
+            </div>
+          ) : null}{' '}
         </div>
       </form>
       <div className="button text-center m-5 font-game text-blue-400 flex justify-center">

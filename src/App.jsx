@@ -62,6 +62,7 @@ function App() {
   const [showModal, setShowModal] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [error, setError] = useState();
   useEffect(() => {
     async function fetchStreamers() {
       const response = await fetch('/api/streamers');
@@ -129,6 +130,8 @@ function App() {
           showModal={showModal}
           setShowModal={setShowModal}
           setLoggedIn={setLoggedIn}
+          error={error}
+          setError={setError}
         />
       ) : null}
       <NavBar gamesData={gamesData} />

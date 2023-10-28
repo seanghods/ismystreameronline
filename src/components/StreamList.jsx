@@ -6,6 +6,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { TwitchIcon, YouTubeIcon, KickIcon } from './Icons';
+import Tooltip from '@mui/material/Tooltip';
 
 export function StreamList({
   streamerData,
@@ -16,7 +17,6 @@ export function StreamList({
   filter,
   gameName,
 }) {
-  console.log(favorites);
   async function addFavorite(streamerId, setFavorites) {
     setFavorites(prevFavorites => [...prevFavorites, streamerId]);
     try {
@@ -70,6 +70,19 @@ export function StreamList({
       setFavorites(prevFavorites => [...prevFavorites, streamerId]);
     }
   }
+  function TitleTooltip({ title, children }) {
+    return (
+      <Tooltip
+        title={title}
+        placement="top"
+        className="bg-white text-gray-800 shadow-md"
+        enterDelay={250}
+        leaveDelay={50}
+      >
+        {children}
+      </Tooltip>
+    );
+  }
   return (
     <>
       <div className="streamer-list flex flex-col gap-2 items-center">
@@ -99,17 +112,15 @@ export function StreamList({
           </div>
         ) : null}
         {streamerData
-          .filter(streamer =>
-            filter == 'favorites' ? true : streamer.online === true,
-          )
-          .filter(streamer =>
-            filter == 'game' && streamer.game.name !== gameName ? false : true,
-          )
-          .filter(streamer =>
-            filter == 'favorites' && !favorites.includes(streamer.id)
-              ? false
-              : true,
-          )
+          .filter(streamer => {
+            if (filter === 'favorites') {
+              return favorites.includes(streamer.id);
+            } else if (filter === 'game') {
+              return streamer.online && streamer.game.name === gameName;
+            } else {
+              return streamer.online;
+            }
+          })
           .sort((a, b) => {
             if ((a.online && b.online) || (!a.online && !b.online)) {
               return b.viewers - a.viewers;
@@ -118,54 +129,53 @@ export function StreamList({
           })
           .map((streamer, index) => {
             return (
-              <div
-                key={index}
-                className="flex font-game font-bold text-md p-2 w-2/3 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg"
-              >
-                <button
-                  onClick={() => {
-                    if (loggedIn) {
-                      if (favorites.includes(streamer.id)) {
-                        deleteFavorite(streamer.id, favorites, setFavorites);
-                      } else if (!favorites.includes(streamer.id)) {
-                        addFavorite(streamer.id, setFavorites);
+              <TitleTooltip title={streamer.title} key={index}>
+                <div className="flex font-game font-bold text-md p-2 w-2/3 text-center justify-center items-center hover:bg-[#abdbe3] hover:cursor-pointer rounded-lg">
+                  <button
+                    onClick={() => {
+                      if (loggedIn) {
+                        if (favorites.includes(streamer.id)) {
+                          deleteFavorite(streamer.id, favorites, setFavorites);
+                        } else if (!favorites.includes(streamer.id)) {
+                          addFavorite(streamer.id, setFavorites);
+                        }
                       }
-                    }
-                  }}
-                  className="w-6"
-                >
-                  {loggedIn && favorites.includes(streamer.id) ? (
-                    <FavoriteIcon />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
-                </button>
-                <div className="flex-1">{streamer.name}</div>
-                <div className="flex-1">
-                  {streamer.viewers.toLocaleString()}
+                    }}
+                    className="w-6"
+                  >
+                    {loggedIn && favorites.includes(streamer.id) ? (
+                      <FavoriteIcon />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </button>
+                  <div className="flex-1">{streamer.name}</div>
+                  <div className="flex-1">
+                    {streamer.viewers.toLocaleString()}
+                  </div>
+                  <div className="flex-1">{streamer.game.name}</div>
+                  <div className="flex-1 flex justify-center">
+                    {streamer.platform == 'Twitch' ? (
+                      <TwitchIcon />
+                    ) : streamer.platform == 'YouTube' ? (
+                      <YouTubeIcon />
+                    ) : streamer.platform == 'Kick' ? (
+                      <KickIcon />
+                    ) : null}
+                  </div>
+                  <div className="flex-1">
+                    {filter == 'favorites' && streamer.online == false ? (
+                      <button className="bg-[#a9a9a9] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
+                        Offline
+                      </button>
+                    ) : (
+                      <button className="bg-[#0FFF50] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
+                        Online
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-1">{streamer.game.name}</div>
-                <div className="flex-1 flex justify-center">
-                  {streamer.platform == 'Twitch' ? (
-                    <TwitchIcon />
-                  ) : streamer.platform == 'YouTube' ? (
-                    <YouTubeIcon />
-                  ) : streamer.platform == 'Kick' ? (
-                    <KickIcon />
-                  ) : null}
-                </div>
-                <div className="flex-1">
-                  {filter == 'favorites' && streamer.online == false ? (
-                    <button className="bg-[#a9a9a9] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
-                      Offline
-                    </button>
-                  ) : (
-                    <button className="bg-[#0FFF50] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
-                      Online
-                    </button>
-                  )}
-                </div>
-              </div>
+              </TitleTooltip>
             );
           })}
       </div>
