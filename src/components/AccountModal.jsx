@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function LoginModal({ showModal, setShowModal }) {
+export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
   const modalRef = useRef();
 
   useEffect(() => {
@@ -20,6 +20,53 @@ export default function LoginModal({ showModal, setShowModal }) {
     };
   }, [setShowModal]);
 
+  async function handleSignUp(e) {
+    e.preventDefault();
+
+    const response = await fetch('/api/sign-up', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: e.target.username.value,
+        password: e.target.password.value,
+        email: e.target.email.value,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      setShowModal('log-in');
+    } else {
+      console.log(data.message);
+    }
+  }
+
+  async function handleLogIn(e) {
+    e.preventDefault();
+
+    const response = await fetch('/api/log-in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: e.target.username.value,
+        password: e.target.password.value,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      setLoggedIn(true);
+      setShowModal('');
+    } else {
+      console.log(data.message);
+    }
+  }
   return (
     <>
       <div
@@ -27,23 +74,23 @@ export default function LoginModal({ showModal, setShowModal }) {
         className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 bg-gray-200 border-2 border-black shadow-xl shadow-[#106ae0] rounded-lg w-[350px] h-[450px]"
       >
         {showModal == 'log-in' ? (
-          <LogInForm />
+          <LogInForm handleLogIn={handleLogIn} />
         ) : showModal == 'sign-up' ? (
-          <SignUpForm />
+          <SignUpForm handleSignUp={handleSignUp} />
         ) : null}
       </div>
     </>
   );
 }
 
-function LogInForm() {
+function LogInForm({ handleLogIn }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Log In</h2>
       <form
         className="flex flex-col p-12 gap-2 font-game"
-        action="/log-in"
-        method="POST"
+        id="log-in"
+        onSubmit={handleLogIn}
       >
         <label htmlFor="username">Username</label>
         <input
@@ -68,14 +115,14 @@ function LogInForm() {
   );
 }
 
-function SignUpForm() {
+function SignUpForm({ handleSignUp }) {
   return (
     <>
       <h2 className="text-center font-game pt-10 text-2xl">Sign Up</h2>
       <form
         className="flex flex-col p-12 gap-2 font-game"
-        action="/sign-up"
-        method="POST"
+        id="sign-up"
+        onSubmit={handleSignUp}
       >
         <label htmlFor="username">Username</label>
         <input className="white rounded-md p-1" name="username" type="text" />

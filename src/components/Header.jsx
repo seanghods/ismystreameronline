@@ -1,4 +1,4 @@
-export default function Header({ setShowModal }) {
+export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
   return (
     <>
       <div className="flex h-20 w-full p-5 justify-center mb-10">
@@ -10,22 +10,35 @@ export default function Header({ setShowModal }) {
             // onChange={handleChange}
             // value={searchInput}
           />
-          <button
-            onClick={() => {
-              setShowModal('log-in');
-            }}
-            className="font-logo"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => {
-              setShowModal('sign-up');
-            }}
-            className="font-logo"
-          >
-            Sign Up
-          </button>
+          {loggedIn ? (
+            <>
+              <button onClick={console.log('test')} className="font-logo">
+                Home
+              </button>
+              <button onClick={console.log('test')} className="font-logo">
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  setShowModal('log-in');
+                }}
+                className="font-logo"
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => {
+                  setShowModal('sign-up');
+                }}
+                className="font-logo"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

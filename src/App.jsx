@@ -59,6 +59,7 @@ function App() {
     },
   ]);
   const [showModal, setShowModal] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     async function fetchStreamers() {
       const response = await fetch('/api/streamers');
@@ -95,11 +96,19 @@ function App() {
   return (
     <>
       {showModal ? (
-        <AccountModal showModal={showModal} setShowModal={setShowModal} />
+        <AccountModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          setLoggedIn={setLoggedIn}
+        />
       ) : null}
       <NavBar gamesData={gamesData} />
       <div className="flex-col w-full">
-        <Header setShowModal={setShowModal} />
+        <Header
+          setShowModal={setShowModal}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+        />
         <Routes>
           <Route path="/" element={<Home streamerData={streamerData} />} />
           <Route
