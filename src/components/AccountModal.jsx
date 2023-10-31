@@ -1,4 +1,6 @@
-import { useEffect, useRef } from 'react';
+// import { useEffect, useRef } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 
 export default function LoginModal({
   showModal,
@@ -7,26 +9,6 @@ export default function LoginModal({
   error,
   setError,
 }) {
-  const modalRef = useRef();
-
-  useEffect(() => {
-    function handleOutsideClick(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowModal('');
-        setError('');
-      }
-    }
-
-    const timer = setTimeout(() => {
-      document.addEventListener('click', handleOutsideClick);
-    }, 0);
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [setShowModal, setError]);
-
   async function handleSignUp(e) {
     e.preventDefault();
 
@@ -46,6 +28,7 @@ export default function LoginModal({
 
     if (response.ok && data.success) {
       setShowModal('log-in');
+      setError('');
     } else {
       setError('sign-up');
     }
@@ -70,124 +53,244 @@ export default function LoginModal({
     if (response.ok && data.success) {
       setLoggedIn(true);
       setShowModal('');
+      setError('');
     } else {
       setError('log-in');
     }
   }
   return (
     <>
-      <div
-        ref={modalRef}
-        className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 bg-gray-200 border-2 border-black shadow-xl shadow-[#106ae0] rounded-lg w-[350px] "
-      >
-        {showModal == 'log-in' ? (
-          <LogInForm
-            handleLogIn={handleLogIn}
-            setShowModal={setShowModal}
-            error={error}
-          />
-        ) : showModal == 'sign-up' ? (
-          <SignUpForm
-            handleSignUp={handleSignUp}
-            setShowModal={setShowModal}
-            error={error}
-          />
-        ) : null}
-      </div>
+      {showModal == 'log-in' ? (
+        <LogInForm
+          handleLogIn={handleLogIn}
+          setShowModal={setShowModal}
+          error={error}
+          setError={setError}
+        />
+      ) : showModal == 'sign-up' ? (
+        <SignUpForm
+          handleSignUp={handleSignUp}
+          setShowModal={setShowModal}
+          error={error}
+          setError={setError}
+        />
+      ) : null}
     </>
   );
 }
 
-function LogInForm({ handleLogIn, setShowModal, error }) {
+function LogInForm({ handleLogIn, setShowModal, error, setError }) {
   return (
-    <>
-      <h2 className="text-center font-game pt-10 text-2xl">Log In</h2>
-      <form
-        className="flex flex-col p-12 pb-6 gap-2 font-game"
-        id="log-in"
-        onSubmit={handleLogIn}
+    <Transition appear show={true} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={() => {
+          setShowModal('');
+          setError('');
+        }}
       >
-        <label htmlFor="username">Username</label>
-        <input
-          className="bg-white rounded-md p-1"
-          name="username"
-          type="text"
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          className="bg-white rounded-md p-1"
-          name="password"
-          type="password"
-        />
-        <div className="button text-center mt-5">
-          {' '}
-          <button className="bg-white rounded-lg w-1/2 text-center px-3 py-2 hover:bg-gray-300">
-            Log In
-          </button>
-          {error == 'log-in' ? (
-            <div className="font-game font-bold text-red-600 pt-5">
-              Error logging in <br /> Incorrect Credentials
-            </div>
-          ) : null}
-        </div>
-      </form>
-      <div className="button flex justify-center m-5 font-game text-blue-400">
-        <p
-          className="w-[75px] text-center cursor-pointer"
-          onClick={e => {
-            e.stopPropagation();
-            setShowModal('sign-up');
-          }}
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          Sign Up
-        </p>
-      </div>
-    </>
+          <div className="fixed inset-0 bg-black/25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                >
+                  Log In
+                  {/* <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-red-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={() => {
+                      setShowModal('');
+                      setError('');
+                    }}
+                  >
+                    Close
+                  </button> */}
+                </Dialog.Title>
+                <div className="mt-4 flex justify-end"></div>
+
+                <form
+                  className="flex flex-col p-12 gap-2 font-game"
+                  id="log-in"
+                  onSubmit={handleLogIn}
+                >
+                  <label htmlFor="username">Username</label>
+                  <input
+                    className="bg-gray-100 outline outline-1 rounded-md p-1 "
+                    name="username"
+                    type="text"
+                    placeholder="user"
+                  />
+                  <label htmlFor="password">Password</label>
+                  <input
+                    className="bg-gray-100 outline outline-1 rounded-md p-1"
+                    name="password"
+                    type="password"
+                    placeholder="***"
+                  />
+                  <div className="button text-center mt-5">
+                    {' '}
+                    <button className="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg w-1/2 text-center px-3 py-2 ">
+                      Log In
+                    </button>
+                    {error == 'log-in' ? (
+                      <div className="font-game font-bold text-red-600 pt-5">
+                        Error logging in <br /> Incorrect Credentials
+                      </div>
+                    ) : null}
+                  </div>
+                </form>
+                <div className="button text-center m-2 font-game flex justify-center">
+                  <button
+                    className="inline-flex justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShowModal('sign-up');
+                      setError('');
+                    }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
   );
 }
 
-function SignUpForm({ handleSignUp, setShowModal, error }) {
+function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
   return (
-    <>
-      <h2 className="text-center font-game pt-10 text-2xl">Sign Up</h2>
-      <form
-        className="flex flex-col p-12 pb-6 gap-2 font-game"
-        id="sign-up"
-        onSubmit={handleSignUp}
+    <Transition appear show={true} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={() => {
+          setShowModal('');
+          setError('');
+        }}
       >
-        <label htmlFor="username">Username</label>
-        <input className="white rounded-md p-1" name="username" type="text" />
-        <label htmlFor="password">Password</label>
-        <input
-          className="bg-white rounded-md p-1"
-          name="password"
-          type="password"
-        />
-        <label htmlFor="email">Email</label>
-        <input className="bg-white rounded-md p-1" name="email" type="email" />
-        <div className="button text-center mt-5">
-          {' '}
-          <button className="bg-white rounded-lg w-1/2 text-center px-3 py-2 hover:bg-gray-300">
-            Sign Up
-          </button>
-          {error == 'sign-up' ? (
-            <div className="font-game font-bold text-red-600 pt-5">
-              Error signing up
-            </div>
-          ) : null}{' '}
-        </div>
-      </form>
-      <div className="button text-center m-5 font-game text-blue-400 flex justify-center">
-        <p
-          className="w-[50px] cursor-pointer"
-          onClick={e => {
-            e.stopPropagation();
-            setShowModal('log-in');
-          }}
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          Log In
-        </p>
-      </div>
-    </>
+          <div className="fixed inset-0 bg-black/25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                >
+                  Sign Up
+                  {/* <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-red-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={() => {
+                      setShowModal('');
+                      setError('');
+                    }}
+                  >
+                    Close
+                  </button> */}
+                </Dialog.Title>
+                <div className="mt-4 flex justify-end"></div>
+                <form
+                  className="flex flex-col p-12 gap-2 font-game"
+                  id="sign-up"
+                  onSubmit={handleSignUp}
+                >
+                  <label htmlFor="username">Username*</label>
+                  <input
+                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    name="username"
+                    type="text"
+                    placeholder="user"
+                  />
+                  <label htmlFor="password">Password*</label>
+                  <input
+                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    name="password"
+                    type="password"
+                    placeholder="***"
+                  />
+                  <label htmlFor="email">Email*</label>
+                  <input
+                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    name="email"
+                    type="email"
+                    placeholder="user@gmail.com"
+                  />
+                  <div className="button text-center mt-5">
+                    {' '}
+                    <button className="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg w-1/2 text-center px-3 py-2">
+                      Sign Up
+                    </button>
+                    {error == 'sign-up' ? (
+                      <div className="font-game font-bold text-red-600 pt-5">
+                        Error Signing Up
+                      </div>
+                    ) : null}
+                  </div>
+                </form>
+                <div className="button text-center m-2 font-game flex justify-center">
+                  <button
+                    className="inline-flex justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShowModal('log-in');
+                      setError('');
+                    }}
+                  >
+                    Log In
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
   );
 }

@@ -10,7 +10,11 @@
   src: url('./fonts/playfair.ttf');
 }
 .MuiTooltip-tooltip {
-  background-color: #bae5ff !important;
+  background: linear-gradient(
+    90deg,
+    rgba(194, 255, 207, 1) 0%,
+    rgba(0, 204, 255, 1) 100%
+  ) !important;
   color: black !important;
   font-size: 15px !important;
   font-weight: bold !important;
@@ -19,4 +23,9 @@
   padding: 1rem 3rem !important;
   border-radius: 1rem !important;
   max-width: none !important;
+}
+
+input::placeholder {
+  padding: 1px !important;
+  font-size: 14px !important;
 }

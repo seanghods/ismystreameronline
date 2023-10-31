@@ -1,6 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Switch } from '@headlessui/react';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
+export default function Header({
+  setShowModal,
+  loggedIn,
+  setLoggedIn,
+  lightMode,
+  setLightMode,
+}) {
   const navigate = useNavigate();
   async function handleLogOut() {
     const response = await fetch('/api/log-out');
@@ -16,8 +24,8 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
   }
   return (
     <>
-      <div className="flex h-20 w-full p-5 justify-center mb-10">
-        <div className="login-links flex gap-10">
+      <div className="flex h-[85px] w-full p-5 justify-center mb-10">
+        <div className="login-links flex gap-6">
           <input
             type="text"
             className="rounded-lg p-5"
@@ -27,14 +35,17 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
           />
           {loggedIn ? (
             <>
-              <NavLink to="/favorites" className="font-logo flex items-center">
+              <NavLink
+                to="/favorites"
+                className="font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
+              >
                 Favorites
               </NavLink>
               <button
                 onClick={() => {
                   handleLogOut();
                 }}
-                className="font-logo"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
               >
                 Log Out
               </button>
@@ -45,7 +56,7 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
                 onClick={() => {
                   setShowModal('log-in');
                 }}
-                className="font-logo"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
               >
                 Log In
               </button>
@@ -53,12 +64,28 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
                 onClick={() => {
                   setShowModal('sign-up');
                 }}
-                className="font-logo"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
               >
                 Sign Up
               </button>
             </>
           )}
+          <div className="move-right ml-78 flex items-center gap-3">
+            {lightMode ? <LightModeIcon /> : <LightModeIcon color="disabled" />}
+            <Switch
+              checked={lightMode}
+              onChange={() => setLightMode(!lightMode)}
+              className={`${lightMode ? 'bg-gray-700' : 'bg-gray-200'}
+          relative inline-flex h-[24px] w-[45px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}
+            >
+              <span className="sr-only">Use setting</span>
+              <span
+                aria-hidden="true"
+                className={`${lightMode ? 'translate-x-5' : 'translate-x-0'}
+            pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+              />
+            </Switch>
+          </div>
         </div>
       </div>
     </>

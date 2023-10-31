@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import NavBar from './components/NavBar';
-import AccountModal from './components/AccountModal2';
+import AccountModal from './components/AccountModal';
 import Home from './containers/Home';
 import NotFound from './containers/NotFound';
 import Favorites from './containers/Favorites';
@@ -16,17 +16,13 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
+  const [lightMode, setLightMode] = useState(true);
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch('/api/games');
       if (!response.ok) console.log('error');
       const gamesList = await response.json();
-      const enrichedGames = gamesList.map(game => {
-        const totalViewers = getViewersForGame(streamerData, game.name);
-        const totalStreamers = getStreamersForGame(streamerData, game.name);
-        return { ...game, totalViewers, totalStreamers };
-      });
-      setGames(enrichedGames);
+      setGames(gamesList);
     }
     fetchGames();
   }, [streamerData]);
@@ -45,7 +41,6 @@ function App() {
   }, [loggedIn]);
   async function fetchStreamers(status, gameSlug, favorites) {
     setLoading(true);
-    console.log('loading on');
     let url = '/api/streamers';
     const query = [];
 
@@ -61,18 +56,11 @@ function App() {
     if (query.length > 0) {
       url += `?${query.join('&')}`;
     }
-
     const response = await fetch(url);
     if (!response.ok) console.log('error');
     const streamersList = await response.json();
     setStreamerData(streamersList);
-    console.log(streamersList);
-    await sleep(200);
     setLoading(false);
-    console.log('loading off');
-  }
-  async function sleep(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
   }
   async function checkAuthenticationStatus() {
     try {
@@ -87,16 +75,6 @@ function App() {
     } catch (error) {
       console.error('Failed to check authentication status:', error);
     }
-  }
-  function getViewersForGame(streamerData, gameName) {
-    return streamerData
-      .filter(streamer => streamer.game && streamer.game.name == gameName)
-      .reduce((total, streamer) => total + streamer.viewers, 0);
-  }
-  function getStreamersForGame(streamerData, gameName) {
-    return streamerData.filter(
-      streamer => streamer.game && streamer.game.name == gameName,
-    ).length;
   }
   return (
     <>
@@ -115,6 +93,8 @@ function App() {
           setShowModal={setShowModal}
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
+          lightMode={lightMode}
+          setLightMode={setLightMode}
         />
         <Routes>
           <Route
