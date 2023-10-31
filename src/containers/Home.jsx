@@ -1,11 +1,17 @@
 import { StreamList } from '../components/StreamList';
+import { useEffect } from 'react';
 
 export default function Home({
   streamerData,
   loggedIn,
   favorites,
   setFavorites,
+  fetchStreamers,
+  loading,
 }) {
+  useEffect(() => {
+    fetchStreamers('online');
+  }, []);
   return (
     <>
       <div className="welcome flex flex-col items-center gap-12 mb-24">
@@ -24,6 +30,8 @@ export default function Home({
         loggedIn={loggedIn}
         favorites={favorites}
         setFavorites={setFavorites}
+        fetchStreamers={fetchStreamers}
+        loading={loading}
       />
     </>
   );

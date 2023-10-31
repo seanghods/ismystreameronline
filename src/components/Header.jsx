@@ -1,6 +1,7 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
+  const navigate = useNavigate();
   async function handleLogOut() {
     const response = await fetch('/api/log-out');
 
@@ -8,6 +9,7 @@ export default function Header({ setShowModal, loggedIn, setLoggedIn }) {
 
     if (response.ok && data.success) {
       setLoggedIn(false);
+      navigate('/');
     } else {
       console.log(data.message);
     }

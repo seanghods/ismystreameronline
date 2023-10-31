@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import NavBar from './components/NavBar';
-import AccountModal from './components/AccountModal';
+import AccountModal from './components/AccountModal2';
 import Home from './containers/Home';
 import NotFound from './containers/NotFound';
 import Favorites from './containers/Favorites';
@@ -9,69 +9,13 @@ import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [streamerData, setStreamerData] = useState([
-    {
-      name: 'Bob',
-      online: true,
-      game: 'League Of Legends',
-      platform: 'Twitch',
-      viewers: 100000,
-    },
-    {
-      name: 'BigComputerGuy',
-      online: true,
-      game: 'Fortnite',
-      platform: 'Kick',
-      viewers: 1200,
-    },
-    {
-      name: 'Stacy',
-      online: true,
-      game: 'Counter-Strike Go',
-      platform: 'YouTube',
-      viewers: 500,
-    },
-    { name: 'John', online: false, game: '', viewers: 0 },
-  ]);
-  const [gamesData, setGames] = useState([
-    {
-      name: 'League of Legends',
-      slugName: 'league-of-legends',
-      totalStreamers: 1,
-      totalViewers: 100000,
-    },
-    {
-      name: 'Counter-Strike',
-      slugName: 'counter-strike',
-      totalStreamers: 1,
-      totalViewers: 500,
-    },
-    {
-      name: 'Fortnite',
-      slugName: 'fortnite',
-      totalStreamers: 1,
-      totalViewers: 1200,
-    },
-    {
-      name: 'World of Warcraft',
-      slugName: 'world-of-warcraft',
-      totalStreamers: 0,
-      totalViewers: 0,
-    },
-  ]);
+  const [streamerData, setStreamerData] = useState([]);
+  const [gamesData, setGames] = useState([]);
   const [showModal, setShowModal] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState();
-  useEffect(() => {
-    async function fetchStreamers() {
-      const response = await fetch('/api/streamers');
-      if (!response.ok) console.log('error');
-      const streamersList = await response.json();
-      setStreamerData(streamersList);
-    }
-    fetchStreamers();
-  }, []);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch('/api/games');
@@ -99,6 +43,37 @@ function App() {
     }
     getFavorites();
   }, [loggedIn]);
+  async function fetchStreamers(status, gameSlug, favorites) {
+    setLoading(true);
+    console.log('loading on');
+    let url = '/api/streamers';
+    const query = [];
+
+    if (status) {
+      query.push(`status=${status}`);
+    }
+    if (gameSlug) {
+      query.push(`game=${gameSlug}`);
+    }
+    if (favorites) {
+      query.push(`favorites=${favorites}`);
+    }
+    if (query.length > 0) {
+      url += `?${query.join('&')}`;
+    }
+
+    const response = await fetch(url);
+    if (!response.ok) console.log('error');
+    const streamersList = await response.json();
+    setStreamerData(streamersList);
+    console.log(streamersList);
+    await sleep(200);
+    setLoading(false);
+    console.log('loading off');
+  }
+  async function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  }
   async function checkAuthenticationStatus() {
     try {
       const response = await fetch('/api/check-session');
@@ -150,6 +125,8 @@ function App() {
                 loggedIn={loggedIn}
                 favorites={favorites}
                 setFavorites={setFavorites}
+                fetchStreamers={fetchStreamers}
+                loading={loading}
               />
             }
           />
@@ -162,6 +139,8 @@ function App() {
                 loggedIn={loggedIn}
                 favorites={favorites}
                 setFavorites={setFavorites}
+                fetchStreamers={fetchStreamers}
+                loading={loading}
               />
             }
           />
@@ -173,6 +152,8 @@ function App() {
                 loggedIn={loggedIn}
                 favorites={favorites}
                 setFavorites={setFavorites}
+                fetchStreamers={fetchStreamers}
+                loading={loading}
               />
             }
           />

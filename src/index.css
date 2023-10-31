@@ -10,14 +10,12 @@
   src: url('./fonts/playfair.ttf');
 }
 .MuiTooltip-tooltip {
-  background-color: #7fceff !important;
+  background-color: #bae5ff !important;
   color: black !important;
   font-size: 15px !important;
   font-weight: bold !important;
-  /* font-family: 'game', 'sans-serif' !important; */
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  font-family: 'Tahoma', 'sans-serif' !important;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
   padding: 1rem 3rem !important;
   border-radius: 1rem !important;
   max-width: none !important;
