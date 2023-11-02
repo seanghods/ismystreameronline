@@ -12,6 +12,11 @@ export default {
         '10p': '10%',
         '5p': '5%',
       },
+      backgroundImage: {
+        twitch: "url('/src/assets/twitch-bg.png')",
+        kick: "url('/src/assets/kick-bg2-dark.png')",
+        youtube: "url('/src/assets/youtube-bg5.png')",
+      },
     },
   },
   plugins: [],

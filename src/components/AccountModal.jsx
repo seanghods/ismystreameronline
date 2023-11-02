@@ -116,7 +116,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                  className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
                 >
                   Log In
                   {/* <button
@@ -221,7 +221,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                  className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
                 >
                   Sign Up
                   {/* <button

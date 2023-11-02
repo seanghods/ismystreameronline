@@ -7,16 +7,25 @@ import Favorites from './containers/Favorites';
 import { GamePage } from './containers/GamePage';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import useStream from './Context/useStream';
 
 function App() {
-  const [streamerData, setStreamerData] = useState([]);
-  const [gamesData, setGames] = useState([]);
-  const [showModal, setShowModal] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const {
+    streamerData,
+    setStreamerData,
+    setGames,
+    loggedIn,
+    setLoggedIn,
+    setFavorites,
+    setLoading,
+    activeDropdown,
+    setActiveDropdown,
+    setShouldRenderContent,
+  } = useStream();
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
   const [lightMode, setLightMode] = useState(true);
+  const [showModal, setShowModal] = useState('');
+
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch('/api/games');
@@ -27,6 +36,20 @@ function App() {
     fetchGames();
   }, [streamerData]);
   useEffect(() => {
+    async function checkAuthenticationStatus() {
+      try {
+        const response = await fetch('/api/check-session');
+        const data = await response.json();
+
+        if (data.isAuthenticated) {
+          setLoggedIn(true);
+        } else {
+          setLoggedIn(false);
+        }
+      } catch (error) {
+        console.error('Failed to check authentication status:', error);
+      }
+    }
     checkAuthenticationStatus();
   }, []);
   useEffect(() => {
@@ -39,6 +62,16 @@ function App() {
     }
     getFavorites();
   }, [loggedIn]);
+  useEffect(() => {
+    if (!activeDropdown) {
+      setShouldRenderContent(false);
+    }
+    setTimeout(() => {
+      if (activeDropdown) {
+        setShouldRenderContent(true);
+      }
+    }, 500);
+  }, [activeDropdown]);
   async function fetchStreamers(status, gameSlug, favorites) {
     setLoading(true);
     let url = '/api/streamers';
@@ -62,20 +95,6 @@ function App() {
     setStreamerData(streamersList);
     setLoading(false);
   }
-  async function checkAuthenticationStatus() {
-    try {
-      const response = await fetch('/api/check-session');
-      const data = await response.json();
-
-      if (data.isAuthenticated) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    } catch (error) {
-      console.error('Failed to check authentication status:', error);
-    }
-  }
   return (
     <>
       {showModal ? (
@@ -87,7 +106,7 @@ function App() {
           setError={setError}
         />
       ) : null}
-      <NavBar gamesData={gamesData} />
+      <NavBar />
       <div className="flex-col w-full">
         <Header
           setShowModal={setShowModal}
@@ -99,43 +118,18 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <Home
-                streamerData={streamerData}
-                loggedIn={loggedIn}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                fetchStreamers={fetchStreamers}
-                loading={loading}
-              />
-            }
+            onExit={() => setActiveDropdown('')}
+            element={<Home fetchStreamers={fetchStreamers} />}
           />
           <Route
             path="/game/:name"
-            element={
-              <GamePage
-                streamerData={streamerData}
-                gamesData={gamesData}
-                loggedIn={loggedIn}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                fetchStreamers={fetchStreamers}
-                loading={loading}
-              />
-            }
+            onExit={() => setActiveDropdown('')}
+            element={<GamePage fetchStreamers={fetchStreamers} />}
           />
           <Route
             path="/favorites"
-            element={
-              <Favorites
-                streamerData={streamerData}
-                loggedIn={loggedIn}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                fetchStreamers={fetchStreamers}
-                loading={loading}
-              />
-            }
+            onExit={() => setActiveDropdown('')}
+            element={<Favorites fetchStreamers={fetchStreamers} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -37,7 +37,7 @@ export default function Header({
             <>
               <NavLink
                 to="/favorites"
-                className="font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
+                className="font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
               >
                 Favorites
               </NavLink>
@@ -45,7 +45,7 @@ export default function Header({
                 onClick={() => {
                   handleLogOut();
                 }}
-                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
               >
                 Log Out
               </button>
@@ -56,7 +56,7 @@ export default function Header({
                 onClick={() => {
                   setShowModal('log-in');
                 }}
-                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
               >
                 Log In
               </button>
@@ -64,7 +64,7 @@ export default function Header({
                 onClick={() => {
                   setShowModal('sign-up');
                 }}
-                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gray-200 hover:bg-gray-300"
+                className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
               >
                 Sign Up
               </button>

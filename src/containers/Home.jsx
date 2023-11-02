@@ -1,14 +1,7 @@
 import { StreamList } from '../components/StreamList';
 import { useEffect } from 'react';
 
-export default function Home({
-  streamerData,
-  loggedIn,
-  favorites,
-  setFavorites,
-  fetchStreamers,
-  loading,
-}) {
+export default function Home({ fetchStreamers }) {
   useEffect(() => {
     fetchStreamers('online');
   }, []);
@@ -24,15 +17,7 @@ export default function Home({
           platforms
         </p>
       </div>
-      <StreamList
-        streamerData={streamerData}
-        title="Top Streamers"
-        loggedIn={loggedIn}
-        favorites={favorites}
-        setFavorites={setFavorites}
-        fetchStreamers={fetchStreamers}
-        loading={loading}
-      />
+      <StreamList title="Top Streamers" />
     </>
   );
 }

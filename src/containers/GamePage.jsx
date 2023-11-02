@@ -1,16 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { StreamList } from '../components/StreamList';
 import { useEffect } from 'react';
+import useStream from '../Context/useStream';
 
-export function GamePage({
-  streamerData,
-  gamesData,
-  loggedIn,
-  favorites,
-  setFavorites,
-  fetchStreamers,
-  loading,
-}) {
+export function GamePage({ fetchStreamers }) {
+  const { gamesData } = useStream();
   const gameSlug = useParams().name;
   const game = gamesData
     ? gamesData.find(game => game.slugName == gameSlug)
@@ -25,15 +19,7 @@ export function GamePage({
   }, [gameSlug]);
   return (
     <>
-      <StreamList
-        streamerData={streamerData}
-        title={gameName}
-        loggedIn={loggedIn}
-        favorites={favorites}
-        setFavorites={setFavorites}
-        filter="game"
-        loading={loading}
-      />
+      <StreamList title={gameName} filter="game" />
     </>
   );
 }

@@ -9,11 +9,11 @@
   font-family: 'game';
   src: url('./fonts/playfair.ttf');
 }
-.MuiTooltip-tooltip {
+.title-tooltip {
   background: linear-gradient(
     90deg,
-    rgba(194, 255, 207, 1) 0%,
-    rgba(0, 204, 255, 1) 100%
+    rgb(90, 255, 126) 0%,
+    rgb(51, 214, 255) 100%
   ) !important;
   color: black !important;
   font-size: 15px !important;
@@ -21,8 +21,15 @@
   font-family: 'Tahoma', 'sans-serif' !important;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
   padding: 1rem 3rem !important;
-  border-radius: 1rem !important;
+  border-radius: 0.5rem !important;
   max-width: none !important;
+}
+
+.like-tooltip {
+  padding: 1em !important;
+  font-size: 15px !important;
+  opacity: 1 !important;
+  background: black !important;
 }
 
 input::placeholder {
