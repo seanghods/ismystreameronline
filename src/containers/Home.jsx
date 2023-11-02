@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 export default function Home({ fetchStreamers }) {
   useEffect(() => {
     fetchStreamers('online');
-  }, []);
+  }, [fetchStreamers]);
   return (
     <>
       <div className="welcome flex flex-col items-center gap-12 mb-24">

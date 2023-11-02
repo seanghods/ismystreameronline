@@ -16,7 +16,7 @@ export function GamePage({ fetchStreamers }) {
       await fetchStreamers('online', gameSlug, null);
     }
     callFetchStreamers();
-  }, [gameSlug]);
+  }, [gameSlug, fetchStreamers]);
   return (
     <>
       <StreamList title={gameName} filter="game" />

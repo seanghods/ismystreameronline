@@ -6,7 +6,7 @@ import NotFound from './containers/NotFound';
 import Favorites from './containers/Favorites';
 import { GamePage } from './containers/GamePage';
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import useStream from './Context/useStream';
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
       setGames(gamesList);
     }
     fetchGames();
-  }, [streamerData]);
+  }, [streamerData, setGames]);
   useEffect(() => {
     async function checkAuthenticationStatus() {
       try {
@@ -51,7 +51,7 @@ function App() {
       }
     }
     checkAuthenticationStatus();
-  }, []);
+  }, [setLoggedIn]);
   useEffect(() => {
     async function getFavorites() {
       if (loggedIn) {
@@ -61,7 +61,7 @@ function App() {
       }
     }
     getFavorites();
-  }, [loggedIn]);
+  }, [loggedIn, setFavorites]);
   useEffect(() => {
     if (!activeDropdown) {
       setShouldRenderContent(false);
@@ -71,30 +71,33 @@ function App() {
         setShouldRenderContent(true);
       }
     }, 500);
-  }, [activeDropdown]);
-  async function fetchStreamers(status, gameSlug, favorites) {
-    setLoading(true);
-    let url = '/api/streamers';
-    const query = [];
+  }, [activeDropdown, setShouldRenderContent]);
+  const fetchStreamers = useCallback(
+    async (status, gameSlug, favorites) => {
+      setLoading(true);
+      let url = '/api/streamers';
+      const query = [];
 
-    if (status) {
-      query.push(`status=${status}`);
-    }
-    if (gameSlug) {
-      query.push(`game=${gameSlug}`);
-    }
-    if (favorites) {
-      query.push(`favorites=${favorites}`);
-    }
-    if (query.length > 0) {
-      url += `?${query.join('&')}`;
-    }
-    const response = await fetch(url);
-    if (!response.ok) console.log('error');
-    const streamersList = await response.json();
-    setStreamerData(streamersList);
-    setLoading(false);
-  }
+      if (status) {
+        query.push(`status=${status}`);
+      }
+      if (gameSlug) {
+        query.push(`game=${gameSlug}`);
+      }
+      if (favorites) {
+        query.push(`favorites=${favorites}`);
+      }
+      if (query.length > 0) {
+        url += `?${query.join('&')}`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) console.log('error');
+      const streamersList = await response.json();
+      setStreamerData(streamersList);
+      setLoading(false);
+    },
+    [setLoading, setStreamerData],
+  );
   return (
     <>
       {showModal ? (

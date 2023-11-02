@@ -27,7 +27,8 @@ export default function LoginModal({
     const data = await response.json();
 
     if (response.ok && data.success) {
-      setShowModal('log-in');
+      setLoggedIn(true);
+      setShowModal('');
       setError('');
     } else {
       setError('sign-up');

@@ -91,13 +91,3 @@ export default function Header({
     </>
   );
 }
-
-// <>
-//   <div className="flex top-0 left-0 h-5p w-screen p-12 justify-between">
-//     <button className="font-logo">Is My Streamer Online</button>
-//     <div className="login-links flex gap-10">
-//       <button className="font-logo">Log In</button>
-//       <button className="font-logo">Sign Up</button>
-//     </div>
-//   </div>
-// </>;
