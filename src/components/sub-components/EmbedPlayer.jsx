@@ -16,6 +16,7 @@ export default function EmbedPlayer({
             ></iframe>
             <iframe
               id="chat_embed"
+              className="hidden md:block"
               src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=localhost`}
               height="378"
               width="300"

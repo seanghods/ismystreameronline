@@ -1,3 +1,5 @@
+import './icon-css.css';
+
 export function TwitchIcon() {
   return (
     <svg
@@ -46,13 +48,13 @@ export function KickIcon() {
   );
 }
 
-export function LoadingIcon() {
+export function LoadingIcon({ width = '200px', height = '200px' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="200px"
-      height="200px"
+      width={width}
+      height={height}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >
@@ -201,5 +203,28 @@ export function LoadingIcon() {
         </rect>
       </g>
     </svg>
+  );
+}
+
+export function PulseIcon({ status }) {
+  return (
+    <div className="flex flex-col justify-center items-end w-[40px] md:w-[140px] h-[30px]">
+      <svg className="w-5/6 h-5/6" viewBox="0 0 400 400">
+        <g transform="translate(200,200)">
+          <circle
+            className={status == 'online' ? 'core' : 'core-off'}
+            cx="0"
+            cy="0"
+            r="32"
+          ></circle>
+          <circle
+            className={status == 'online' ? 'radar' : 'radar-off'}
+            cx="0"
+            cy="0"
+            r="32"
+          ></circle>
+        </g>
+      </svg>
+    </div>
   );
 }

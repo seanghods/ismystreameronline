@@ -4,6 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { TwitchIcon, YouTubeIcon, KickIcon } from './sub-components/Icons';
 import { useEffect } from 'react';
 import useStream from '../Context/useStream';
+import { PulseIcon } from './sub-components/Icons';
 
 export default function StreamerItem({ streamer, index, filter }) {
   const {
@@ -36,62 +37,64 @@ export default function StreamerItem({ streamer, index, filter }) {
         <div className="hover:bg-green-100">Test</div>
         <div className="hover:bg-red-200">Test</div>
       </div> */}
-      <div
-        className={`flex font-game font-bold text-md p-2 w-full text-center justify-center items-center hover:cursor-pointer rounded-lg ${
-          'hover:' + getHoverColor(streamer.platform)
-        } ${activeDropdown == streamer.id ? 'bg-gray-200 rounded-b-none' : ''}`}
-        onClick={() => {
-          setShouldRenderContent(false);
-          setActiveDropdown(
-            activeDropdown === streamer.id ? null : streamer.id,
-          );
-        }}
+      <Tooltip
+        title={streamer.title}
+        key={index}
+        placement="top"
+        classes={{ tooltip: 'title-tooltip' }}
+        enterDelay={250}
+        enterNextDelay={200}
+        leaveDelay={50}
       >
-        <FavoriteButton streamer={streamer} />
-        <div className="w-1/5">{streamer.name}</div>
-        <div className="w-[80px]">{streamer.viewers.toLocaleString()}</div>
-        <div className="w-1/4">{streamer.game.name}</div>
-        <Tooltip
-          title={streamer.title}
-          key={index}
-          placement="top"
-          classes={{ tooltip: 'title-tooltip' }}
-          enterDelay={200}
-          enterNextDelay={200}
-          leaveDelay={50}
+        <div
+          className={`flex font-game font-bold text-md p-2 w-full text-center justify-center items-center hover:cursor-pointer rounded-lg ${
+            'hover:' + getHoverColor(streamer.platform)
+          } ${
+            activeDropdown == streamer.id ? 'bg-gray-200 rounded-b-none' : ''
+          }`}
+          onClick={() => {
+            setShouldRenderContent(false);
+            setActiveDropdown(
+              activeDropdown === streamer.id ? null : streamer.id,
+            );
+          }}
         >
-          <div className="flex-1 self-stretch flex items-center text-left overflow-hidden">
-            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <FavoriteButton streamer={streamer} />
+          <div className="flex w-[30px]">
+            {filter == 'favorites' && streamer.online == false ? (
+              <PulseIcon status="offline" />
+            ) : (
+              <PulseIcon status="online" />
+            )}
+          </div>
+          <div className="w-[100px] md:w-[225px] flex md:px-3 md:pl-12 whitespace-nowrap overflow-ellipsis overflow-hidden">
+            {streamer.name}
+          </div>
+          <div className="w-[40px] md:w-[120px] flex items-center justify-center">
+            {streamer.platform == 'Twitch' ? (
+              <TwitchIcon />
+            ) : streamer.platform == 'YouTube' ? (
+              <YouTubeIcon />
+            ) : streamer.platform == 'Kick' ? (
+              <KickIcon />
+            ) : null}
+          </div>
+          <div className="w-[80px]">{streamer.viewers.toLocaleString()}</div>
+          <div className="w-1/5 whitespace-nowrap overflow-ellipsis overflow-hidden">
+            {streamer.game.name}
+          </div>
+          <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden md:flex">
+            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-16">
               {streamer.title}
             </div>
           </div>
-        </Tooltip>
-        <div className="w-[120px] flex items-center justify-center">
-          {streamer.platform == 'Twitch' ? (
-            <TwitchIcon />
-          ) : streamer.platform == 'YouTube' ? (
-            <YouTubeIcon />
-          ) : streamer.platform == 'Kick' ? (
-            <KickIcon />
-          ) : null}
         </div>
-        <div className="w-[100px]">
-          {filter == 'favorites' && streamer.online == false ? (
-            <button className="bg-[#a9a9a9] rounded-md px-5 py-2 shadow-md transform transition duration-250 hover:scale-105">
-              Offline
-            </button>
-          ) : (
-            <button className="bg-[#5dff88] text-md rounded-md px-5 py-2 shadow-sm shadow-[#3b834e] transform transition duration-250 hover:scale-105">
-              Online
-            </button>
-          )}
-        </div>
-      </div>
-      <EmbedPlayer
-        streamer={streamer}
-        activeDropdown={activeDropdown}
-        shouldRenderContent={shouldRenderContent}
-      />
+        <EmbedPlayer
+          streamer={streamer}
+          activeDropdown={activeDropdown}
+          shouldRenderContent={shouldRenderContent}
+        />
+      </Tooltip>
     </>
   );
 }

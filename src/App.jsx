@@ -4,6 +4,7 @@ import AccountModal from './components/AccountModal';
 import Home from './containers/Home';
 import NotFound from './containers/NotFound';
 import Favorites from './containers/Favorites';
+import AllGamesPage from './containers/AllGamesPage';
 import { GamePage } from './containers/GamePage';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
@@ -19,7 +20,6 @@ function App() {
     setFavorites,
     setLoading,
     activeDropdown,
-    setActiveDropdown,
     setShouldRenderContent,
   } = useStream();
   const [error, setError] = useState();
@@ -27,12 +27,6 @@ function App() {
   const [showModal, setShowModal] = useState('');
 
   useEffect(() => {
-    async function fetchGames() {
-      const response = await fetch('/api/games');
-      if (!response.ok) console.log('error');
-      const gamesList = await response.json();
-      setGames(gamesList);
-    }
     fetchGames();
   }, [streamerData, setGames]);
   useEffect(() => {
@@ -98,6 +92,42 @@ function App() {
     },
     [setLoading, setStreamerData],
   );
+  const fetchMoreStreamers = useCallback(
+    async (status, gameSlug, favorites, streamerData) => {
+      let url = '/api/streamers';
+      const query = [`offset=${streamerData.length}`];
+
+      if (status) {
+        query.push(`status=${status}`);
+      }
+      if (gameSlug) {
+        query.push(`game=${gameSlug}`);
+      }
+      if (favorites) {
+        query.push(`favorites=${favorites}`);
+      }
+      if (query.length > 0) {
+        url += `?${query.join('&')}`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) console.log('error');
+      const moreStreamers = await response.json();
+      setStreamerData(prevStreamers => [...prevStreamers, ...moreStreamers]);
+    },
+    [setStreamerData],
+  );
+  async function fetchGames() {
+    const response = await fetch('/api/games');
+    if (!response.ok) console.log('error');
+    const gamesList = await response.json();
+    setGames(gamesList);
+  }
+  async function fetchMoreGames(gamesData) {
+    const response = await fetch(`/api/games?offset=${gamesData.length}`);
+    if (!response.ok) console.log('error');
+    const moreGames = await response.json();
+    setGames(prevGames => [...prevGames, ...moreGames]);
+  }
   return (
     <>
       {showModal ? (
@@ -109,33 +139,51 @@ function App() {
           setError={setError}
         />
       ) : null}
-      <NavBar />
-      <div className="flex-col w-full">
-        <Header
-          setShowModal={setShowModal}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          lightMode={lightMode}
-          setLightMode={setLightMode}
-        />
-        <Routes>
-          <Route
-            path="/"
-            onExit={() => setActiveDropdown('')}
-            element={<Home fetchStreamers={fetchStreamers} />}
-          />
-          <Route
-            path="/game/:name"
-            onExit={() => setActiveDropdown('')}
-            element={<GamePage fetchStreamers={fetchStreamers} />}
-          />
-          <Route
-            path="/favorites"
-            onExit={() => setActiveDropdown('')}
-            element={<Favorites fetchStreamers={fetchStreamers} />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <Header
+        setShowModal={setShowModal}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        lightMode={lightMode}
+        setLightMode={setLightMode}
+      />
+      <div className="mt-10 flex w-full">
+        <NavBar />
+        <div className="flex flex-col w-full">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  fetchStreamers={fetchStreamers}
+                  fetchMoreStreamers={fetchMoreStreamers}
+                />
+              }
+            />
+            <Route
+              path="/game/:name"
+              element={
+                <GamePage
+                  fetchStreamers={fetchStreamers}
+                  fetchMoreStreamers={fetchMoreStreamers}
+                />
+              }
+            />
+            <Route
+              path="/all-games"
+              element={<AllGamesPage fetchMoreGames={fetchMoreGames} />}
+            />
+            <Route
+              path="/favorites"
+              element={
+                <Favorites
+                  fetchStreamers={fetchStreamers}
+                  fetchMoreStreamers={fetchMoreStreamers}
+                />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </>
   );

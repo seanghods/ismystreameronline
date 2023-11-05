@@ -3,14 +3,22 @@ import { StreamList } from '../components/StreamList';
 import { useEffect } from 'react';
 import useStream from '../Context/useStream';
 
-export function GamePage({ fetchStreamers }) {
+export function GamePage({ fetchStreamers, fetchMoreStreamers }) {
   const { gamesData } = useStream();
   const gameSlug = useParams().name;
   const game = gamesData
     ? gamesData.find(game => game.slugName == gameSlug)
     : null;
   const gameName = game ? game.name : null;
-
+  // let gameName;
+  // async function findGameName(gameSlug) {
+  //   const response = await fetch(`/api/find-game?slug=${gameSlug}`);
+  //   const data = await response.json();
+  //   gameName = data.name;
+  // }
+  // useEffect(() => {
+  //   findGameName(gameSlug);
+  // });
   useEffect(() => {
     async function callFetchStreamers() {
       await fetchStreamers('online', gameSlug, null);
@@ -19,7 +27,12 @@ export function GamePage({ fetchStreamers }) {
   }, [gameSlug, fetchStreamers]);
   return (
     <>
-      <StreamList title={gameName} filter="game" />
+      <StreamList
+        title={gameName}
+        gameSlug={gameSlug}
+        filter="game"
+        fetchMoreStreamers={fetchMoreStreamers}
+      />
     </>
   );
 }

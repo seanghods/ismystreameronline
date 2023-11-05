@@ -3,13 +3,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ChatIcon from '@mui/icons-material/Chat';
 import LaptopIcon from '@mui/icons-material/Laptop';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { LoadingIcon } from './sub-components/Icons';
 import { Transition } from '@headlessui/react';
 import StreamerItem from './StreamerItem';
 import useStream from '../Context/useStream';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-export function StreamList({ title, filter }) {
+export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
   const { streamerData, favorites, loading } = useStream();
   return (
     <>
@@ -35,47 +35,68 @@ export function StreamList({ title, filter }) {
         {loading ? null : (
           <div className="streamer-list flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">{title}</h2>
-            <div className="labels flex font-logo w-2/3 text-center">
+            <div className="labels flex font-logo w-full md:w-2/3 text-center">
               <div className="w-6"></div>
-              <div className="w-1/5">
+              <div className="w-[60px] md:w-[140px]"></div>
+              <div className="w-[100px] md:w-[225px] pr-12">
                 <PersonIcon />
+              </div>
+              <div className="w-[80px] md:w-[130px]">
+                <LaptopIcon />
               </div>
               <div className="w-[80px]">
                 <VisibilityIcon />
               </div>
-              <div className="w-1/4">
+              <div className="w-[80px] md:w-1/5">
                 {' '}
                 <SportsEsportsIcon />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 pr-24 hidden md:block">
                 <ChatIcon />
               </div>
-              <div className="w-[130px]">
-                <LaptopIcon />
-              </div>
-              <div className="w-[100px] pr-4">
-                <ArrowForwardIcon />
-              </div>
+              <div className="w-[30px] md:hidden"></div>
             </div>
             {filter == 'favorites' && favorites.length == 0 ? (
               <div className="m-12 font-bold text-xl text-sky-500 font-game">
                 You have no favorites yet! Go like your favorite streamers.{' '}
               </div>
             ) : null}
-            {streamerData.map((streamer, index) => {
-              return (
-                <div
-                  className="w-2/3 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md"
-                  key={index}
-                >
-                  <StreamerItem
-                    streamer={streamer}
-                    index={index}
-                    filter={filter}
-                  />
-                </div>
-              );
-            })}
+            <div className="w-full">
+              <InfiniteScroll
+                dataLength={streamerData.length}
+                className="flex flex-col gap-3 items-center mx-2 md:mx-0"
+                next={() => {
+                  if (filter == 'favorites') {
+                    fetchMoreStreamers(null, null, true, streamerData);
+                  } else if (filter == 'game') {
+                    fetchMoreStreamers('online', gameSlug, null, streamerData);
+                  } else {
+                    fetchMoreStreamers('online', null, null, streamerData);
+                  }
+                }}
+                hasMore={true}
+                loader={
+                  <div className="flex justify-center">
+                    <LoadingIcon width="75px" height="75px" />
+                  </div>
+                }
+              >
+                {streamerData.map((streamer, index) => {
+                  return (
+                    <div
+                      className="w-full md:w-2/3 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md"
+                      key={index}
+                    >
+                      <StreamerItem
+                        streamer={streamer}
+                        index={index}
+                        filter={filter}
+                      />
+                    </div>
+                  );
+                })}
+              </InfiniteScroll>
+            </div>
           </div>
         )}
       </Transition>
