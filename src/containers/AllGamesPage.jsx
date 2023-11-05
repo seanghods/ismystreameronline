@@ -37,7 +37,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
         {loading ? null : (
           <div className="streamer-list w-full flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">All Games</h2>
-            <div className="labels flex font-logo w-4/5 md:w-1/3 text-center">
+            <div className="labels flex font-logo w-4/5 xl:w-1/3 text-center">
               <div className="pr-16 flex-1">
                 <VideogameAssetIcon />
               </div>
@@ -65,7 +65,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
                 {gamesData.map((game, index) => {
                   return (
                     <div
-                      className="w-4/5 md:w-1/3 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md hover:bg-gray-300"
+                      className="w-4/5 xl:w-1/3 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md hover:bg-gray-300"
                       key={index}
                     >
                       <NavLink to={'/game/' + game.slugName} className="">

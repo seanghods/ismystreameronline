@@ -25,13 +25,13 @@ export default function Header({
   }
   return (
     <>
-      <div className="flex h-[85px] w-full p-5 justify-center border-b-2 border-gray-200">
+      <div className="flex h-[85px] p-5 justify-center xl:border-b-2 xl:border-gray-200">
         <div className="flex-1 text-center md:text-left">
           <NavLink to="/" className="md:p-12 font-logo text-sm md:text-2xl">
             Is My Streamer <br className="md:hidden" /> Online
           </NavLink>
         </div>
-        <div className="flex-1 flex justify-end md:pl-36">
+        <div className="flex-1 flex justify-end lg:pl-36">
           <div className="login-links flex gap-3 md:gap-6">
             <button className="shadow-md shadow-gray-400 md:hidden font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105">
               <SearchIcon />

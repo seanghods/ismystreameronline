@@ -4,7 +4,7 @@ import useStream from '../Context/useStream';
 export default function NavBar() {
   const { gamesData } = useStream();
   return (
-    <div className="nav-bar-section h-5/6 flex flex-col w-[350px] md:w-[350px]">
+    <div className="nav-bar-section h-5/6 flex-col w-[300px] hidden lg:flex">
       <div className="nav-bar border-2 border-gray-300 flex-1 mx-3 md:mx-7 rounded-lg text-black shadow-xl shadow-[#106ae0] font-bold px-5 text-center overflow-y-auto">
         <div className="nav-bar-links mt-4 flex flex-col gap-10 items-center md:items-stretch ">
           {gamesData

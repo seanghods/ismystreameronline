@@ -146,9 +146,9 @@ function App() {
         lightMode={lightMode}
         setLightMode={setLightMode}
       />
-      <div className="mt-10 flex w-full">
+      <div className="mt-10 flex">
         <NavBar />
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full lg:w-2/3">
           <Routes>
             <Route
               path="/"

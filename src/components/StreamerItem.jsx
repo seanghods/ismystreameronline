@@ -30,6 +30,14 @@ export default function StreamerItem({ streamer, index, filter }) {
       if (activeDropdown == streamer.id) setActiveDropdown(null);
     };
   }, []);
+  function convertToK(number) {
+    if (number < 1000) {
+      return (number / 1000).toFixed(1) + 'K';
+    } else {
+      return Math.round(number / 1000) + 'K';
+    }
+  }
+
   return (
     <>
       {/* <div className="fix-hover">
@@ -47,7 +55,7 @@ export default function StreamerItem({ streamer, index, filter }) {
         leaveDelay={50}
       >
         <div
-          className={`flex font-game font-bold text-md p-2 w-full text-center justify-center items-center hover:cursor-pointer rounded-lg ${
+          className={`flex font-game font-bold text-md p-2 w-full text-center justify-center hover:cursor-pointer rounded-lg ${
             'hover:' + getHoverColor(streamer.platform)
           } ${
             activeDropdown == streamer.id ? 'bg-gray-200 rounded-b-none' : ''
@@ -70,7 +78,7 @@ export default function StreamerItem({ streamer, index, filter }) {
           <div className="w-[100px] md:w-[225px] flex md:px-3 md:pl-12 whitespace-nowrap overflow-ellipsis overflow-hidden">
             {streamer.name}
           </div>
-          <div className="w-[40px] md:w-[120px] flex items-center justify-center">
+          <div className="w-[35px] md:w-[120px] flex items-center justify-center">
             {streamer.platform == 'Twitch' ? (
               <TwitchIcon />
             ) : streamer.platform == 'YouTube' ? (
@@ -79,11 +87,16 @@ export default function StreamerItem({ streamer, index, filter }) {
               <KickIcon />
             ) : null}
           </div>
-          <div className="w-[80px]">{streamer.viewers.toLocaleString()}</div>
-          <div className="w-1/5 whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <div className="w-[80px] hidden md:block">
+            {streamer.viewers.toLocaleString()}
+          </div>
+          <div className="w-[50px] md:hidden">
+            {convertToK(streamer.viewers)}
+          </div>
+          <div className="md:flex-initial w-1/5 whitespace-nowrap overflow-ellipsis overflow-hidden">
             {streamer.game.name}
           </div>
-          <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden md:flex">
+          <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
             <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-16">
               {streamer.title}
             </div>
