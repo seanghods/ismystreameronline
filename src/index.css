@@ -7,8 +7,18 @@
 }
 @font-face {
   font-family: 'game';
-  src: url('./fonts/playfair.ttf');
+  src: url('./fonts/RobotoLight.ttf');
 }
+@font-face {
+  font-family: 'gamebold';
+  src: url('./fonts/Roboto.ttf');
+}
+
+.font-logo,
+.font-game {
+  @apply dark:text-white text-gray-800;
+}
+
 .title-tooltip {
   background: linear-gradient(
     90deg,

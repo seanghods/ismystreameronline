@@ -9,7 +9,12 @@ import StreamerItem from './StreamerItem';
 import useStream from '../Context/useStream';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
+export default function StreamList({
+  title,
+  filter,
+  gameSlug,
+  fetchMoreStreamers,
+}) {
   const { streamerData, favorites, loading } = useStream();
   return (
     <>
@@ -35,9 +40,9 @@ export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
         {loading ? null : (
           <div className="streamer-list flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">{title}</h2>
-            <div className="labels flex font-logo w-full 2xl:w-2/3 text-center mx-2 2xl:mx-0 p-2 justify-center">
-              <div className="w-[130px] md:w-[50px]"></div>
-              <div className="w-[75px] md:w-[225px] pr-12">
+            <div className="labels flex font-logo w-full 2xl:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
+              <div className="w-[90px] md:w-[50px]"></div>
+              <div className="w-[110px] md:w-[225px] pr-12">
                 <PersonIcon />
               </div>
               <div className="w-[40px] md:w-[130px]">
@@ -46,7 +51,7 @@ export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
               <div className="w-[75px]">
                 <VisibilityIcon />
               </div>
-              <div className="w-[80px] md:w-1/5">
+              <div className="w-[80px] md:w-1/4">
                 {' '}
                 <SportsEsportsIcon />
               </div>
@@ -63,7 +68,7 @@ export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
             <div className="w-full">
               <InfiniteScroll
                 dataLength={streamerData.length}
-                className="flex flex-col gap-3 items-center mx-2 2xl:mx-0"
+                className="flex flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0"
                 next={() => {
                   if (filter == 'favorites') {
                     fetchMoreStreamers(null, null, true, streamerData);
@@ -83,7 +88,7 @@ export function StreamList({ title, filter, gameSlug, fetchMoreStreamers }) {
                 {streamerData.map((streamer, index) => {
                   return (
                     <div
-                      className="w-full 2xl:w-2/3 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md"
+                      className="w-full 2xl:w-4/5 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white dark:bg-[#4c4a4f] rounded-lg text-gray-800 shadow-md"
                       key={index}
                     >
                       <StreamerItem

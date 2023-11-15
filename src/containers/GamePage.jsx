@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { StreamList } from '../components/StreamList';
+import { StreamList } from '../components';
 import { useEffect } from 'react';
 import useStream from '../Context/useStream';
 
-export function GamePage({ fetchStreamers, fetchMoreStreamers }) {
+export default function GamePage({ fetchStreamers, fetchMoreStreamers }) {
   const { gamesData } = useStream();
   const gameSlug = useParams().name;
   const game = gamesData

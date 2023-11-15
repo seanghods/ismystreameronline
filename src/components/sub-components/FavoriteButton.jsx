@@ -2,15 +2,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
 import useStream from '../../Context/useStream';
+import { useState } from 'react';
 
 export default function FavoriteButton({ streamer }) {
-  const {
-    loggedIn,
-    favorites,
-    setFavorites,
-    showLikeTooltip,
-    setShowLikeTooltip,
-  } = useStream();
+  const [showLikeTooltip, setShowLikeTooltip] = useState(false);
+  const { loggedIn, favorites, setFavorites } = useStream();
   async function addFavorite(streamerId, setFavorites) {
     setFavorites(prevFavorites => [...prevFavorites, streamerId]);
     try {

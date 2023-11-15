@@ -31,14 +31,14 @@ export default function Header({
             Is My Streamer <br className="md:hidden" /> Online
           </NavLink>
         </div>
-        <div className="flex-1 flex justify-end lg:pl-36">
+        <div className="flex-1 flex justify-center">
           <div className="login-links flex gap-3 md:gap-6">
             <button className="shadow-md shadow-gray-400 md:hidden font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105">
               <SearchIcon />
             </button>
             <input
               type="text"
-              className="rounded-lg p-5 hidden md:block"
+              className="rounded-lg p-5 hidden md:block dark:bg-gray-300"
               placeholder="Search here"
               // onChange={handleChange}
               // value={searchInput}
@@ -82,7 +82,7 @@ export default function Header({
             )}
             <div className="move-right ml-78 items-center gap-3 hidden md:flex">
               {lightMode ? (
-                <LightModeIcon />
+                <LightModeIcon color="" />
               ) : (
                 <LightModeIcon color="disabled" />
               )}
@@ -102,7 +102,15 @@ export default function Header({
             </div>
           </div>
         </div>
-        <div className="flex-1 hidden md:block"></div>
+        <div className="flex-1 justify-end hidden md:flex">
+          {' '}
+          <NavLink
+            to="/request"
+            className="shadow-md w-[200px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
+          >
+            Request a Streamer
+          </NavLink>
+        </div>
       </div>
     </>
   );

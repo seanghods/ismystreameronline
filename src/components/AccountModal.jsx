@@ -1,14 +1,9 @@
 // import { useEffect, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
-export default function LoginModal({
-  showModal,
-  setShowModal,
-  setLoggedIn,
-  error,
-  setError,
-}) {
+export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
+  const [error, setError] = useState();
   async function handleSignUp(e) {
     e.preventDefault();
 
@@ -114,10 +109,10 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-gray-700 p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                  className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3 dark:text-white"
                 >
                   Log In
                   {/* <button
@@ -140,14 +135,14 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                 >
                   <label htmlFor="username">Username</label>
                   <input
-                    className="bg-gray-100 outline outline-1 rounded-md p-1 "
+                    className="bg-gray-100 dark:bg-gray-400 font-gamebold outline outline-1 rounded-md p-1 "
                     name="username"
                     type="text"
                     placeholder="user"
                   />
                   <label htmlFor="password">Password</label>
                   <input
-                    className="bg-gray-100 outline outline-1 rounded-md p-1"
+                    className="bg-gray-100 dark:bg-gray-400 font-gamebold outline outline-1 rounded-md p-1"
                     name="password"
                     type="password"
                     placeholder="***"
@@ -166,7 +161,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex dark:bg-gray-300 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('sign-up');
@@ -219,10 +214,10 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-gray-700 p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
+                  className="text-lg dark:text-white font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
                 >
                   Sign Up
                   {/* <button
@@ -244,21 +239,21 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                 >
                   <label htmlFor="username">Username*</label>
                   <input
-                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    className="bg-gray-100 font-gamebold dark:bg-gray-400  outline-1 outline rounded-md p-1"
                     name="username"
                     type="text"
                     placeholder="user"
                   />
                   <label htmlFor="password">Password*</label>
                   <input
-                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    className="bg-gray-100 font-gamebold dark:bg-gray-400 outline-1 outline rounded-md p-1"
                     name="password"
                     type="password"
                     placeholder="***"
                   />
                   <label htmlFor="email">Email*</label>
                   <input
-                    className="bg-gray-100 outline-1 outline rounded-md p-1"
+                    className="bg-gray-100 font-gamebold dark:bg-gray-400 outline-1 outline rounded-md p-1"
                     name="email"
                     type="email"
                     placeholder="user@gmail.com"
@@ -277,7 +272,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex dark:bg-gray-300 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('log-in');

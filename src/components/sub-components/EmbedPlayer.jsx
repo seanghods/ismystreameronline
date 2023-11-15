@@ -34,20 +34,20 @@ export default function EmbedPlayer({
         );
       case 'YouTube':
         return (
-          <>
+          <div className="flex flex-col md:flex-row">
             <iframe
-              width="620"
+              className="w-[550px] lg:w-[500px] 2xl:w-[620px]"
               height="378"
               src={`https://www.youtube.com/embed/live_stream?channel=${streamer.id}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            {/* <iframe
-              width="400"
+            <iframe
+              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
               height="378"
               src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=localhost`}
-            ></iframe> */}
-          </>
+            ></iframe>
+          </div>
         );
       default:
         return;
@@ -64,11 +64,13 @@ export default function EmbedPlayer({
           ? 'bg-youtube bg-cover bg-no-repeat bg-right'
           : null
       } origin-top rounded-b-md transition-transform ease-out duration-300 transform ${
-        activeDropdown === streamer.id ? 'scale-y-100 h-[400px]' : 'scale-y-0'
+        activeDropdown.includes(streamer.id)
+          ? 'scale-y-100 h-[400px]'
+          : 'scale-y-0'
       }`}
     >
-      {activeDropdown === streamer.id &&
-        shouldRenderContent &&
+      {activeDropdown.includes(streamer.id) &&
+        shouldRenderContent[streamer.id] &&
         getEmbed(streamer)}
     </div>
   );

@@ -1,11 +1,12 @@
-import Header from './components/Header';
-import NavBar from './components/NavBar';
-import AccountModal from './components/AccountModal';
-import Home from './containers/Home';
-import NotFound from './containers/NotFound';
-import Favorites from './containers/Favorites';
-import AllGamesPage from './containers/AllGamesPage';
-import { GamePage } from './containers/GamePage';
+import { Header, NavBar, AccountModal } from './components';
+import {
+  Home,
+  AllGamesPage,
+  Favorites,
+  GamePage,
+  NotFound,
+  RequestPage,
+} from './containers';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import useStream from './Context/useStream';
@@ -19,13 +20,9 @@ function App() {
     setLoggedIn,
     setFavorites,
     setLoading,
-    activeDropdown,
-    setShouldRenderContent,
   } = useStream();
-  const [error, setError] = useState();
   const [lightMode, setLightMode] = useState(true);
   const [showModal, setShowModal] = useState('');
-
   useEffect(() => {
     fetchGames();
   }, [streamerData, setGames]);
@@ -56,16 +53,6 @@ function App() {
     }
     getFavorites();
   }, [loggedIn, setFavorites]);
-  useEffect(() => {
-    if (!activeDropdown) {
-      setShouldRenderContent(false);
-    }
-    setTimeout(() => {
-      if (activeDropdown) {
-        setShouldRenderContent(true);
-      }
-    }, 500);
-  }, [activeDropdown, setShouldRenderContent]);
   const fetchStreamers = useCallback(
     async (status, gameSlug, favorites) => {
       setLoading(true);
@@ -135,8 +122,6 @@ function App() {
           showModal={showModal}
           setShowModal={setShowModal}
           setLoggedIn={setLoggedIn}
-          error={error}
-          setError={setError}
         />
       ) : null}
       <Header
@@ -181,6 +166,7 @@ function App() {
                 />
               }
             />
+            <Route path="/request" element={<RequestPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

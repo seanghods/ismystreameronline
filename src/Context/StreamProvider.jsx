@@ -7,9 +7,8 @@ export function StreamProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const [shouldRenderContent, setShouldRenderContent] = useState(false);
-  const [showLikeTooltip, setShowLikeTooltip] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState([]);
+  const [shouldRenderContent, setShouldRenderContent] = useState({});
 
   return (
     <StreamContext.Provider
@@ -28,8 +27,6 @@ export function StreamProvider({ children }) {
         setActiveDropdown,
         shouldRenderContent,
         setShouldRenderContent,
-        showLikeTooltip,
-        setShowLikeTooltip,
       }}
     >
       {children}

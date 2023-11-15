@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   mode: 'jit',
+  darkmode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
         logo: ['logo', 'sans-serif'],
         game: ['game', 'sans-serif'],
+        gamebold: ['gamebold', 'sans-serif'],
       },
       height: {
         '10p': '10%',
