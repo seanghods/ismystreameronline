@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Switch } from '@headlessui/react';
 import Search from './sub-components/Search';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -11,6 +11,12 @@ export default function Header({
   setLightMode,
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  function hideOnMobile() {
+    if (location.pathname == '/request') {
+      return 'hidden md:flex';
+    }
+  }
   async function handleLogOut() {
     const response = await fetch('/api/log-out');
 
@@ -104,13 +110,21 @@ export default function Header({
             </div>
           </div>
         </div>
-        <div className="flex-1 justify-end fixed z-50 bottom-2 right-2 md:relative md:bottom-0 md:right-0 md:flex">
+        <div className="pr-4 pb-3 md:pb-0 flex flex-1 justify-end fixed z-50 bottom-0 right-0 md:relative md:bottom-0 md:right-0 md:flex">
           {' '}
           <NavLink
             to="/request"
-            className="shadow-md w-[200px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
+            className={`shadow-md w-[180px] md:w-[200px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
           >
             Request a Streamer
+          </NavLink>
+        </div>
+        <div className="justify-end hidden md:relative md:flex">
+          <NavLink
+            to="/about"
+            className="shadow-md shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
+          >
+            About
           </NavLink>
         </div>
       </div>

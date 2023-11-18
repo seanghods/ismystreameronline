@@ -58,7 +58,7 @@ export default function Search() {
       case 'YouTube':
         return 'hover:bg-red-200 hover:dark:bg-red-700';
       default:
-        return 'hover:bg-sky-200';
+        return 'hover:bg-sky-400';
     }
   }
   function getTextColor(platform) {
@@ -86,12 +86,12 @@ export default function Search() {
         placeholder="Search streamer or game"
       />
       {isDropdownVisible && (
-        <ul className="search-dropdown bg-gray-200 dark:bg-gray-700 z-50 absolute w-[180px] md:w-[350px]">
+        <ul className="search-dropdown rounded-lg bg-gray-200 z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">
           {results.map((result, index) => (
             <NavLink
               key={index}
               to={result.platform ? '/search' : `/game/${result.slugName}`}
-              className={`search-result-item font-gamebold p-2 flex justify-between ${getHoverColor(
+              className={`search-result-item rounded-lg font-gamebold p-3 flex justify-between ${getHoverColor(
                 result.platform,
               )}`}
             >
@@ -111,6 +111,15 @@ export default function Search() {
                     className="h-[20px]"
                     width="20"
                   />
+                ) : null}
+                {result.thumbnailUrl ? (
+                  <div className="w-[33px] h-[33px]">
+                    <img
+                      src={result.thumbnailUrl}
+                      className="rounded-2xl"
+                      alt=""
+                    />
+                  </div>
                 ) : null}
                 <div
                   className={`whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(

@@ -51,7 +51,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
             <div className="w-full">
               <InfiniteScroll
                 dataLength={gamesData.length}
-                className="flex flex-col gap-3 items-center"
+                className="flex flex-col gap-3 items-center pt-1"
                 next={() => {
                   fetchMoreGames(gamesData);
                 }}
@@ -73,7 +73,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
                           className={`flex font-game font-bold text-md p-2 w-full text-center justify-center items-center hover:cursor-pointer rounded-lg)
                       `}
                         >
-                          <div className="flex-1 flex px-3 md:pl-12 whitespace-nowrap overflow-ellipsis overflow-hidden">
+                          <div className="flex-1 flex px-3 md:pl-12 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
                             {game.name}
                           </div>
                           <div className="w-[80px] flex items-center justify-center">

@@ -65,7 +65,7 @@ export default function StreamList({
                 You have no favorites yet! Go like your favorite streamers.{' '}
               </div>
             ) : null}
-            <div className="w-full">
+            <div className="w-full mb-24">
               <InfiniteScroll
                 dataLength={streamerData.length}
                 className="flex flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0"
@@ -78,7 +78,7 @@ export default function StreamList({
                     fetchMoreStreamers('online', null, null, streamerData);
                   }
                 }}
-                hasMore={true}
+                hasMore={filter ? false : true}
                 loader={
                   <div className="flex justify-center">
                     <LoadingIcon width="75px" height="75px" />

@@ -122,7 +122,7 @@ export default function StreamerItem({ streamer, index, filter }) {
             <img src={streamer.thumbnailUrl} className="rounded-2xl" alt="" />
           </div>
           <div
-            className={`w-[100px] md:w-[180px] flex items-center md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+            className={`w-[100px] md:w-[180px] flex pl-2 items-center md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
               streamer.platform,
             )}`}
           >
@@ -140,10 +140,10 @@ export default function StreamerItem({ streamer, index, filter }) {
           <div className="w-[80px] hidden md:flex items-center">
             {streamer.viewers.toLocaleString()}
           </div>
-          <div className="w-[50px] flex items-center md:hidden">
+          <div className="w-[50px] flex items-center justify-center md:hidden">
             {convertToK(streamer.viewers)}
           </div>
-          <div className="flex justify-center items-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <div className="flex justify-start md:justify-center items-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
             {streamer.game.name}
           </div>
           <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">

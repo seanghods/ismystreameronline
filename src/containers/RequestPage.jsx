@@ -1,6 +1,7 @@
 import { Tooltip } from '@mui/material';
 import { useState } from 'react';
 import useStream from '../Context/useStream';
+import { NavLink } from 'react-router-dom';
 
 export default function RequestPage() {
   const [showRequestTooltip, setShowRequestTooltip] = useState(false);
@@ -35,17 +36,29 @@ export default function RequestPage() {
   return (
     <>
       <div className="w-full flex flex-col justify-center items-center">
-        <h3 className="font-game">
-          Request a Streamer to be added to the platform
-        </h3>
+        <h2 className="font-logo text-3xl mb-8">Request</h2>
+        <div className="flex flex-col gap-8 items-center">
+          <h3 className="font-gamebold px-4 md:px-0">
+            Request a Streamer to be added to the platform
+          </h3>
+          <h3 className="font-game w-4/5 md:w-1/2 text-sm">
+            The list of streamers included on this website is being added to
+            across each streaming platform everyday.
+          </h3>
+          <h3 className="font-game w-4/5 md:w-1/2 text-sm">
+            If you request a streamer, check back within a couple hours or the
+            next day to find the streamer available to be liked.
+          </h3>
+        </div>
         <form
           className="flex flex-col w-full md:w-1/4 p-12 gap-3 font-game"
           id="request"
           onSubmit={handleSubmit}
         >
+          <label htmlFor="platform">Platform</label>
           <select id="platform" className="dark:bg-gray-700 p-1 rounded-md">
             <option disabled selected>
-              Platform...
+              Select...
             </option>
             <option value="Twitch">Twitch</option>
             <option value="YouTube">YouTube</option>
@@ -79,6 +92,14 @@ export default function RequestPage() {
             </Tooltip>
           </div>
         </form>
+      </div>
+      <div className="md:hidden flex justify-center mt-4 mb-8">
+        <NavLink
+          to="/about"
+          className="w-[220px] shadow-md shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
+        >
+          More about this website
+        </NavLink>
       </div>
     </>
   );

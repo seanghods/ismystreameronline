@@ -129,7 +129,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                 <div className="mt-4 flex justify-end"></div>
 
                 <form
-                  className="flex flex-col p-12 gap-2 font-game"
+                  className="flex flex-col p-12 gap-2 font-gamebold"
                   id="log-in"
                   onSubmit={handleLogIn}
                 >
@@ -161,7 +161,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex dark:bg-gray-300 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('sign-up');
@@ -233,7 +233,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                 </Dialog.Title>
                 <div className="mt-4 flex justify-end"></div>
                 <form
-                  className="flex flex-col p-12 gap-2 font-game"
+                  className="flex flex-col p-12 pb-6 gap-2 font-gamebold"
                   id="sign-up"
                   onSubmit={handleSignUp}
                 >
@@ -243,6 +243,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                     name="username"
                     type="text"
                     placeholder="user"
+                    minLength="3"
                   />
                   <label htmlFor="password">Password*</label>
                   <input
@@ -250,6 +251,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                     name="password"
                     type="password"
                     placeholder="***"
+                    minLength="6"
                   />
                   <label htmlFor="email">Email*</label>
                   <input
@@ -263,6 +265,12 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                     <button className="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg w-1/2 text-center px-3 py-2">
                       Sign Up
                     </button>
+                    <div className="pw-msg font-game text-xs mt-6 ">
+                      *Your privacy and security are important to us. We use
+                      industry-standard security measures to protect your
+                      personal information, including secure handling of
+                      passwords.
+                    </div>
                     {error == 'sign-up' ? (
                       <div className="font-game font-bold text-red-600 pt-5">
                         Error Signing Up
@@ -272,7 +280,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex dark:bg-gray-300 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('log-in');

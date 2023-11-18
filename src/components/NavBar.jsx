@@ -6,7 +6,7 @@ export default function NavBar() {
   const { gamesData } = useStream();
   return (
     <div className="nav-bar-section h-full flex-col w-[200px] hidden lg:flex">
-      <div className="nav-bar text-sm border-2 border-gray-300 w-full mx-3 md:mx-7 rounded-lg text-black shadow-xl shadow-[#4c9aff] font-bold text-center overflow-y-auto sticky top-20">
+      <div className="nav-bar text-sm border-2 border-gray-300 w-full mx-3 md:mx-7 rounded-lg text-black shadow-xl shadow-[#89bcff] font-bold text-center overflow-y-auto sticky top-20">
         <div className="nav-bar-links flex flex-col items-center md:items-stretch ">
           {gamesData.slice(0, 6).map((game, index) => {
             return (
