@@ -61,6 +61,18 @@ export default function Search() {
         return 'hover:bg-sky-200';
     }
   }
+  function getTextColor(platform) {
+    switch (platform) {
+      case 'Twitch':
+        return 'text-purple-800 dark:text-purple-300';
+      case 'Kick':
+        return 'text-green-800 dark:text-green-300';
+      case 'YouTube':
+        return 'text-red-700 dark:text-red-400';
+      default:
+        return;
+    }
+  }
   return (
     <div ref={searchRef}>
       <input
@@ -71,7 +83,7 @@ export default function Search() {
         onKeyDown={e => {
           if (e.key == 'Enter') navigate('/search');
         }}
-        placeholder="Search here"
+        placeholder="Search streamer or game"
       />
       {isDropdownVisible && (
         <ul className="search-dropdown bg-gray-200 dark:bg-gray-700 z-50 absolute w-[180px] md:w-[350px]">
@@ -100,7 +112,11 @@ export default function Search() {
                     width="20"
                   />
                 ) : null}
-                <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+                <div
+                  className={`whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+                    result.platform,
+                  )}`}
+                >
                   {result.name}{' '}
                 </div>
               </div>

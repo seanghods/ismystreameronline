@@ -104,7 +104,7 @@ export default function Header({
             </div>
           </div>
         </div>
-        <div className="flex-1 justify-end absolute bottom-2 right-2 md:relative md:bottom-0 md:right-0 md:flex">
+        <div className="flex-1 justify-end fixed z-50 bottom-2 right-2 md:relative md:bottom-0 md:right-0 md:flex">
           {' '}
           <NavLink
             to="/request"

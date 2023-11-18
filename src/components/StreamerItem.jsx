@@ -118,8 +118,11 @@ export default function StreamerItem({ streamer, index, filter }) {
               <img src={OnlineDot} alt="Online Symbol" height="24" width="24" />
             )}
           </div>
+          <div className="w-[33px] h-[33px]">
+            <img src={streamer.thumbnailUrl} className="rounded-2xl" alt="" />
+          </div>
           <div
-            className={`w-[100px] md:w-[180px] flex md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+            className={`w-[100px] md:w-[180px] flex items-center md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
               streamer.platform,
             )}`}
           >
@@ -134,13 +137,13 @@ export default function StreamerItem({ streamer, index, filter }) {
               <KickIcon />
             ) : null}
           </div>
-          <div className="w-[80px] hidden md:block">
+          <div className="w-[80px] hidden md:flex items-center">
             {streamer.viewers.toLocaleString()}
           </div>
-          <div className="w-[50px] md:hidden">
+          <div className="w-[50px] flex items-center md:hidden">
             {convertToK(streamer.viewers)}
           </div>
-          <div className="md:flex-initial w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <div className="flex justify-center items-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
             {streamer.game.name}
           </div>
           <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
