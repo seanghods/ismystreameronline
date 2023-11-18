@@ -9,6 +9,7 @@ export function StreamProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState([]);
   const [shouldRenderContent, setShouldRenderContent] = useState({});
+  const [results, setResults] = useState([]);
 
   return (
     <StreamContext.Provider
@@ -27,6 +28,8 @@ export function StreamProvider({ children }) {
         setActiveDropdown,
         shouldRenderContent,
         setShouldRenderContent,
+        results,
+        setResults,
       }}
     >
       {children}

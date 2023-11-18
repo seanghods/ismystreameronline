@@ -40,7 +40,7 @@ export default function StreamList({
         {loading ? null : (
           <div className="streamer-list flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">{title}</h2>
-            <div className="labels flex font-logo w-full 2xl:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
+            <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
               <div className="w-[90px] md:w-[50px]"></div>
               <div className="w-[110px] md:w-[225px] pr-12">
                 <PersonIcon />
@@ -88,7 +88,7 @@ export default function StreamList({
                 {streamerData.map((streamer, index) => {
                   return (
                     <div
-                      className="w-full 2xl:w-4/5 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white dark:bg-[#4c4a4f] rounded-lg text-gray-800 shadow-md"
+                      className="w-full lg:w-4/5 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white dark:bg-[#4c4a4f] rounded-lg text-gray-800 shadow-md"
                       key={index}
                     >
                       <StreamerItem

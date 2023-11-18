@@ -39,18 +39,10 @@ export default function RequestPage() {
           Request a Streamer to be added to the platform
         </h3>
         <form
-          className="flex flex-col w-1/4 p-12 gap-3 font-game"
+          className="flex flex-col w-full md:w-1/4 p-12 gap-3 font-game"
           id="request"
           onSubmit={handleSubmit}
         >
-          <label htmlFor="username">Username</label>
-          <input
-            className="dark:bg-gray-700 outline outline-1 rounded-md p-1 mb-8"
-            name="username"
-            type="text"
-            placeholder="user"
-            minLength="3"
-          />
           <select id="platform" className="dark:bg-gray-700 p-1 rounded-md">
             <option disabled selected>
               Platform...
@@ -59,6 +51,14 @@ export default function RequestPage() {
             <option value="YouTube">YouTube</option>
             <option value="Kick">Kick</option>
           </select>
+          <label htmlFor="username">Username</label>
+          <input
+            className="dark:bg-gray-700 rounded-md p-1 mb-8"
+            name="username"
+            type="text"
+            placeholder="user"
+            minLength="3"
+          />
           <div className="button text-center mt-5">
             {' '}
             <Tooltip

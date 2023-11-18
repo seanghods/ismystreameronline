@@ -15,7 +15,8 @@
 }
 
 .font-logo,
-.font-game {
+.font-game,
+.font-gamebold {
   @apply dark:text-white text-gray-800;
 }
 

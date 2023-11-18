@@ -6,6 +6,7 @@ import {
   GamePage,
   NotFound,
   RequestPage,
+  SearchPage,
 } from './containers';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
@@ -133,7 +134,7 @@ function App() {
       />
       <div className="mt-10 flex">
         <NavBar />
-        <div className="flex flex-col w-full lg:w-2/3">
+        <div className="flex flex-col w-full lg:w-4/5">
           <Routes>
             <Route
               path="/"
@@ -167,6 +168,7 @@ function App() {
               }
             />
             <Route path="/request" element={<RequestPage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

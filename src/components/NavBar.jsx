@@ -5,8 +5,8 @@ import { Face6 } from '@mui/icons-material';
 export default function NavBar() {
   const { gamesData } = useStream();
   return (
-    <div className="nav-bar-section h-5/6 flex-col w-[300px] hidden lg:flex">
-      <div className="nav-bar border-2 border-gray-300 flex-1 mx-3 md:mx-7 rounded-lg text-black shadow-xl shadow-[#106ae0] font-bold text-center overflow-y-auto">
+    <div className="nav-bar-section h-full flex-col w-[200px] hidden lg:flex">
+      <div className="nav-bar border-2 border-gray-300 w-full mx-3 md:mx-7 rounded-lg text-black shadow-xl shadow-[#106ae0] font-bold text-center overflow-y-auto sticky top-20">
         <div className="nav-bar-links mt-4 flex flex-col gap-10 items-center md:items-stretch ">
           {gamesData.slice(0, 6).map((game, index) => {
             return (
@@ -15,13 +15,13 @@ export default function NavBar() {
                 key={index}
                 className={({ isActive }) =>
                   [
-                    'outline outline-1 outline-gray-600 rounded-lg p-1 transform transition duration-250 hover:scale-105 shadow-md shadow-black font-game tracking-tight hover:text-white hover:bg-gradient-to-r hover:from-[#acaffd] hover:to-[#7bb4ff]',
+                    'outline outline-1 outline-gray-50 dark:outline-gray-600 p-1 transform transition duration-250 shadow-md shadow-black font-gamebold tracking-tight hover:text-white hover:bg-gradient-to-r hover:from-[#acaffd] hover:to-[#7bb4ff]',
                     isActive ? 'bg-gray-200 dark:bg-gray-700' : null,
                   ].join(' ')
                 }
               >
                 <div>{game.name}</div>
-                <div className="text-black dark:text-white tracking-wider">
+                <div className="text-black dark:text-white tracking-wider font-game">
                   <span className="w-[5px]">
                     <Face6 />
                   </span>{' '}
@@ -32,7 +32,7 @@ export default function NavBar() {
           })}
           <NavLink
             to={'/all-games/'}
-            className="transform transition duration-250 hover:scale-105 font-game hover:font-bold p-5"
+            className="hover:bg-gradient-to-r hover:from-[#acaffd] hover:to-[#7bb4ff] transform transition duration-250 font-game hover:font-bold p-5"
           >
             More Games
           </NavLink>

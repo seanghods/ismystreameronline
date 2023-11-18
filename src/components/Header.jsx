@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Switch } from '@headlessui/react';
+import Search from './sub-components/Search';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import SearchIcon from '@mui/icons-material/Search';
 
 export default function Header({
   setShowModal,
@@ -25,24 +25,26 @@ export default function Header({
   }
   return (
     <>
-      <div className="flex h-[85px] p-5 justify-center xl:border-b-2 xl:border-gray-200">
+      <div className="flex h-[85px] p-5 justify-center">
         <div className="flex-1 text-center md:text-left">
           <NavLink to="/" className="md:p-12 font-logo text-sm md:text-2xl">
             Is My Streamer <br className="md:hidden" /> Online
           </NavLink>
         </div>
-        <div className="flex-1 flex justify-center">
+        {/* <div className="flex-1"></div> */}
+        <div className="flex-1 flex justify-end">
           <div className="login-links flex gap-3 md:gap-6">
-            <button className="shadow-md shadow-gray-400 md:hidden font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105">
+            {/* <button
+              onClick={() => (
+                <div>
+                  <Search />
+                </div>
+              )}
+              className="shadow-md shadow-gray-400 md:hidden font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
+            >
               <SearchIcon />
-            </button>
-            <input
-              type="text"
-              className="rounded-lg p-5 hidden md:block dark:bg-gray-300"
-              placeholder="Search here"
-              // onChange={handleChange}
-              // value={searchInput}
-            />
+            </button> */}
+            <Search />
             {loggedIn ? (
               <>
                 <NavLink
@@ -102,7 +104,7 @@ export default function Header({
             </div>
           </div>
         </div>
-        <div className="flex-1 justify-end hidden md:flex">
+        <div className="flex-1 justify-end absolute bottom-2 right-2 md:relative md:bottom-0 md:right-0 md:flex">
           {' '}
           <NavLink
             to="/request"

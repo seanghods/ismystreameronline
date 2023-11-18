@@ -65,7 +65,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
                 {gamesData.map((game, index) => {
                   return (
                     <div
-                      className="w-4/5 xl:w-2/5 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white rounded-lg text-gray-800 shadow-md hover:bg-gray-300"
+                      className="w-4/5 xl:w-2/5 hover:cursor-pointer transform transition duration-250 hover:-translate-y-1 bg-white dark:bg-[#4c4a4f] rounded-lg text-gray-800 shadow-md hover:bg-gray-300"
                       key={index}
                     >
                       <NavLink to={'/game/' + game.slugName} className="">

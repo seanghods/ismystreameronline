@@ -39,21 +39,26 @@ export default function StreamerItem({ streamer, index, filter }) {
         return;
     }
   }
-  function handleStreamerClick(streamerId) {
-    setActiveDropdown(prev => {
-      if (prev.includes(streamerId)) {
-        return prev.filter(id => id !== streamerId);
-      } else {
-        return [...prev, streamerId];
-      }
-    });
+  function handleStreamerClick(streamer) {
+    if (streamer.online) {
+      setActiveDropdown(prev => {
+        if (prev.includes(streamer.id)) {
+          return prev.filter(id => id !== streamer.id);
+        } else {
+          return [...prev, streamer.id];
+        }
+      });
 
-    if (shouldRenderContent[streamerId]) {
-      setShouldRenderContent(prev => ({ ...prev, [streamerId]: false }));
-    } else {
-      setTimeout(() => {
-        setShouldRenderContent(prev => ({ ...prev, [streamerId]: true }));
-      }, 400);
+      if (shouldRenderContent[streamer.id]) {
+        setShouldRenderContent(prev => ({ ...prev, [streamer.id]: false }));
+      } else {
+        setTimeout(() => {
+          setShouldRenderContent(prev => ({
+            ...prev,
+            [streamer.id]: true,
+          }));
+        }, 400);
+      }
     }
   }
   useEffect(() => {
@@ -95,10 +100,10 @@ export default function StreamerItem({ streamer, index, filter }) {
               : ''
           }`}
           onClick={() => {
-            handleStreamerClick(streamer.id);
+            handleStreamerClick(streamer);
           }}
         >
-          <FavoriteButton streamer={streamer} />
+          <FavoriteButton streamer={streamer} stop={true} />
           <div className="flex w-[30px] md:w-[80px] justify-center items-center">
             {filter == 'favorites' && streamer.online == false ? (
               <img

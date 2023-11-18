@@ -25,12 +25,20 @@ export default function EmbedPlayer({
         );
       case 'Kick':
         return (
-          <iframe
-            src={`https://player.kick.com/${streamer.name}`}
-            height="378"
-            width="620"
-            allowFullScreen={true}
-          ></iframe>
+          <div className="flex flex-col md:flex-row">
+            <iframe
+              src={`https://player.kick.com/${streamer.name}`}
+              className="w-[550px] lg:w-[500px] 2xl:w-[620px]"
+              height="378"
+              allowFullScreen={true}
+            ></iframe>
+            <iframe
+              src={`https://kick.com/${streamer.name}/chatroom`}
+              height="378"
+              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
+              allowFullScreen={true}
+            ></iframe>
+          </div>
         );
       case 'YouTube':
         return (

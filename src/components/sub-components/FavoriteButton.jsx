@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import useStream from '../../Context/useStream';
 import { useState } from 'react';
 
-export default function FavoriteButton({ streamer }) {
+export default function FavoriteButton({ streamer, stop }) {
   const [showLikeTooltip, setShowLikeTooltip] = useState(false);
   const { loggedIn, favorites, setFavorites } = useStream();
   async function addFavorite(streamerId, setFavorites) {
@@ -71,7 +71,7 @@ export default function FavoriteButton({ streamer }) {
     >
       <button
         onClick={e => {
-          e.stopPropagation();
+          if (stop) e.stopPropagation();
           if (loggedIn) {
             if (favorites.includes(streamer.id)) {
               deleteFavorite(streamer.id, favorites, setFavorites);
