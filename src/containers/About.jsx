@@ -13,13 +13,14 @@ export default function About() {
       </div>
       <div className="w-4/5 md:w-1/2 text-left">
         The website is straightforward in its{' '}
-        <span className="text-yellow-50">utility</span> for now but I have a lot
-        of exciting features I&apos;m looking forward to adding to make the
-        streaming viewing and discovery experience more enjoyable. I think
-        platforms, <span className="text-red-200">YouTube</span> in particular,
-        have many ways to go in advancing discoverability for their own
-        streamers so I do hope this platform{' '}
-        <span className="font-gamebold">can help</span>.
+        <span className="text-yellow-50">use</span> for now. Make an account,
+        like your favorite streamers across platforms, watch them in
+        favorites... But I have a lot of exciting features I&apos;m looking
+        forward to adding to make the streaming viewing and discovery experience
+        more enjoyable! I think platforms,{' '}
+        <span className="text-red-200">YouTube</span> in particular, have many
+        ways to go in advancing discoverability for their own streamers so I do
+        hope this platform <span className="font-gamebold">can help</span>.
       </div>
       <div className="w-4/5 md:w-1/2 text-left">
         If you want to reach out, feel free to send me a message on twitter{' '}
@@ -28,8 +29,8 @@ export default function About() {
         </a>{' '}
         or send an email to{' '}
         <span className="text-green-200">ismystreameronline@gmail.com</span>. I
-        enjoy hearing from visitors and listening to any suggestions you have to
-        improve the site. Thanks for visiting!
+        always appreciate hearing from visitors and listening to any suggestions
+        you have to improve the site. Thanks for visiting!
       </div>
       <div className="w-4/5 md:w-1/2 text-left font-gamebold">-Sean Ghods</div>
       <div className="w-4/5 md:w-1/2 text-left mb-5 ">
