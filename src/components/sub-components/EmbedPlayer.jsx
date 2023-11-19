@@ -16,10 +16,9 @@ export default function EmbedPlayer({
             ></iframe>
             <iframe
               id="chat_embed"
-              className="hidden md:block"
               src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=localhost`}
               height="378"
-              width="300"
+              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
             ></iframe>
           </>
         );
@@ -28,14 +27,14 @@ export default function EmbedPlayer({
           <div className="flex flex-col md:flex-row">
             <iframe
               src={`https://player.kick.com/${streamer.name}`}
-              className="w-[550px] lg:w-[500px] 2xl:w-[620px]"
+              className="w-screen md:w-[550px] lg:w-[450px] xl:w-[620px]"
               height="378"
               allowFullScreen={true}
             ></iframe>
             <iframe
               src={`https://kick.com/${streamer.name}/chatroom`}
               height="378"
-              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
+              className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
               allowFullScreen={true}
             ></iframe>
           </div>
@@ -44,14 +43,14 @@ export default function EmbedPlayer({
         return (
           <div className="flex flex-col md:flex-row">
             <iframe
-              className="w-[550px] lg:w-[500px] 2xl:w-[620px]"
+              className="w-screen md:w-[550px] lg:w-[450px] xl:w-[620px]"
               height="378"
               src={`https://www.youtube.com/embed/live_stream?channel=${streamer.id}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
             <iframe
-              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
+              className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
               height="378"
               src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=localhost`}
             ></iframe>

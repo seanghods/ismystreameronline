@@ -25,13 +25,15 @@ function App() {
   } = useStream();
   const [lightMode, setLightMode] = useState(true);
   const [showModal, setShowModal] = useState('');
+  const baseUrl = 'https://api.ismystreameronline.com';
+
   useEffect(() => {
     fetchGames();
   }, [streamerData, setGames]);
   useEffect(() => {
     async function checkAuthenticationStatus() {
       try {
-        const response = await fetch('/api/check-session');
+        const response = await fetch(`${baseUrl}/api/check-session`);
         const data = await response.json();
 
         if (data.isAuthenticated) {
@@ -48,7 +50,7 @@ function App() {
   useEffect(() => {
     async function getFavorites() {
       if (loggedIn) {
-        const response = await fetch('/api/favorites');
+        const response = await fetch(`${baseUrl}/api/favorites`);
         const data = await response.json();
         setFavorites(data);
       }
@@ -58,7 +60,7 @@ function App() {
   const fetchStreamers = useCallback(
     async (status, gameSlug, favorites) => {
       setLoading(true);
-      let url = '/api/streamers';
+      let url = `${baseUrl}/api/streamers`;
       const query = [];
 
       if (status) {
@@ -83,7 +85,7 @@ function App() {
   );
   const fetchMoreStreamers = useCallback(
     async (status, gameSlug, favorites, streamerData) => {
-      let url = '/api/streamers';
+      let url = `${baseUrl}/api/streamers`;
       const query = [`offset=${streamerData.length}`];
 
       if (status) {
@@ -106,13 +108,15 @@ function App() {
     [setStreamerData],
   );
   async function fetchGames() {
-    const response = await fetch('/api/games');
+    const response = await fetch(`${baseUrl}/api/games`);
     if (!response.ok) console.log('error');
     const gamesList = await response.json();
     setGames(gamesList);
   }
   async function fetchMoreGames(gamesData) {
-    const response = await fetch(`/api/games?offset=${gamesData.length}`);
+    const response = await fetch(
+      `${baseUrl}/api/games?offset=${gamesData.length}`,
+    );
     if (!response.ok) console.log('error');
     const moreGames = await response.json();
     setGames(prevGames => [...prevGames, ...moreGames]);
