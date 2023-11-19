@@ -15,9 +15,10 @@ export default function Search() {
   const searchRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const baseUrl = 'https://api.ismystreameronline.com';
 
   const handleSearch = debounce(async query => {
-    const response = await fetch(`/api/search?q=${query}`);
+    const response = await fetch(`${baseUrl}/api/search?q=${query}`);
     const data = await response.json();
     console.log(data);
     setResults(data);
