@@ -75,7 +75,9 @@ function App() {
       if (query.length > 0) {
         url += `?${query.join('&')}`;
       }
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        credentials: 'include',
+      });
       if (!response.ok) console.log('error');
       const streamersList = await response.json();
       setStreamerData(streamersList);
