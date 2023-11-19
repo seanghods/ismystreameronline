@@ -9,14 +9,14 @@ export default function EmbedPlayer({
         return (
           <>
             <iframe
-              src={`https://player.twitch.tv/?channel=${streamer.name}&parent=ismystreameronline.com`}
+              src={`https://player.twitch.tv/?channel=${streamer.name}&parent=www.ismystreameronline.com`}
               allowFullScreen={true}
               height="378"
               width="620"
             ></iframe>
             <iframe
               id="chat_embed"
-              src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=ismystreameronline.com`}
+              src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=www.ismystreameronline.com`}
               height="378"
               className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
             ></iframe>
@@ -52,7 +52,7 @@ export default function EmbedPlayer({
             <iframe
               className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
               height="378"
-              src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=ismystreameronline.com`}
+              src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=www.ismystreameronline.com`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
