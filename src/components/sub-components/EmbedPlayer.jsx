@@ -9,14 +9,14 @@ export default function EmbedPlayer({
         return (
           <>
             <iframe
-              src={`https://player.twitch.tv/?channel=${streamer.name}&parent=localhost`}
+              src={`https://player.twitch.tv/?channel=${streamer.name}&parent=ismystreameronline.com`}
               allowFullScreen={true}
               height="378"
               width="620"
             ></iframe>
             <iframe
               id="chat_embed"
-              src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=localhost`}
+              src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=ismystreameronline.com`}
               height="378"
               className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
             ></iframe>
