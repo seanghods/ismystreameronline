@@ -88,7 +88,7 @@ export default function Header({
                 </button>
               </>
             )}
-            <div className="move-right ml-78 items-center gap-3 hidden md:flex">
+            <div className="move-right ml-78 items-center gap-3 hidden">
               {lightMode ? (
                 <LightModeIcon color="" />
               ) : (
@@ -114,9 +114,9 @@ export default function Header({
           {' '}
           <NavLink
             to="/request"
-            className={`shadow-md w-[180px] md:w-[200px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
+            className={`shadow-md w-[150px] md:w-[150px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
           >
-            Request a Streamer
+            Add a Streamer
           </NavLink>
         </div>
         <div className="justify-end hidden md:relative md:flex">
