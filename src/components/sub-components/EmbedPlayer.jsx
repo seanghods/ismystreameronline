@@ -53,6 +53,7 @@ export default function EmbedPlayer({
               className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
               height="378"
               src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=localhost`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
         );
