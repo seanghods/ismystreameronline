@@ -41,24 +41,24 @@ export default function StreamList({
           <div className="streamer-list flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">{title}</h2>
             <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
-              <div className="w-[125px] md:w-[85px]"></div>
-              <div className="w-[110px] md:w-[225px] pr-12">
+              <div className="hidden md:block md:w-[85px]"></div>
+              <div className="w-[205px] pr-12">
                 <PersonIcon />
               </div>
-              <div className="w-[40px] md:w-[130px]">
+              <div className="hidden md:block md:w-[130px]">
                 <LaptopIcon />
               </div>
-              <div className="w-[75px]">
+              <div className="w-[65px]">
                 <VisibilityIcon />
               </div>
-              <div className="w-[80px] md:w-1/4">
+              <div className="w-[50px] md:w-1/4">
                 {' '}
                 <SportsEsportsIcon />
               </div>
               <div className="flex-1 pr-24 hidden lg:block">
                 <ChatIcon />
               </div>
-              <div className="w-[30px] md:hidden"></div>
+              <div className="w-[10px] md:hidden"></div>
             </div>
             {filter == 'favorites' && favorites.length == 0 ? (
               <div className="m-12 font-bold text-xl text-sky-500 font-game">

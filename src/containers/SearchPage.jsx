@@ -88,11 +88,11 @@ export default function SearchPage() {
       <div className="streamer-list flex justify-center flex-col gap-4 items-center">
         <h2 className="font-logo text-3xl mb-8">Search</h2>
         <div className="labels flex font-logo w-full 2xl:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
-          <div className="w-[90px] md:w-[50px]"></div>
-          <div className="w-[110px] md:w-[225px] pr-12">
+          <div className="hidden md:block md:w-[85px]"></div>
+          <div className="w-[225px] pr-12">
             <PersonIcon />
           </div>
-          <div className="w-[40px] md:w-[130px]">
+          <div className="hidden md:block md:w-[130px]">
             <LaptopIcon />
           </div>
           <div className="w-[75px]">
@@ -105,7 +105,7 @@ export default function SearchPage() {
           <div className="flex-1 pr-24 hidden lg:block">
             <ChatIcon />
           </div>
-          <div className="w-[30px] md:hidden"></div>
+          <div className="w-[10px] md:hidden"></div>
         </div>
         <div className="w-full">
           <div className="flex flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0">
@@ -156,8 +156,15 @@ export default function SearchPage() {
                             />
                           )}
                         </div>
+                        <div className="w-[33px] h-[33px]">
+                          <img
+                            src={streamer.thumbnailUrl}
+                            className="rounded-2xl"
+                            alt=""
+                          />
+                        </div>
                         <div
-                          className={`w-[100px] md:w-[180px] flex md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+                          className={`w-[100px] pl-2 items-center md:w-[180px] flex md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
                             streamer.platform,
                           )}`}
                         >
@@ -175,14 +182,14 @@ export default function SearchPage() {
                         <div className="w-[80px] hidden md:block">
                           {streamer.viewers.toLocaleString()}
                         </div>
-                        <div className="w-[50px] md:hidden">
+                        <div className="w-[50px] flex items-center justify-center md:hidden">
                           {convertToK(streamer.viewers)}
                         </div>
-                        <div className="md:flex-initial w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
+                        <div className="md:flex-initial flex items-center justify-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
                           {streamer.game.name}
                         </div>
                         <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
-                          <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-16">
+                          <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">
                             {streamer.title}
                           </div>
                         </div>

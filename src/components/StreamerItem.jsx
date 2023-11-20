@@ -92,7 +92,7 @@ export default function StreamerItem({ streamer, index, filter }) {
         leaveDelay={50}
       >
         <div
-          className={`flex font-game font-bold text-md p-2 w-full text-center justify-between hover:cursor-pointer rounded-lg ${
+          className={`flex text-sm md:text-base font-game font-bold text-md p-2 w-full text-center justify-between hover:cursor-pointer rounded-lg ${
             'hover:' + getHoverColor(streamer.platform)
           } ${
             activeDropdown == streamer.id
@@ -147,7 +147,7 @@ export default function StreamerItem({ streamer, index, filter }) {
             {streamer.game.name}
           </div>
           <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
-            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-16">
+            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">
               {streamer.title}
             </div>
           </div>
