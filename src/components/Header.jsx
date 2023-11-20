@@ -10,6 +10,7 @@ export default function Header({
   lightMode,
   setLightMode,
 }) {
+  const baseUrl = 'https://api.ismystreameronline.com';
   const navigate = useNavigate();
   const location = useLocation();
   function hideOnMobile() {
@@ -18,7 +19,7 @@ export default function Header({
     }
   }
   async function handleLogOut() {
-    const response = await fetch('/api/log-out');
+    const response = await fetch(`${baseUrl}/api/log-out`);
 
     const data = await response.json();
 
