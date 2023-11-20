@@ -39,6 +39,8 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
       headers: {
         'Content-Type': 'application/json',
       },
+      // withCredentials: true,
+      credentials: 'include',
       body: JSON.stringify({
         username: e.target.username.value,
         password: e.target.password.value,
