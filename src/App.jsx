@@ -33,7 +33,9 @@ function App() {
   useEffect(() => {
     async function checkAuthenticationStatus() {
       try {
-        const response = await fetch(`${baseUrl}/api/check-session`);
+        const response = await fetch(`${baseUrl}/api/check-session`, {
+          credentials: 'include',
+        });
         const data = await response.json();
 
         if (data.isAuthenticated) {
