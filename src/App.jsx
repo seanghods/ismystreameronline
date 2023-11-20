@@ -52,7 +52,9 @@ function App() {
   useEffect(() => {
     async function getFavorites() {
       if (loggedIn) {
-        const response = await fetch(`${baseUrl}/api/favorites`);
+        const response = await fetch(`${baseUrl}/api/favorites`, {
+          credentials: 'include',
+        });
         const data = await response.json();
         setFavorites(data);
       }
