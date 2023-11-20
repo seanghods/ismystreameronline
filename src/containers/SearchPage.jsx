@@ -108,7 +108,7 @@ export default function SearchPage() {
           <div className="w-[10px] md:hidden"></div>
         </div>
         <div className="w-full">
-          <div className="flex flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0">
+          <div className="flex text-sm md:text-base flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0">
             {results
               .filter(result => result.platform)
               .map((streamer, index) => {
@@ -168,7 +168,9 @@ export default function SearchPage() {
                             streamer.platform,
                           )}`}
                         >
-                          {streamer.name}
+                          <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">
+                            {streamer.name}
+                          </div>
                         </div>
                         <div className="w-[35px] md:w-[120px] flex items-center justify-center">
                           {streamer.platform == 'Twitch' ? (
@@ -185,8 +187,10 @@ export default function SearchPage() {
                         <div className="w-[50px] flex items-center justify-center md:hidden">
                           {convertToK(streamer.viewers)}
                         </div>
-                        <div className="md:flex-initial flex items-center justify-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
-                          {streamer.game.name}
+                        <div className="md:flex-initial flex items-center justify-center w-1/4 font-gamebold">
+                          <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">
+                            {streamer.game.name}
+                          </div>
                         </div>
                         <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
                           <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">

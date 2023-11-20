@@ -3,11 +3,12 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
 export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
+  const baseUrl = 'https://api.ismystreameronline.com';
   const [error, setError] = useState();
   async function handleSignUp(e) {
     e.preventDefault();
 
-    const response = await fetch('/api/sign-up', {
+    const response = await fetch(`${baseUrl}/api/sign-up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
   async function handleLogIn(e) {
     e.preventDefault();
 
-    const response = await fetch('/api/log-in', {
+    const response = await fetch(`${baseUrl}/api/log-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

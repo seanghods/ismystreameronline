@@ -113,8 +113,6 @@ export default function StreamerItem({ streamer, index, filter }) {
                 width="20"
               />
             ) : (
-              // <PulseIcon status="offline" />
-              // <PulseIcon status="online" />
               <img src={OnlineDot} alt="Online Symbol" height="24" width="24" />
             )}
           </div>
@@ -126,9 +124,11 @@ export default function StreamerItem({ streamer, index, filter }) {
               streamer.platform,
             )}`}
           >
-            {streamer.name}
+            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+              {streamer.name}
+            </div>
           </div>
-          <div className="w-[35px] md:w-[120px] flex items-center justify-center">
+          <div className="w-[25px] md:w-[120px] flex items-center justify-center">
             {streamer.platform == 'Twitch' ? (
               <TwitchIcon />
             ) : streamer.platform == 'YouTube' ? (
@@ -140,11 +140,13 @@ export default function StreamerItem({ streamer, index, filter }) {
           <div className="w-[80px] hidden md:flex items-center">
             {streamer.viewers.toLocaleString()}
           </div>
-          <div className="w-[50px] flex items-center justify-center md:hidden">
+          <div className="w-[40px] flex items-center justify-center md:hidden">
             {convertToK(streamer.viewers)}
           </div>
           <div className="flex justify-start md:justify-center items-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
-            {streamer.game.name}
+            <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+              {streamer.game.name}
+            </div>
           </div>
           <div className="flex-1 self-stretch items-center text-left overflow-hidden hidden lg:flex">
             <div className="whitespace-nowrap overflow-ellipsis overflow-hidden pr-3">
