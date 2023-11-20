@@ -42,7 +42,7 @@ export default function StreamList({
             <h2 className="font-logo text-3xl mb-8">{title}</h2>
             <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
               <div className="hidden md:block md:w-[85px]"></div>
-              <div className="w-[205px] pr-12">
+              <div className="w-[205px] md:w-[225px] pr-12">
                 <PersonIcon />
               </div>
               <div className="hidden md:block md:w-[130px]">
