@@ -81,7 +81,10 @@ function App() {
       if (query.length > 0) {
         url += `?${query.join('&')}`;
       }
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        credentials: 'include',
+        withCredentials: true,
+      });
       if (!response.ok) console.log('error');
       const streamersList = await response.json();
       setStreamerData(streamersList);
@@ -106,7 +109,10 @@ function App() {
       if (query.length > 0) {
         url += `?${query.join('&')}`;
       }
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        credentials: 'include',
+        withCredentials: true,
+      });
       if (!response.ok) console.log('error');
       const moreStreamers = await response.json();
       setStreamerData(prevStreamers => [...prevStreamers, ...moreStreamers]);
@@ -114,7 +120,10 @@ function App() {
     [setStreamerData],
   );
   async function fetchGames() {
-    const response = await fetch(`${baseUrl}/api/games`);
+    const response = await fetch(`${baseUrl}/api/games`, {
+      credentials: 'include',
+      withCredentials: true,
+    });
     if (!response.ok) console.log('error');
     const gamesList = await response.json();
     setGames(gamesList);
@@ -122,6 +131,10 @@ function App() {
   async function fetchMoreGames(gamesData) {
     const response = await fetch(
       `${baseUrl}/api/games?offset=${gamesData.length}`,
+      {
+        credentials: 'include',
+        withCredentials: true,
+      },
     );
     if (!response.ok) console.log('error');
     const moreGames = await response.json();
