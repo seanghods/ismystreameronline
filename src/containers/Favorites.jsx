@@ -4,6 +4,9 @@ import useStream from '../Context/useStream';
 
 export default function Favorites({ fetchStreamers, fetchMoreStreamers }) {
   const { loggedIn } = useStream();
+  useEffect(() => {
+    fetchStreamers(null, null, true);
+  }, [fetchStreamers]);
   if (!loggedIn) {
     return (
       <div className="flex items-center justify-center flex-col gap-24">
@@ -14,9 +17,6 @@ export default function Favorites({ fetchStreamers, fetchMoreStreamers }) {
       </div>
     );
   }
-  useEffect(() => {
-    fetchStreamers(null, null, true);
-  }, [fetchStreamers]);
   return (
     <>
       <StreamList

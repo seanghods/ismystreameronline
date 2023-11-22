@@ -4,21 +4,21 @@ export default function About() {
       <h2 className="font-logo text-3xl mb-8">About</h2>
       <div className="w-4/5 md:w-1/2 text-left">
         My favorite streamers used to all stream from{' '}
-        <span className="text-purple-500">Twitch</span>. Over the years, they
-        have diversified out to <span className="text-red-500">YouTube,</span>
-        <span className="text-lime-400"> Kick,</span> and other streaming
+        <span className="text-purple-700">Twitch</span>. Over the years, they
+        have diversified out to <span className="text-red-700">YouTube,</span>
+        <span className="text-lime-700"> Kick,</span> and other streaming
         platforms. I made this website to have{' '}
         <span className="font-gamebold">one home</span> where I could see all my
         favorite streamers&apos; status, and watch their streams together.
       </div>
       <div className="w-4/5 md:w-1/2 text-left">
         The website is straightforward in its{' '}
-        <span className="text-yellow-200">use</span> for now. Make an account,
+        <span className="text-yellow-500">use</span> for now. Make an account,
         like your favorite streamers across platforms, watch them in favorites
         <span className="font-gamebold">...</span> But I have a lot of exciting
         features I&apos;m looking forward to adding to make the streaming
         viewing and discovery experience more enjoyable! I think platforms,{' '}
-        <span className="text-red-500">YouTube</span> in particular, have many
+        <span className="text-red-700">YouTube</span> in particular, have many
         ways to go in advancing discoverability for their own streamers so I do
         hope this platform <span className="font-gamebold">can help</span>.
       </div>

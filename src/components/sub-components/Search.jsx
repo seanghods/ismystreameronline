@@ -7,6 +7,7 @@ import OnlineDot from '../../assets/green-dot.png';
 import OfflineDot from '../../assets/gray-dot.png';
 import useStream from '../../Context/useStream';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { API_ROUTES } from '../../utils/constants';
 
 export default function Search() {
   const [query, setQuery] = useState('');
@@ -15,12 +16,10 @@ export default function Search() {
   const searchRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const baseUrl = 'https://api.ismystreameronline.com';
 
   const handleSearch = debounce(async query => {
-    const response = await fetch(`${baseUrl}/api/search?q=${query}`);
+    const response = await fetch(`${API_ROUTES.search}?q=${query}`);
     const data = await response.json();
-    console.log(data);
     setResults(data);
   }, 300);
 

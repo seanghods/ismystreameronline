@@ -12,7 +12,8 @@ import {
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import useStream from './Context/useStream';
-
+import { API_ROUTES } from './utils/constants';
+import { removeUndefinedValues } from './utils/helpers';
 function App() {
   const {
     streamerData,
@@ -25,7 +26,6 @@ function App() {
   } = useStream();
   const [lightMode, setLightMode] = useState(true);
   const [showModal, setShowModal] = useState('');
-  const baseUrl = 'https://api.ismystreameronline.com';
 
   useEffect(() => {
     fetchGames();
@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     async function checkAuthenticationStatus() {
       try {
-        const response = await fetch(`${baseUrl}/api/check-session`, {
+        const response = await fetch(API_ROUTES.checkSession, {
           credentials: 'include',
           withCredentials: true,
         });
@@ -53,7 +53,7 @@ function App() {
   useEffect(() => {
     async function getFavorites() {
       if (loggedIn) {
-        const response = await fetch(`${baseUrl}/api/favorites`, {
+        const response = await fetch(API_ROUTES.favorites, {
           credentials: 'include',
           withCredentials: true,
         });
@@ -66,22 +66,15 @@ function App() {
   const fetchStreamers = useCallback(
     async (status, gameSlug, favorites) => {
       setLoading(true);
-      let url = `${baseUrl}/api/streamers`;
-      const query = [];
+      const url = API_ROUTES.streamers;
+      const rawParams = removeUndefinedValues({
+        status,
+        gameSlug,
+        favorites,
+      });
+      const params = new URLSearchParams(rawParams);
 
-      if (status) {
-        query.push(`status=${status}`);
-      }
-      if (gameSlug) {
-        query.push(`game=${gameSlug}`);
-      }
-      if (favorites) {
-        query.push(`favorites=${favorites}`);
-      }
-      if (query.length > 0) {
-        url += `?${query.join('&')}`;
-      }
-      const response = await fetch(url, {
+      const response = await fetch(`${url}?${params}`, {
         credentials: 'include',
         withCredentials: true,
       });
@@ -94,22 +87,15 @@ function App() {
   );
   const fetchMoreStreamers = useCallback(
     async (status, gameSlug, favorites, streamerData) => {
-      let url = `${baseUrl}/api/streamers`;
-      const query = [`offset=${streamerData.length}`];
-
-      if (status) {
-        query.push(`status=${status}`);
-      }
-      if (gameSlug) {
-        query.push(`game=${gameSlug}`);
-      }
-      if (favorites) {
-        query.push(`favorites=${favorites}`);
-      }
-      if (query.length > 0) {
-        url += `?${query.join('&')}`;
-      }
-      const response = await fetch(url, {
+      const url = API_ROUTES.streamers;
+      const rawParams = removeUndefinedValues({
+        offset: streamerData.length,
+        status,
+        gameSlug,
+        favorites,
+      });
+      const params = new URLSearchParams(rawParams);
+      const response = await fetch(`${url}?${params}`, {
         credentials: 'include',
         withCredentials: true,
       });
@@ -120,7 +106,7 @@ function App() {
     [setStreamerData],
   );
   async function fetchGames() {
-    const response = await fetch(`${baseUrl}/api/games`, {
+    const response = await fetch(API_ROUTES.games, {
       credentials: 'include',
       withCredentials: true,
     });
@@ -130,7 +116,7 @@ function App() {
   }
   async function fetchMoreGames(gamesData) {
     const response = await fetch(
-      `${baseUrl}/api/games?offset=${gamesData.length}`,
+      `${API_ROUTES.games}?offset=${gamesData.length}`,
       {
         credentials: 'include',
         withCredentials: true,

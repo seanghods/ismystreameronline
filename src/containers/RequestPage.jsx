@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material';
 import { useState } from 'react';
 import useStream from '../Context/useStream';
 import { NavLink } from 'react-router-dom';
+import { API_ROUTES } from '../utils/constants';
 
 export default function RequestPage() {
   const [showRequestTooltip, setShowRequestTooltip] = useState(false);
@@ -10,7 +11,7 @@ export default function RequestPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (loggedIn) {
-      const response = await fetch('/api/request', {
+      const response = await fetch(API_ROUTES.request, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
