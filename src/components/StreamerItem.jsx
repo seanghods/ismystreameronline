@@ -105,10 +105,10 @@ export default function StreamerItem({ streamer, index, filter }) {
         >
           <FavoriteButton streamer={streamer} stop={true} />
           <div className="flex w-[30px] md:w-[80px] justify-center items-center">
-            {filter == 'favorites' && streamer.online == false ? (
+            {streamer.online == false ? (
               <img
                 src={OfflineDot}
-                alt="Online Symbol"
+                alt="Offline Symbol"
                 height="20"
                 width="20"
               />
@@ -120,7 +120,7 @@ export default function StreamerItem({ streamer, index, filter }) {
             <img src={streamer.thumbnailUrl} className="rounded-2xl" alt="" />
           </div>
           <div
-            className={`w-[100px] md:w-[180px] flex pl-2 items-center md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+            className={`w-[100px] md:w-[140px] 2xl:w-[180px] flex pl-2 items-center md:px-3 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
               streamer.platform,
             )}`}
           >
@@ -128,7 +128,7 @@ export default function StreamerItem({ streamer, index, filter }) {
               {streamer.name}
             </div>
           </div>
-          <div className="w-[25px] md:w-[120px] flex items-center justify-center">
+          <div className="w-[25px] md:w-[80px] 2xl:w-[120px] flex items-center justify-center">
             {streamer.platform == 'Twitch' ? (
               <TwitchIcon />
             ) : streamer.platform == 'YouTube' ? (
@@ -143,7 +143,7 @@ export default function StreamerItem({ streamer, index, filter }) {
           <div className="w-[40px] flex items-center justify-center md:hidden">
             {convertToK(streamer.viewers)}
           </div>
-          <div className="flex justify-start md:justify-center items-center w-1/4 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <div className="flex justify-start md:justify-center items-center w-1/4 2xl:w-1/4 md:w-1/5 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
             <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
               {streamer.game.name}
             </div>

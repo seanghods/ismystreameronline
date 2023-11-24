@@ -23,10 +23,11 @@ function App() {
     setLoggedIn,
     setFavorites,
     setLoading,
+    setFavoritesData,
+    setHasMore,
   } = useStream();
   const [lightMode, setLightMode] = useState(true);
   const [showModal, setShowModal] = useState('');
-
   useEffect(() => {
     fetchGames();
   }, [streamerData, setGames]);
@@ -63,14 +64,27 @@ function App() {
     }
     getFavorites();
   }, [loggedIn, setFavorites]);
+  useEffect(() => {
+    async function getFavoritesData() {
+      if (loggedIn) {
+        const response = await fetch(API_ROUTES.favoritesData, {
+          credentials: 'include',
+          withCredentials: true,
+        });
+        const data = await response.json();
+        setFavoritesData(data);
+      }
+    }
+    getFavoritesData();
+  }, [loggedIn]);
   const fetchStreamers = useCallback(
-    async (status, gameSlug, favorites) => {
-      setLoading(true);
+    async (status, gameSlug, platform) => {
+      if (!platform) setLoading(true);
       const url = API_ROUTES.streamers;
       const rawParams = removeUndefinedValues({
         status,
         gameSlug,
-        favorites,
+        platform,
       });
       const params = new URLSearchParams(rawParams);
 
@@ -79,20 +93,22 @@ function App() {
         withCredentials: true,
       });
       if (!response.ok) console.log('error');
-      const streamersList = await response.json();
-      setStreamerData(streamersList);
-      setLoading(false);
+      const data = await response.json();
+      const { streamers, hasMore } = data;
+      setStreamerData(streamers);
+      setHasMore(hasMore);
+      if (!platform) setLoading(false);
     },
     [setLoading, setStreamerData],
   );
   const fetchMoreStreamers = useCallback(
-    async (status, gameSlug, favorites, streamerData) => {
+    async (status, gameSlug, streamerData, platform) => {
       const url = API_ROUTES.streamers;
       const rawParams = removeUndefinedValues({
         offset: streamerData.length,
         status,
         gameSlug,
-        favorites,
+        platform,
       });
       const params = new URLSearchParams(rawParams);
       const response = await fetch(`${url}?${params}`, {
@@ -100,8 +116,11 @@ function App() {
         withCredentials: true,
       });
       if (!response.ok) console.log('error');
-      const moreStreamers = await response.json();
-      setStreamerData(prevStreamers => [...prevStreamers, ...moreStreamers]);
+      const data = await response.json();
+      const { streamers, hasMore } = data;
+      setStreamerData(streamers);
+      setHasMore(hasMore);
+      setStreamerData(prevStreamers => [...prevStreamers, ...streamers]);
     },
     [setStreamerData],
   );
@@ -170,12 +189,7 @@ function App() {
             />
             <Route
               path="/favorites"
-              element={
-                <Favorites
-                  fetchStreamers={fetchStreamers}
-                  fetchMoreStreamers={fetchMoreStreamers}
-                />
-              }
+              element={<Favorites fetchMoreStreamers={fetchMoreStreamers} />}
             />
             <Route path="/request" element={<RequestPage />} />
             <Route path="/search" element={<SearchPage />} />

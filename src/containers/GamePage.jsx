@@ -21,7 +21,7 @@ export default function GamePage({ fetchStreamers, fetchMoreStreamers }) {
   // });
   useEffect(() => {
     async function callFetchStreamers() {
-      await fetchStreamers('online', gameSlug, null);
+      await fetchStreamers('online', gameSlug, undefined);
     }
     callFetchStreamers();
   }, [gameSlug, fetchStreamers]);
@@ -31,6 +31,7 @@ export default function GamePage({ fetchStreamers, fetchMoreStreamers }) {
         title={gameName}
         gameSlug={gameSlug}
         filter="game"
+        fetchStreamers={fetchStreamers}
         fetchMoreStreamers={fetchMoreStreamers}
       />
     </>

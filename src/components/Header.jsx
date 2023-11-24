@@ -2,6 +2,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Switch } from '@headlessui/react';
 import Search from './sub-components/Search';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import { API_ROUTES } from '../utils/constants';
 
 export default function Header({
   setShowModal,
@@ -18,7 +19,7 @@ export default function Header({
     }
   }
   async function handleLogOut() {
-    const response = await fetch(`${import.meta.env.BASE_URL}/api/log-out`);
+    const response = await fetch(API_ROUTES.logOut);
 
     const data = await response.json();
 

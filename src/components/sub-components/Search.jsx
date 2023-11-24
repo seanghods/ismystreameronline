@@ -25,7 +25,6 @@ export default function Search() {
 
   useEffect(() => {
     if (query.length > 2) {
-      // Trigger search when query length is more than 2 characters
       handleSearch(query);
       setIsDropdownVisible(true);
     } else {
@@ -36,7 +35,7 @@ export default function Search() {
   useEffect(() => {
     function handleClickOutside(event) {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setIsDropdownVisible(false); // Hide dropdown
+        setIsDropdownVisible(false);
       }
     }
 

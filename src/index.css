@@ -43,3 +43,64 @@ input::placeholder {
   padding: 1px !important;
   font-size: 14px !important;
 }
+
+.toggle-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.toggleContainer {
+  border-radius: 0.5em;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+}
+
+.toggleContainer .toggleOption {
+  display: flex;
+  border-radius: 1em;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25em;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  color: #807b77;
+  font-size: 1em;
+}
+
+.toggleContainer .toggleOption.selected {
+  color: #ffffff;
+  cursor: initial;
+}
+
+.toggleContainer .toggle {
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  transition: all 0.4s ease-in-out;
+  background: #aeaeae;
+  border-radius: 0.5em;
+}
+
+.optionDisabled {
+  background: #e6e6e6;
+  cursor: no-drop !important;
+}
+
+.toggle.purple {
+  background-color: rgb(255, 143, 255);
+  border-radius: 0;
+}
+
+.toggle.green {
+  background-color: rgb(190, 255, 208);
+  border-radius: 0;
+}
+.toggle.red {
+  background-color: rgb(255, 143, 143);
+}

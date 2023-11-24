@@ -6,10 +6,12 @@ export function StreamProvider({ children }) {
   const [gamesData, setGames] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [favoritesData, setFavoritesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState([]);
   const [shouldRenderContent, setShouldRenderContent] = useState({});
   const [results, setResults] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
 
   return (
     <StreamContext.Provider
@@ -22,6 +24,8 @@ export function StreamProvider({ children }) {
         setLoggedIn,
         favorites,
         setFavorites,
+        favoritesData,
+        setFavoritesData,
         loading,
         setLoading,
         activeDropdown,
@@ -30,6 +34,8 @@ export function StreamProvider({ children }) {
         setShouldRenderContent,
         results,
         setResults,
+        hasMore,
+        setHasMore,
       }}
     >
       {children}

@@ -1,24 +1,36 @@
 import { StreamList } from '../components';
 import { useEffect } from 'react';
+import useStream from '../Context/useStream';
 
 export default function Home({ fetchStreamers, fetchMoreStreamers }) {
+  const { loggedIn } = useStream();
   useEffect(() => {
     fetchStreamers('online');
   }, [fetchStreamers]);
   return (
     <>
-      <div className="welcome flex flex-col items-center gap-5 mb-10 md:gap-12 md:mb-24">
-        <h1 className="text-2xl md:text-4xl font-logo text-center">
-          Welcome to <br />
-          &apos;Is My Streamer Online&apos;
-        </h1>
-        <p className="text-md w-4/5 md:text-lg italic font-game text-center">
-          Find the online status of your favorite streamer across all streaming
-          platforms!
-        </p>
-      </div>
+      {loggedIn ? (
+        <StreamList
+          title="Favorites"
+          filter="favorites"
+          fetchStreamers={fetchStreamers}
+          fetchMoreStreamers={fetchMoreStreamers}
+        />
+      ) : (
+        <div className="welcome flex flex-col items-center gap-5 mb-10 md:gap-12 md:mb-24">
+          <h1 className="text-2xl md:text-4xl font-logo text-center">
+            Welcome to <br />
+            &apos;Is My Streamer Online&apos;
+          </h1>
+          <p className="text-md w-4/5 md:text-lg italic font-game text-center">
+            Find the online status of your favorite streamer across all
+            streaming platforms!
+          </p>
+        </div>
+      )}
       <StreamList
         title="Top Streamers"
+        fetchStreamers={fetchStreamers}
         fetchMoreStreamers={fetchMoreStreamers}
       />
     </>

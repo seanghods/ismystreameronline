@@ -3,16 +3,29 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
 import useStream from '../../Context/useStream';
 import { useState } from 'react';
+import { API_ROUTES } from '../../utils/constants';
 
 export default function FavoriteButton({ streamer, stop }) {
   const [showLikeTooltip, setShowLikeTooltip] = useState(false);
-  const { loggedIn, favorites, setFavorites } = useStream();
-  async function addFavorite(streamerId, setFavorites) {
-    setFavorites(prevFavorites => [...prevFavorites, streamerId]);
+  const { loggedIn, favorites, setFavorites, setFavoritesData, favoritesData } =
+    useStream();
+  // async function getFavoritesData() {
+  //   if (loggedIn) {
+  //     const response = await fetch(API_ROUTES.favoritesData, {
+  //       credentials: 'include',
+  //       withCredentials: true,
+  //     });
+  //     const data = await response.json();
+  //     setFavoritesData(data);
+  //   }
+  // }
+  async function addFavorite(streamer) {
+    setFavorites(prevFavorites => [...prevFavorites, streamer.id]);
+    setFavoritesData(prevData => [...prevData, streamer]);
     try {
-      const response = await fetch('/api/favorites', {
+      const response = await fetch(API_ROUTES.favorites, {
         method: 'POST',
-        body: JSON.stringify({ id: streamerId }),
+        body: JSON.stringify({ id: streamer.id }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -30,17 +43,21 @@ export default function FavoriteButton({ streamer, stop }) {
         error.message,
       );
       setFavorites(prevFavorites =>
-        prevFavorites.filter(id => id !== streamerId),
+        prevFavorites.filter(id => id !== streamer.id),
       );
     }
   }
-  async function deleteFavorite(streamerId, favorites, setFavorites) {
-    const updatedFavorites = favorites.filter(id => id !== streamerId);
+  async function deleteFavorite(streamer, favorites, favoritesData) {
+    const updatedFavorites = favorites.filter(id => id !== streamer.id);
     setFavorites(updatedFavorites);
+    const updatedFavoritesData = favoritesData.filter(
+      obj => obj.id !== streamer.id,
+    );
+    setFavoritesData(updatedFavoritesData);
     try {
       const response = await fetch('/api/favorites', {
         method: 'DELETE',
-        body: JSON.stringify({ id: streamerId }),
+        body: JSON.stringify({ id: streamer.id }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,6 +66,7 @@ export default function FavoriteButton({ streamer, stop }) {
         throw new Error('Failed to delete the streamer');
       }
       const data = await response.json();
+
       if (!data.success) {
         throw new Error('Failed to delete the streamer');
       }
@@ -57,7 +75,8 @@ export default function FavoriteButton({ streamer, stop }) {
         'There was a problem with the fetch operation:',
         error.message,
       );
-      setFavorites(prevFavorites => [...prevFavorites, streamerId]);
+      setFavorites(prevFavorites => [...prevFavorites, streamer.id]);
+      setFavoritesData(prevData => [...prevData, streamer]);
     }
   }
   return (
@@ -74,9 +93,9 @@ export default function FavoriteButton({ streamer, stop }) {
           if (stop) e.stopPropagation();
           if (loggedIn) {
             if (favorites.includes(streamer.id)) {
-              deleteFavorite(streamer.id, favorites, setFavorites);
+              deleteFavorite(streamer, favorites, favoritesData);
             } else if (!favorites.includes(streamer.id)) {
-              addFavorite(streamer.id, setFavorites);
+              addFavorite(streamer);
             }
           } else if (!showLikeTooltip) {
             setShowLikeTooltip(streamer.id);

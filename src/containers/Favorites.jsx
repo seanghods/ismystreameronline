@@ -1,12 +1,8 @@
 import { StreamList } from '../components/';
-import { useEffect } from 'react';
 import useStream from '../Context/useStream';
 
-export default function Favorites({ fetchStreamers, fetchMoreStreamers }) {
+export default function Favorites({ fetchMoreStreamers }) {
   const { loggedIn } = useStream();
-  useEffect(() => {
-    fetchStreamers(null, null, true);
-  }, [fetchStreamers]);
   if (!loggedIn) {
     return (
       <div className="flex items-center justify-center flex-col gap-24">
