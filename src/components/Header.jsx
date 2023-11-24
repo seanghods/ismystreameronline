@@ -115,7 +115,7 @@ export default function Header({
           {' '}
           <NavLink
             to="/request"
-            className={`shadow-md w-[150px] md:w-[150px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
+            className={`shadow-md w-[120px] md:w-[120px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
           >
             Add a Streamer
           </NavLink>

@@ -138,10 +138,14 @@ export default function StreamerItem({ streamer, index, filter }) {
             ) : null}
           </div>
           <div className="w-[80px] hidden md:flex items-center">
-            {streamer.viewers.toLocaleString()}
+            {streamer.online ? (
+              streamer.viewers.toLocaleString()
+            ) : (
+              <span className="w-1/2 text-center">-</span>
+            )}
           </div>
           <div className="w-[40px] flex items-center justify-center md:hidden">
-            {convertToK(streamer.viewers)}
+            {streamer.online ? convertToK(streamer.viewers) : '-'}
           </div>
           <div className="flex justify-start md:justify-center items-center w-1/4 2xl:w-1/4 md:w-1/5 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
             <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">

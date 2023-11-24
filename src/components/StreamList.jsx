@@ -78,7 +78,7 @@ export default function StreamList({
       >
         {loading ? null : (
           <div className="streamer-list flex flex-col gap-4 items-center">
-            <h2 className="font-logo text-3xl mb-8">{title}</h2>
+            <h2 className="font-logo text-3xl">{title}</h2>
             <div className="w-full lg:w-4/5">
               <MultiToggle
                 options={groupOptions}

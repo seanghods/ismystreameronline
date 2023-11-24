@@ -82,7 +82,7 @@ export default function Search() {
         onKeyDown={e => {
           if (e.key == 'Enter') navigate('/search');
         }}
-        placeholder="Search streamer or game"
+        placeholder="Search streamer or game..."
       />
       {isDropdownVisible && (
         <ul className="search-dropdown rounded-lg bg-gray-200 z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">

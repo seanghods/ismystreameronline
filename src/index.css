@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
   font-family: 'logo';
-  src: url('./fonts/logo-font.ttf');
+  src: url('./fonts/Lobster-Regular.ttf');
 }
 @font-face {
   font-family: 'game';
@@ -62,7 +62,7 @@ input::placeholder {
   border-radius: 1em;
   justify-content: center;
   align-items: center;
-  padding: 0.25em;
+  padding: 0.4em;
   position: relative;
   z-index: 1;
   text-align: center;

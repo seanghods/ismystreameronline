@@ -118,7 +118,6 @@ function App() {
       if (!response.ok) console.log('error');
       const data = await response.json();
       const { streamers, hasMore } = data;
-      setStreamerData(streamers);
       setHasMore(hasMore);
       setStreamerData(prevStreamers => [...prevStreamers, ...streamers]);
     },
