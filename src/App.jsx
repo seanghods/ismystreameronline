@@ -8,6 +8,7 @@ import {
   RequestPage,
   SearchPage,
   About,
+  LoadingPage,
 } from './containers';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
@@ -28,11 +29,13 @@ function App() {
   } = useStream();
   const [lightMode, setLightMode] = useState(true);
   const [showModal, setShowModal] = useState('');
+  const [fullLoadingPage, setFullLoadingPage] = useState(true);
   useEffect(() => {
     fetchGames();
   }, [streamerData, setGames]);
   useEffect(() => {
     async function checkAuthenticationStatus() {
+      setFullLoadingPage(true);
       try {
         const response = await fetch(API_ROUTES.checkSession, {
           credentials: 'include',
@@ -48,6 +51,7 @@ function App() {
       } catch (error) {
         console.error('Failed to check authentication status:', error);
       }
+      setFullLoadingPage(false);
     }
     checkAuthenticationStatus();
   }, [setLoggedIn]);
@@ -146,6 +150,7 @@ function App() {
   }
   return (
     <>
+      {fullLoadingPage && <LoadingPage />}
       {showModal ? (
         <AccountModal
           showModal={showModal}

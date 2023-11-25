@@ -8,7 +8,7 @@ import useStream from '../Context/useStream';
 import OnlineDot from '../assets/green-dot.png';
 import OfflineDot from '../assets/gray-dot.png';
 
-export default function StreamerItem({ streamer, index, filter }) {
+export default function StreamerItem({ streamer, index }) {
   const {
     activeDropdown,
     setActiveDropdown,

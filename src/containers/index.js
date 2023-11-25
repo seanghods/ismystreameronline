@@ -6,3 +6,4 @@ export { default as NotFound } from './NotFound.jsx';
 export { default as RequestPage } from './RequestPage.jsx';
 export { default as SearchPage } from './SearchPage.jsx';
 export { default as About } from './About.jsx';
+export { default as LoadingPage } from './LoadingPage.jsx';

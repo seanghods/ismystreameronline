@@ -111,7 +111,7 @@ export default function Header({
             </div>
           </div>
         </div>
-        <div className="pr-4 pb-3 md:pb-0 flex flex-1 justify-end fixed z-50 bottom-0 right-0 md:relative md:bottom-0 md:right-0 md:flex">
+        <div className="pr-4 pb-3 md:pb-0 flex flex-1 justify-end fixed z-10 bottom-0 right-0 md:relative md:bottom-0 md:right-0 md:flex">
           {' '}
           <NavLink
             to="/request"

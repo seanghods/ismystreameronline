@@ -21,7 +21,14 @@ export default function FavoriteButton({ streamer, stop }) {
   // }
   async function addFavorite(streamer) {
     setFavorites(prevFavorites => [...prevFavorites, streamer.id]);
-    setFavoritesData(prevData => [...prevData, streamer]);
+    setFavoritesData(prevData =>
+      [...prevData, streamer].sort((a, b) => {
+        if (a.online === b.online) {
+          return b.viewers - a.viewers; // Sort by viewers if online status is the same
+        }
+        return b.online - a.online; // Otherwise, sort by online status
+      }),
+    );
     try {
       const response = await fetch(API_ROUTES.favorites, {
         method: 'POST',
@@ -76,7 +83,14 @@ export default function FavoriteButton({ streamer, stop }) {
         error.message,
       );
       setFavorites(prevFavorites => [...prevFavorites, streamer.id]);
-      setFavoritesData(prevData => [...prevData, streamer]);
+      setFavoritesData(prevData =>
+        [...prevData, streamer].sort((a, b) => {
+          if (a.online === b.online) {
+            return b.viewers - a.viewers; // Sort by viewers if online status is the same
+          }
+          return b.online - a.online; // Otherwise, sort by online status
+        }),
+      );
     }
   }
   return (
