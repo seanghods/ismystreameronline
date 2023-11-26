@@ -28,7 +28,6 @@ export default function StreamList({
     streamerData: contextStreamerData,
     favoritesData,
     results,
-    favorites,
     loading,
     hasMore,
   } = useStream();
@@ -111,11 +110,6 @@ export default function StreamList({
         >
           {loading ? null : (
             <>
-              {filter == 'favorites' && favorites.length == 0 ? (
-                <div className="m-12 font-bold text-xl text-sky-500 font-game">
-                  You have no favorites yet! Go like your favorite streamers.{' '}
-                </div>
-              ) : null}
               <div className="w-full mb-24">
                 <InfiniteScroll
                   dataLength={streamerData.length}

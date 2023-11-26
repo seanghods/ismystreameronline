@@ -83,7 +83,8 @@ function App() {
   }, [loggedIn]);
   const fetchStreamers = useCallback(
     async (status, gameSlug, platform) => {
-      if (!platform) setLoading(true);
+      if (!platform && !gameSlug) setLoading(true);
+      // if (gameSlug) setLoading(true);
       const url = API_ROUTES.streamers;
       const rawParams = removeUndefinedValues({
         status,
@@ -101,9 +102,10 @@ function App() {
       const { streamers, hasMore } = data;
       setStreamerData(streamers);
       setHasMore(hasMore);
-      if (!platform) setLoading(false);
+      // if (gameSlug) setLoading(false);
+      if (!platform && !gameSlug) setLoading(false);
     },
-    [setLoading, setStreamerData],
+    [setStreamerData],
   );
   const fetchMoreStreamers = useCallback(
     async (status, gameSlug, streamerData, platform) => {

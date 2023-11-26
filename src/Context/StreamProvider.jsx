@@ -7,7 +7,7 @@ export function StreamProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [favoritesData, setFavoritesData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
