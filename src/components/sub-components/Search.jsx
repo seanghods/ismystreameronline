@@ -12,6 +12,9 @@ import { API_ROUTES } from '../../utils/constants';
 export default function Search() {
   const [query, setQuery] = useState('');
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [placeholderText, setPlaceholderText] = useState(
+    'Search streamer or game...',
+  );
   const { results, setResults } = useStream();
   const searchRef = useRef(null);
   const location = useLocation();
@@ -31,7 +34,16 @@ export default function Search() {
       setIsDropdownVisible(false);
     }
   }, [query]);
-
+  useEffect(() => {
+    function updatePlaceholder() {
+      setPlaceholderText(
+        window.innerWidth <= 768 ? '🔎...' : 'Search streamer or game...',
+      );
+    }
+    updatePlaceholder();
+    window.addEventListener('resize', updatePlaceholder);
+    return () => window.removeEventListener('resize', updatePlaceholder);
+  }, []);
   useEffect(() => {
     function handleClickOutside(event) {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -82,7 +94,7 @@ export default function Search() {
         onKeyDown={e => {
           if (e.key == 'Enter') navigate('/search');
         }}
-        placeholder="Search streamer or game..."
+        placeholder={placeholderText}
       />
       {isDropdownVisible && (
         <ul className="search-dropdown rounded-lg bg-gray-200 z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">

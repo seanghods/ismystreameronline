@@ -3,18 +3,13 @@ import EmbedPlayer from './sub-components/EmbedPlayer';
 import Tooltip from '@mui/material/Tooltip';
 import { TwitchIcon, YouTubeIcon, KickIcon } from './sub-components/Icons';
 import { useEffect } from 'react';
-import useStream from '../Context/useStream';
-// import { PulseIcon } from './sub-components/Icons';
 import OnlineDot from '../assets/green-dot.png';
 import OfflineDot from '../assets/gray-dot.png';
+import { useState } from 'react';
 
 export default function StreamerItem({ streamer, index }) {
-  const {
-    activeDropdown,
-    setActiveDropdown,
-    shouldRenderContent,
-    setShouldRenderContent,
-  } = useStream();
+  const [activeDropdown, setActiveDropdown] = useState([]);
+  const [shouldRenderContent, setShouldRenderContent] = useState({});
   function getHoverColor(platform) {
     switch (platform) {
       case 'Twitch':

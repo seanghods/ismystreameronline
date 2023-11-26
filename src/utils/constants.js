@@ -3,6 +3,11 @@ export const BASE_URL =
     ? 'https://api.ismystreameronline.com/api'
     : '/api';
 
+export const DOMAIN =
+  import.meta.env.MODE === 'production'
+    ? 'www.ismystreameronline.com'
+    : 'localhost';
+
 export const API_ROUTES = {
   streamers: `${BASE_URL}/streamers`,
   checkSession: `${BASE_URL}/check-session`,
