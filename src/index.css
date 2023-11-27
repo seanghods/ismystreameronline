@@ -54,7 +54,6 @@ input::placeholder {
   border-radius: 0.5em;
   position: relative;
   background: #ffffff;
-  border: 1px solid #eeeeee;
 }
 
 .toggleContainer .toggleOption {

@@ -58,14 +58,14 @@ export default function StreamList({
     <>
       <div className="streamer-list flex flex-col gap-4 items-center">
         <h2 className="font-logo text-3xl">{title}</h2>
-        <div className="w-full lg:w-4/5">
+        <div className="w-full lg:w-4/5 ">
           <MultiToggle
             options={groupOptions}
             selectedOption={toggleValue}
             onSelectOption={value => {
               setToggleValue(value);
             }}
-            className="flex"
+            className="flex dark:bg-gray-300"
           />
         </div>
         <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">

@@ -9,20 +9,20 @@ export default function EmbedPlayer({
     switch (streamer.platform) {
       case 'Twitch':
         return (
-          <>
+          <div className="flex w-full flex-col md:flex-row">
             <iframe
               src={`https://player.twitch.tv/?channel=${streamer.name}&parent=${DOMAIN}`}
               allowFullScreen={true}
               height="378"
-              width="620"
+              className="w-full md:w-[550px] lg:w-[450px] xl:w-[620px]"
             ></iframe>
             <iframe
               id="chat_embed"
-              src={`https://www.twitch.tv/embed/${streamer.name}/chat?parent=${DOMAIN}`}
+              src={`https://www.twitch.tv/embed/${streamer.name}/chat?darkpopout&parent=${DOMAIN}`}
               height="378"
-              className="w-[200px] lg:w-[300px] 2xl:w-[400px] hidden md:block"
+              className="w-full md:w-[300px] 2xl:w-[400px] md:block"
             ></iframe>
-          </>
+          </div>
         );
       case 'Kick':
         return (
@@ -36,7 +36,7 @@ export default function EmbedPlayer({
             <iframe
               src={`https://kick.com/${streamer.name}/chatroom`}
               height="378"
-              className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
+              className="w-full md:w-[300px] 2xl:w-[400px] md:block"
               allowFullScreen={true}
             ></iframe>
           </div>
@@ -52,7 +52,7 @@ export default function EmbedPlayer({
               allowFullScreen
             ></iframe>
             <iframe
-              className="w-[200px] lg:w-[250px] 2xl:w-[400px] hidden md:block"
+              className="w-full md:w-[300px] 2xl:w-[400px] md:block"
               height="378"
               src={`https://www.youtube.com/live_chat?v=${streamer.titleId}&embed_domain=${DOMAIN}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -75,7 +75,7 @@ export default function EmbedPlayer({
           : null
       } origin-top rounded-b-md transition-transform ease-out duration-300 transform ${
         activeDropdown.includes(streamer.id)
-          ? 'scale-y-100 h-[400px]'
+          ? 'scale-y-100 h-[750px] md:h-[400px]'
           : 'scale-y-0'
       }`}
     >

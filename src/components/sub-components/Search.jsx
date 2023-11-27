@@ -37,7 +37,7 @@ export default function Search() {
   useEffect(() => {
     function updatePlaceholder() {
       setPlaceholderText(
-        window.innerWidth <= 768 ? '🔎...' : 'Search streamer or game...',
+        window.innerWidth <= 768 ? 'Search...' : 'Search streamer or game...',
       );
     }
     updatePlaceholder();
@@ -90,7 +90,7 @@ export default function Search() {
         type="text"
         value={query}
         onChange={e => setQuery(e.target.value)}
-        className="rounded-lg p-3 w-[50px] md:w-auto md:block dark:bg-gray-300"
+        className="rounded-lg p-3 w-[100px] md:w-auto md:block dark:bg-gray-300"
         onKeyDown={e => {
           if (e.key == 'Enter') navigate('/search');
         }}
