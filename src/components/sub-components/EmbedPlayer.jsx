@@ -9,7 +9,7 @@ export default function EmbedPlayer({
     switch (streamer.platform) {
       case 'Twitch':
         return (
-          <div className="flex w-full flex-col md:flex-row">
+          <div className="flex w-full justify-center items-center flex-col md:flex-row">
             <iframe
               src={`https://player.twitch.tv/?channel=${streamer.name}&parent=${DOMAIN}`}
               allowFullScreen={true}
