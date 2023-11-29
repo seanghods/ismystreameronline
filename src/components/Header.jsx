@@ -14,7 +14,10 @@ export default function Header({
 }) {
   const navigate = useNavigate();
   async function handleLogOut() {
-    const response = await fetch(API_ROUTES.logOut);
+    const response = await fetch(API_ROUTES.logOut, {
+      withCredentials: true,
+      credentials: 'include',
+    });
 
     const data = await response.json();
 
