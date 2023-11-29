@@ -38,7 +38,7 @@ export default function AllGamesPage({ fetchMoreGames }) {
           <div className="streamer-list w-full flex flex-col gap-4 items-center">
             <h2 className="font-logo text-3xl mb-8">All Games</h2>
             <div className="labels flex font-logo w-4/5 xl:w-2/5 text-center">
-              <div className="pr-16 flex-1">
+              <div className="md:pr-16 pr-6 flex-1">
                 <VideogameAssetIcon />
               </div>
               <div className="flex-1">
