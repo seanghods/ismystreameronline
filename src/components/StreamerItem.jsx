@@ -142,7 +142,7 @@ export default function StreamerItem({ streamer, index }) {
           <div className="w-[40px] flex items-center justify-center md:hidden">
             {streamer.online ? convertToK(streamer.viewers) : '-'}
           </div>
-          <div className="flex justify-start md:justify-center items-center w-1/4 2xl:w-1/4 md:w-1/5 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <div className="flex justify-start md:justify-center items-center w-1/4 2xl:w-1/5 md:w-1/5 font-gamebold whitespace-nowrap overflow-ellipsis overflow-hidden">
             <div className="whitespace-nowrap overflow-ellipsis overflow-hidden">
               {streamer.game.name}
             </div>

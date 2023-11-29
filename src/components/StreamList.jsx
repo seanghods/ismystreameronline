@@ -80,7 +80,7 @@ export default function StreamList({
             <VisibilityIcon />
           </div>
           <div className="hidden 2xl:block 2xl:w-[15px]"></div>
-          <div className="w-[50px] md:w-1/4">
+          <div className="w-[50px] md:w-1/5">
             {' '}
             <SportsEsportsIcon />
           </div>
