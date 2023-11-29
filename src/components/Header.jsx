@@ -29,7 +29,10 @@ export default function Header({
     <>
       <div className="flex h-[85px] p-5 justify-center">
         <div className="flex-1 text-center md:text-left">
-          <NavLink to="/" className="md:p-12 font-logo text-sm md:text-2xl">
+          <NavLink
+            to="/"
+            className="logo-text md:p-12 font-logo text-sm md:text-2xl"
+          >
             Is My Streamer <br className="md:hidden" /> Online
           </NavLink>
         </div>

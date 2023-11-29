@@ -18,7 +18,7 @@ export default function Home({ fetchStreamers, fetchMoreStreamers }) {
         />
       ) : (
         <div className="welcome flex flex-col items-center gap-5 mb-10 md:gap-12 md:mb-24">
-          <h1 className="text-2xl md:text-4xl font-logo text-center">
+          <h1 className="welcome-text text-2xl md:text-4xl font-logo text-center">
             Welcome to <br />
             &apos;Is My Streamer Online&apos;
           </h1>
