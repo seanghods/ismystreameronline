@@ -108,3 +108,9 @@ input::placeholder {
     @apply font-game text-sm italic text-red-300 dark:text-red-300;
   }
 }
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

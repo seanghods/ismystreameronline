@@ -2,6 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { API_ROUTES } from '../utils/constants';
+import { NavLink } from 'react-router-dom';
 
 export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
   const [formErrors, setFormErrors] = useState({
@@ -361,6 +362,21 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                       personal information, including secure handling of
                       passwords.
                     </div>
+                  </div>
+                  <div className="flex w-full items-center justify-between text-xs">
+                    <NavLink
+                      to="/privacy-policy"
+                      className="text-blue-200 w-4/5 md:w-1/2 text-right"
+                    >
+                      Privacy Policy <span className="text-white">|</span>
+                    </NavLink>
+
+                    <NavLink
+                      to="/terms-of-service"
+                      className="text-blue-200 w-4/5 md:w-1/2"
+                    >
+                      <span className="text-white">|</span> Terms of Service
+                    </NavLink>
                   </div>
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">

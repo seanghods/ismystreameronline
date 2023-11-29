@@ -9,6 +9,8 @@ import {
   SearchPage,
   About,
   LoadingPage,
+  PrivacyPolicy,
+  TermsOfService,
 } from './containers';
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
@@ -200,6 +202,8 @@ function App() {
             <Route path="/request" element={<RequestPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

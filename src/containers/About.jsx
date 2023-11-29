@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function About() {
   const [isCopied, setIsCopied] = useState(false);
@@ -68,6 +69,18 @@ export default function About() {
         you found it on or like my Product Hunt post here to increase its
         visibility.
       </div>
+      <NavLink
+        to="/privacy-policy"
+        className="text-blue-200 w-4/5 md:w-1/2 text-left mt-12"
+      >
+        Privacy Policy
+      </NavLink>
+      <NavLink
+        to="/terms-of-service"
+        className="text-blue-200 w-4/5 md:w-1/2 text-left"
+      >
+        Terms of Service
+      </NavLink>
     </div>
   );
 }
