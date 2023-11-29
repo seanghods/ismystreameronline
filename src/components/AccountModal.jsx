@@ -366,6 +366,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                   <div className="flex w-full items-center justify-between text-xs">
                     <NavLink
                       to="/privacy-policy"
+                      onClick={() => setShowModal('')}
                       className="text-blue-200 w-4/5 md:w-1/2 text-right"
                     >
                       Privacy Policy <span className="text-white">|</span>
@@ -373,6 +374,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
 
                     <NavLink
                       to="/terms-of-service"
+                      onClick={() => setShowModal('')}
                       className="text-blue-200 w-4/5 md:w-1/2"
                     >
                       <span className="text-white">|</span> Terms of Service
