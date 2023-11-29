@@ -216,7 +216,7 @@ function LogInForm({ handleLogIn, setShowModal, formErrors }) {
                     </button>
                   </div>
                   {formErrors.logIn.message && (
-                    <div className="error-message w-full text-center font-gamebold text-red-400 dark:text-red-400 mt-2">
+                    <div className="error-message w-full text-center font-gamebold text-red-200 dark:text-red-200 mt-2">
                       {formErrors.logIn.message}
                     </div>
                   )}
@@ -345,7 +345,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors }) {
                       Sign Up
                     </button>
                     {formErrors.signUp.message && (
-                      <div className="error-message w-full text-center font-gamebold text-red-400 dark:text-red-400 mt-2">
+                      <div className="error-message w-full text-center font-gamebold text-red-200 dark:text-red-200 mt-2">
                         {formErrors.signUp.message}
                       </div>
                     )}
