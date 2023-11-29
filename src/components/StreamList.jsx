@@ -70,15 +70,16 @@ export default function StreamList({
         </div>
         <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
           <div className="hidden md:block md:w-[85px]"></div>
-          <div className="w-[205px] md:w-[170px] 2xl:w-[225px] pr-12">
+          <div className="w-[205px] md:w-[170px] 2xl:w-[205px] pr-12">
             <PersonIcon />
           </div>
           <div className="hidden md:block md:pl-10 md:w-[100px] 2xl:w-[130px]">
             <LaptopIcon />
           </div>
-          <div className="w-[65px]">
+          <div className="w-[65px] 2xl:w-[80px]">
             <VisibilityIcon />
           </div>
+          <div className="hidden 2xl:block 2xl:w-[15px]"></div>
           <div className="w-[50px] md:w-1/4">
             {' '}
             <SportsEsportsIcon />
