@@ -111,7 +111,7 @@ export default function Header({
             Add a Streamer
           </NavLink>
         </div>
-        <div className="justify-end hidden md:relative md:flex">
+        <div className="pr-24 justify-end hidden md:relative md:flex">
           <NavLink
             to="/about"
             className="font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"

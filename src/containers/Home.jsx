@@ -22,7 +22,7 @@ export default function Home({ fetchStreamers, fetchMoreStreamers }) {
             Welcome to <br />
             &apos;Is My Streamer Online&apos;
           </h1>
-          <p className="text-md w-4/5 md:text-lg font-sans italic text-center">
+          <p className="text-md w-4/5 md:text-lg font-sans italic text-center dark:text-gray-300">
             Find the online status of your favorite streamer across all
             streaming platforms!
           </p>
