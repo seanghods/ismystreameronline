@@ -113,19 +113,21 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
           handleLogIn={handleLogIn}
           setShowModal={setShowModal}
           formErrors={formErrors}
+          setFormErrors={setFormErrors}
         />
       ) : showModal == 'sign-up' ? (
         <SignUpForm
           handleSignUp={handleSignUp}
           setShowModal={setShowModal}
           formErrors={formErrors}
+          setFormErrors={setFormErrors}
         />
       ) : null}
     </>
   );
 }
 
-function LogInForm({ handleLogIn, setShowModal, formErrors }) {
+function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
   return (
     <Transition appear show={true} as={Fragment}>
       <Dialog
@@ -226,6 +228,10 @@ function LogInForm({ handleLogIn, setShowModal, formErrors }) {
                     className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
+                      setFormErrors({
+                        signUp: {},
+                        logIn: {},
+                      });
                       setShowModal('sign-up');
                     }}
                   >
@@ -241,7 +247,7 @@ function LogInForm({ handleLogIn, setShowModal, formErrors }) {
   );
 }
 
-function SignUpForm({ handleSignUp, setShowModal, formErrors }) {
+function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
   return (
     <Transition appear show={true} as={Fragment}>
       <Dialog
@@ -362,6 +368,10 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors }) {
                     className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
+                      setFormErrors({
+                        signUp: {},
+                        logIn: {},
+                      });
                       setShowModal('log-in');
                     }}
                   >
