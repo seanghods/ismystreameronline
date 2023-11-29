@@ -62,7 +62,7 @@ export default function FavoriteButton({ streamer, stop }) {
     );
     setFavoritesData(updatedFavoritesData);
     try {
-      const response = await fetch('/api/favorites', {
+      const response = await fetch(API_ROUTES.favorites, {
         method: 'DELETE',
         body: JSON.stringify({ id: streamer.id }),
         headers: {
