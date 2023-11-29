@@ -4,57 +4,106 @@ import { Fragment, useState } from 'react';
 import { API_ROUTES } from '../utils/constants';
 
 export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
-  const [error, setError] = useState();
+  const [formErrors, setFormErrors] = useState({
+    signUp: {},
+    logIn: {},
+  });
   async function handleSignUp(e) {
     e.preventDefault();
-
-    const response = await fetch(API_ROUTES.signUp, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-        email: e.target.email.value,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      setLoggedIn(true);
-      setShowModal('');
-      setError('');
+    const form = e.target;
+    if (!form.checkValidity()) {
+      const newErrors = {
+        signUp: { username: '', password: '', email: '', message: '' },
+        logIn: {},
+      };
+      if (!form['username'].checkValidity()) {
+        newErrors.signUp.username = 'Username must be at least 3 characters';
+      }
+      if (!form['password'].checkValidity()) {
+        newErrors.signUp.password = 'Password must be at least 6 characters';
+      }
+      if (!form['email'].checkValidity()) {
+        newErrors.signUp.email = 'Email is invalid';
+      }
+      setFormErrors(newErrors);
     } else {
-      setError('sign-up');
+      const response = await fetch(API_ROUTES.signUp, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: form.username.value,
+          password: form.password.value,
+          email: form.email.value,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setLoggedIn(true);
+        setShowModal('');
+      } else {
+        const newErrors = {
+          signUp: {
+            username: '',
+            password: '',
+            email: '',
+            message: data.message,
+          },
+          logIn: {},
+        };
+        setFormErrors(newErrors);
+      }
     }
   }
 
   async function handleLogIn(e) {
     e.preventDefault();
-
-    const response = await fetch(API_ROUTES.logIn, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-      credentials: 'include',
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      setLoggedIn(true);
-      setShowModal('');
-      setError('');
+    const form = e.target;
+    if (!form.checkValidity()) {
+      const newErrors = {
+        logIn: { username: '', password: '', message: '' },
+        signUp: {},
+      };
+      if (!form['username'].checkValidity()) {
+        newErrors.logIn.username = 'Username is required';
+      }
+      if (!form['password'].checkValidity()) {
+        newErrors.logIn.password = 'Password is required';
+      }
+      setFormErrors(newErrors);
     } else {
-      setError('log-in');
+      const response = await fetch(API_ROUTES.logIn, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+        credentials: 'include',
+        body: JSON.stringify({
+          username: form.username.value,
+          password: form.password.value,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setLoggedIn(true);
+        setShowModal('');
+      } else {
+        const newErrors = {
+          logIn: {
+            username: '',
+            password: '',
+            message: 'Incorrect Username / Password',
+          },
+          signUp: {},
+        };
+        setFormErrors(newErrors);
+      }
     }
   }
   return (
@@ -63,22 +112,20 @@ export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
         <LogInForm
           handleLogIn={handleLogIn}
           setShowModal={setShowModal}
-          error={error}
-          setError={setError}
+          formErrors={formErrors}
         />
       ) : showModal == 'sign-up' ? (
         <SignUpForm
           handleSignUp={handleSignUp}
           setShowModal={setShowModal}
-          error={error}
-          setError={setError}
+          formErrors={formErrors}
         />
       ) : null}
     </>
   );
 }
 
-function LogInForm({ handleLogIn, setShowModal, error, setError }) {
+function LogInForm({ handleLogIn, setShowModal, formErrors }) {
   return (
     <Transition appear show={true} as={Fragment}>
       <Dialog
@@ -86,7 +133,6 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
         className="relative z-10"
         onClose={() => {
           setShowModal('');
-          setError('');
         }}
       >
         <Transition.Child
@@ -134,6 +180,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                 <form
                   className="flex flex-col p-12 gap-2 font-gamebold"
                   id="log-in"
+                  noValidate
                   onSubmit={handleLogIn}
                 >
                   <label htmlFor="username">Username</label>
@@ -142,25 +189,37 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                     name="username"
                     type="text"
                     placeholder="user"
+                    required
                   />
+                  {formErrors.logIn.username && (
+                    <div className="error-message">
+                      {formErrors.logIn.username}
+                    </div>
+                  )}
                   <label htmlFor="password">Password</label>
                   <input
                     className="bg-gray-100 dark:bg-gray-400 font-gamebold outline outline-1 rounded-md p-1"
                     name="password"
                     type="password"
                     placeholder="***"
+                    required
                   />
+                  {formErrors.logIn.password && (
+                    <div className="error-message">
+                      {formErrors.logIn.password}
+                    </div>
+                  )}
                   <div className="button text-center mt-5">
                     {' '}
                     <button className="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg w-1/2 text-center px-3 py-2 ">
                       Log In
                     </button>
-                    {error == 'log-in' ? (
-                      <div className="font-game font-bold text-red-600 pt-5">
-                        Error logging in <br /> Incorrect Credentials
-                      </div>
-                    ) : null}
                   </div>
+                  {formErrors.logIn.message && (
+                    <div className="error-message w-full text-center font-gamebold text-red-400 dark:text-red-400 mt-2">
+                      {formErrors.logIn.message}
+                    </div>
+                  )}
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
@@ -168,7 +227,6 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('sign-up');
-                      setError('');
                     }}
                   >
                     Sign Up
@@ -183,7 +241,7 @@ function LogInForm({ handleLogIn, setShowModal, error, setError }) {
   );
 }
 
-function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
+function SignUpForm({ handleSignUp, setShowModal, formErrors }) {
   return (
     <Transition appear show={true} as={Fragment}>
       <Dialog
@@ -191,7 +249,6 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
         className="relative z-10"
         onClose={() => {
           setShowModal('');
-          setError('');
         }}
       >
         <Transition.Child
@@ -237,6 +294,7 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                 <div className="mt-4 flex justify-end"></div>
                 <form
                   className="flex flex-col p-12 pb-6 gap-2 font-gamebold"
+                  noValidate
                   id="sign-up"
                   onSubmit={handleSignUp}
                 >
@@ -246,39 +304,57 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                     name="username"
                     type="text"
                     placeholder="user"
+                    required
                     minLength="3"
                   />
+                  {formErrors.signUp.username && (
+                    <div className="error-message">
+                      {formErrors.signUp.username}
+                    </div>
+                  )}
                   <label htmlFor="password">Password*</label>
                   <input
                     className="bg-gray-100 font-gamebold dark:bg-gray-400 outline-1 outline rounded-md p-1"
                     name="password"
                     type="password"
                     placeholder="***"
+                    required
                     minLength="6"
                   />
+                  {formErrors.signUp.password && (
+                    <div className="error-message">
+                      {formErrors.signUp.password}
+                    </div>
+                  )}
                   <label htmlFor="email">Email*</label>
                   <input
                     className="bg-gray-100 font-gamebold dark:bg-gray-400 outline-1 outline rounded-md p-1"
                     name="email"
                     type="email"
+                    required
                     placeholder="user@gmail.com"
                   />
+                  {formErrors.signUp.email && (
+                    <div className="error-message">
+                      {formErrors.signUp.email}
+                    </div>
+                  )}
                   <div className="button text-center mt-5">
                     {' '}
                     <button className="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg w-1/2 text-center px-3 py-2">
                       Sign Up
                     </button>
+                    {formErrors.signUp.message && (
+                      <div className="error-message w-full text-center font-gamebold text-red-400 dark:text-red-400 mt-2">
+                        {formErrors.signUp.message}
+                      </div>
+                    )}
                     <div className="pw-msg font-game text-xs mt-6 ">
                       *Your privacy and security are important to us. We use
                       industry-standard security measures to protect your
                       personal information, including secure handling of
                       passwords.
                     </div>
-                    {error == 'sign-up' ? (
-                      <div className="font-game font-bold text-red-600 pt-5">
-                        Error Signing Up
-                      </div>
-                    ) : null}
                   </div>
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
@@ -287,7 +363,6 @@ function SignUpForm({ handleSignUp, setShowModal, error, setError }) {
                     onClick={e => {
                       e.stopPropagation();
                       setShowModal('log-in');
-                      setError('');
                     }}
                   >
                     Log In

@@ -1,11 +1,26 @@
+import { useState } from 'react';
+
 export default function About() {
+  const [isCopied, setIsCopied] = useState(false);
+
+  function handleCopy(text) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000); // Reset the copied status after 2 seconds
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+  }
   return (
     <div className="flex flex-col items-center gap-5 justify-center font-game">
       <h2 className="font-logo text-3xl mb-8">About</h2>
       <div className="w-4/5 md:w-1/2 text-left">
         My favorite streamers used to all stream from{' '}
         <span className="text-purple-700">Twitch</span>. Over the years, they
-        have diversified out to <span className="text-red-700">YouTube,</span>
+        diversified out to <span className="text-red-700">YouTube,</span>
         <span className="text-lime-700"> Kick,</span> and other streaming
         platforms. I made this website to have{' '}
         <span className="font-gamebold">one home</span> where I could see all my
@@ -24,14 +39,29 @@ export default function About() {
       </div>
       <div className="w-4/5 md:w-1/2 text-left">
         If you want to reach out, feel free to send me a message on twitter{' '}
-        <a className="text-sky-500" href="twitter.com/seanXdev_">
-          @seanXdev_
+        <a
+          className="text-sky-500"
+          href="https://twitter.com/ismystreameron"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @ismystreameron
         </a>{' '}
         or send an email to{' '}
-        <span className="text-green-500">ismystreameronline@gmail.com</span>. I
-        always appreciate hearing from visitors and listening to any suggestions
-        you have to improve the site. Thanks for visiting!
+        <span
+          className="text-green-500 cursor-pointer"
+          onClick={() => handleCopy('ismystreameronline@gmail.com')}
+        >
+          ismystreameronline@gmail.com
+        </span>
+        . I always appreciate hearing from visitors and listening to any
+        suggestions you have to improve the site. Thanks for visiting!
       </div>
+      {isCopied && (
+        <span className="w-4/5 md:w-1/2 text-left italic pl-5">
+          Copied to clipboard!
+        </span>
+      )}
       <div className="w-4/5 md:w-1/2 text-left font-gamebold">-Sean Ghods</div>
       <div className="w-4/5 md:w-1/2 text-left mb-5 ">
         P.S. If you enjoy the website, please leave an upvote on a reddit threat

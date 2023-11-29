@@ -98,6 +98,14 @@ export default function Search() {
       />
       {isDropdownVisible && (
         <ul className="search-dropdown rounded-lg bg-gray-200 z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">
+          {results.length == 0 && (
+            <div className="rounded-lg font-gamebold p-3 flex justify-between">
+              No results...{' '}
+              <NavLink to="/request" className=" text-blue-400">
+                Add a new streamer
+              </NavLink>
+            </div>
+          )}
           {results.map((result, index) => (
             <NavLink
               key={index}
