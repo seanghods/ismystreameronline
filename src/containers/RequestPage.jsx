@@ -1,7 +1,6 @@
 import { Tooltip } from '@mui/material';
 import { useState } from 'react';
 import useStream from '../Context/useStream';
-import { NavLink } from 'react-router-dom';
 import { API_ROUTES } from '../utils/constants';
 
 export default function RequestPage() {
@@ -93,14 +92,6 @@ export default function RequestPage() {
             </Tooltip>
           </div>
         </form>
-      </div>
-      <div className="md:hidden flex justify-center mt-4 mb-8">
-        <NavLink
-          to="/about"
-          className="w-[220px] shadow-md shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
-        >
-          More about this website
-        </NavLink>
       </div>
     </>
   );

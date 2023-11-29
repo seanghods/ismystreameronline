@@ -1,8 +1,9 @@
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Switch } from '@headlessui/react';
 import Search from './sub-components/Search';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { API_ROUTES } from '../utils/constants';
+import MenuButtonX from './sub-components/MenuButton';
 
 export default function Header({
   setShowModal,
@@ -12,12 +13,6 @@ export default function Header({
   setLightMode,
 }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  function hideOnMobile() {
-    if (location.pathname == '/request') {
-      return 'hidden md:flex';
-    }
-  }
   async function handleLogOut() {
     const response = await fetch(API_ROUTES.logOut);
 
@@ -38,25 +33,15 @@ export default function Header({
             Is My Streamer <br className="md:hidden" /> Online
           </NavLink>
         </div>
-        {/* <div className="flex-1"></div> */}
         <div className="flex-1 flex justify-end">
           <div className="login-links flex gap-3 md:gap-6">
-            {/* <button
-              onClick={() => (
-                <div>
-                  <Search />
-                </div>
-              )}
-              className="shadow-md shadow-gray-400 md:hidden font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
-            >
-              <SearchIcon />
-            </button> */}
             <Search />
+            <MenuButtonX setShowModal={setShowModal} />
             {loggedIn ? (
               <>
                 <NavLink
                   to="/favorites"
-                  className="shadow-md shadow-gray-400 font-logo flex items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
+                  className="hidden md:flex font-logo items-center justify-center rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
                 >
                   Favorites
                 </NavLink>
@@ -64,7 +49,7 @@ export default function Header({
                   onClick={() => {
                     handleLogOut();
                   }}
-                  className="shadow-md shadow-gray-400 font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
+                  className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
                 >
                   Log Out
                 </button>
@@ -73,19 +58,19 @@ export default function Header({
               <>
                 <button
                   onClick={() => {
-                    setShowModal('log-in');
+                    setShowModal('sign-up');
                   }}
-                  className="shadow-md shadow-gray-400 font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
+                  className="hidden md:flex font-logo items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
                 >
-                  Log In
+                  Sign Up
                 </button>
                 <button
                   onClick={() => {
-                    setShowModal('sign-up');
+                    setShowModal('log-in');
                   }}
-                  className="shadow-md shadow-gray-400 font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
+                  className="font-logo flex items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105"
                 >
-                  Sign Up
+                  Log In
                 </button>
               </>
             )}
@@ -115,7 +100,7 @@ export default function Header({
           {' '}
           <NavLink
             to="/request"
-            className={`shadow-md w-[120px] md:w-[120px] shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center ${hideOnMobile()}`}
+            className={`w-[120px] hidden md:flex font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 justify-center items-center`}
           >
             Add a Streamer
           </NavLink>
@@ -123,7 +108,7 @@ export default function Header({
         <div className="justify-end hidden md:relative md:flex">
           <NavLink
             to="/about"
-            className="shadow-md shadow-gray-400 font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
+            className="font-logo rounded-md border tracking-wide border-transparent px-3 py-1 text-sm font-medium bg-gradient-to-r from-[#9499ff] to-[#98c1f7] hover:text-white transform transition duration-250 hover:scale-105 flex justify-center items-center"
           >
             About
           </NavLink>

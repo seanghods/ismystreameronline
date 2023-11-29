@@ -28,9 +28,8 @@ export default function About() {
         favorite streamers&apos; status, and watch their streams together.
       </div>
       <div className="w-4/5 md:w-1/2 text-left">
-        The website is straightforward in its{' '}
-        <span className="text-yellow-500">use</span> for now. Make an account,
-        like your favorite streamers across platforms, watch them in favorites
+        The website is straightforward in its use for now. Make an account, like
+        your favorite streamers across platforms, watch them in favorites
         <span className="font-gamebold">...</span> But I have a lot of exciting
         features I&apos;m looking forward to adding to make the streaming
         viewing and discovery experience more enjoyable! I think platforms,{' '}
@@ -64,20 +63,20 @@ export default function About() {
         </span>
       )}
       <div className="w-4/5 md:w-1/2 text-left font-gamebold">-Sean Ghods</div>
-      <div className="w-4/5 md:w-1/2 text-left mb-5 ">
-        P.S. If you enjoy the website, please leave an upvote on a reddit threat
+      {/* <div className="w-4/5 md:w-1/2 text-left mb-5 ">
+        P.S. If you enjoy the website, please leave an upvote on a reddit thread
         you found it on or like my Product Hunt post here to increase its
         visibility.
-      </div>
+      </div> */}
       <NavLink
         to="/privacy-policy"
-        className="text-blue-200 w-4/5 md:w-1/2 text-left mt-12"
+        className="text-blue-400 dark:text-blue-200 w-4/5 md:w-1/2 text-left mt-12"
       >
         Privacy Policy
       </NavLink>
       <NavLink
         to="/terms-of-service"
-        className="text-blue-200 w-4/5 md:w-1/2 text-left"
+        className="text-blue-400 dark:text-blue-200 w-4/5 md:w-1/2 text-left"
       >
         Terms of Service
       </NavLink>

@@ -219,7 +219,7 @@ function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
                     </button>
                   </div>
                   {formErrors.logIn.message && (
-                    <div className="error-message w-full text-center font-gamebold text-red-200 dark:text-red-200 mt-2">
+                    <div className="error-message w-full text-center font-gamebold text-red-600 dark:text-red-200 mt-2">
                       {formErrors.logIn.message}
                     </div>
                   )}
@@ -300,7 +300,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                 </Dialog.Title>
                 <div className="mt-4 flex justify-end"></div>
                 <form
-                  className="flex flex-col p-12 pb-6 gap-2 font-gamebold"
+                  className="flex flex-col p-4 md:p-12 gap-2 font-gamebold"
                   noValidate
                   id="sign-up"
                   onSubmit={handleSignUp}
@@ -352,38 +352,40 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                       Sign Up
                     </button>
                     {formErrors.signUp.message && (
-                      <div className="error-message w-full text-center font-gamebold text-red-200 dark:text-red-200 mt-2">
+                      <div className="error-message w-full text-center font-gamebold text-red-600 dark:text-red-200 mt-2">
                         {formErrors.signUp.message}
                       </div>
                     )}
-                    <div className="pw-msg font-game text-xs mt-6 ">
-                      *Your privacy and security are important to us. We use
+                    <div className="reg-msg font-game text-xs mt-6 ">
+                      *By registering I agree to the{' '}
+                      <NavLink
+                        to="/terms-of-service"
+                        onClick={() => setShowModal('')}
+                        className="text-blue-700 w-4/5 md:w-1/2"
+                      >
+                        Terms of Service
+                      </NavLink>{' '}
+                      and{' '}
+                      <NavLink
+                        to="/privacy-policy"
+                        onClick={() => setShowModal('')}
+                        className="text-blue-700 w-4/5 md:w-1/2 text-right"
+                      >
+                        Privacy Policy
+                      </NavLink>
+                      ”
+                    </div>
+                    <div className="pw-msg font-game text-xs mt-2 ">
+                      Your privacy and security are important to us. We use
                       industry-standard security measures to protect your
                       personal information, including secure handling of
                       passwords.
                     </div>
                   </div>
-                  <div className="flex w-full items-center justify-between text-xs">
-                    <NavLink
-                      to="/privacy-policy"
-                      onClick={() => setShowModal('')}
-                      className="text-blue-200 w-4/5 md:w-1/2 text-right"
-                    >
-                      Privacy Policy <span className="text-white">|</span>
-                    </NavLink>
-
-                    <NavLink
-                      to="/terms-of-service"
-                      onClick={() => setShowModal('')}
-                      className="text-blue-200 w-4/5 md:w-1/2"
-                    >
-                      <span className="text-white">|</span> Terms of Service
-                    </NavLink>
-                  </div>
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-gray-200 px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setFormErrors({

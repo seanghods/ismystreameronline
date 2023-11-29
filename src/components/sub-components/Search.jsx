@@ -8,6 +8,7 @@ import OfflineDot from '../../assets/gray-dot.png';
 import useStream from '../../Context/useStream';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { API_ROUTES } from '../../utils/constants';
+import SportsEsports from '@mui/icons-material/SportsEsports';
 
 export default function Search() {
   const [query, setQuery] = useState('');
@@ -97,7 +98,7 @@ export default function Search() {
         placeholder={placeholderText}
       />
       {isDropdownVisible && (
-        <ul className="search-dropdown rounded-lg bg-gray-200 z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">
+        <ul className="search-dropdown rounded-lg bg-white z-50 dark:bg-gray-700 absolute left-10 md:left-auto w-4/5 md:w-[350px]">
           {results.length == 0 && (
             <div className="rounded-lg font-gamebold p-3 flex justify-between">
               No results...{' '}
@@ -115,7 +116,11 @@ export default function Search() {
               )}`}
             >
               <div className="flex gap-2 items-center">
-                {result.platform && <FavoriteButton streamer={result} />}
+                {result.platform ? (
+                  <FavoriteButton streamer={result} />
+                ) : (
+                  <SportsEsports />
+                )}
                 {result.online ? (
                   <img
                     src={OnlineDot}
@@ -148,13 +153,15 @@ export default function Search() {
                   {result.name}{' '}
                 </div>
               </div>
-              {result.platform == 'Twitch' ? (
-                <TwitchIcon />
-              ) : result.platform == 'YouTube' ? (
-                <YouTubeIcon />
-              ) : result.platform == 'Kick' ? (
-                <KickIcon />
-              ) : null}
+              <div className="flex justify-center items-center">
+                {result.platform == 'Twitch' ? (
+                  <TwitchIcon />
+                ) : result.platform == 'YouTube' ? (
+                  <YouTubeIcon />
+                ) : result.platform == 'Kick' ? (
+                  <KickIcon />
+                ) : null}
+              </div>
             </NavLink>
           ))}
         </ul>
