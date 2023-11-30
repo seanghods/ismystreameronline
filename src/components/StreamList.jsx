@@ -57,7 +57,7 @@ export default function StreamList({
   return (
     <>
       <div className="streamer-list flex flex-col gap-4 items-center">
-        <h2 className="font-logo text-3xl">{title}</h2>
+        <h2 className="font-logo text-3xl">{title || 'Unavailable'}</h2>
         <div className="w-full lg:w-4/5 ">
           <MultiToggle
             options={groupOptions}
@@ -145,6 +145,12 @@ export default function StreamList({
                     </div>
                   }
                 >
+                  {streamerData.length == 0 && filter == 'game' && (
+                    <div className="font-game italic">
+                      No streamers we are tracking are currenlty playing this
+                      game...
+                    </div>
+                  )}
                   {streamerData
                     .filter(streamer => {
                       if (
