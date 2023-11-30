@@ -17,14 +17,14 @@ export default function Home({ fetchStreamers, fetchMoreStreamers }) {
           fetchMoreStreamers={fetchMoreStreamers}
         />
       ) : (
-        <div className="welcome flex flex-col items-center gap-5 mb-10 md:gap-12 md:mb-24">
+        <div className="welcome flex flex-col items-center gap-5 mb-10 md:gap-12 md:mb-14">
           <h1 className="welcome-text text-2xl md:text-4xl font-logo text-center">
             Welcome to <br />
             &apos;Is My Streamer Online&apos;
           </h1>
           <p className="text-md w-4/5 md:text-lg font-sans italic text-center dark:text-gray-300">
             Find the online status of your favorite streamers across all
-            streaming platforms!
+            streaming platforms.
           </p>
         </div>
       )}

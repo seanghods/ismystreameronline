@@ -103,6 +103,7 @@ input::placeholder {
 .toggle.red {
   background-color: rgb(255, 143, 143);
 }
+
 @layer components {
   .error-message {
     @apply font-game text-sm italic text-red-700 dark:text-red-300;

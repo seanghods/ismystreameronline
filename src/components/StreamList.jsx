@@ -65,7 +65,7 @@ export default function StreamList({
             onSelectOption={value => {
               setToggleValue(value);
             }}
-            className="flex dark:bg-gray-300 relative z-0"
+            className="flex dark:bg-[#4c4a4f] relative z-0"
           />
         </div>
         <div className="labels flex font-logo w-full lg:w-4/5 text-center mx-2 2xl:mx-0 p-2 justify-between">
@@ -84,7 +84,7 @@ export default function StreamList({
             {' '}
             <SportsEsportsIcon />
           </div>
-          <div className="flex-1 pr-24 hidden lg:block">
+          <div className="flex-1 hidden lg:block">
             <ChatIcon />
           </div>
           <div className="w-[10px] md:hidden"></div>
