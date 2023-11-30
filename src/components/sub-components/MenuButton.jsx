@@ -12,7 +12,7 @@ export default function MenuButtonX({ setShowModal }) {
 
   return (
     <Dropdown>
-      <MenuButton>Menu</MenuButton>
+      <MenuButton className="font-logo">Menu</MenuButton>
       <Menu slots={{ listbox: Listbox }}>
         {loggedIn ? (
           <MenuItem onClick={() => navigate('/favorites')}>Favorites</MenuItem>
@@ -64,7 +64,7 @@ const Listbox = styled('ul')(
   border-radius: 12px;
   overflow: auto;
   outline: 0px;
-  background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+  background: ${theme.palette.mode === 'dark' ? grey[900] : grey[200]};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   box-shadow: 0px 4px 6px ${

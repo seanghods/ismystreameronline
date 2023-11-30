@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { API_ROUTES } from '../utils/constants';
 import { NavLink } from 'react-router-dom';
+import { GoogleIcon, TwitchIcon } from './sub-components/Icons';
 
 export default function LoginModal({ showModal, setShowModal, setLoggedIn }) {
   const [formErrors, setFormErrors] = useState({
@@ -167,26 +168,17 @@ function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
                   className="text-lg font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3 dark:text-white"
                 >
                   Log In
-                  {/* <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-red-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={() => {
-                      setShowModal('');
-                      setError('');
-                    }}
-                  >
-                    Close
-                  </button> */}
                 </Dialog.Title>
+                {OAuthLogin()}
                 <div className="mt-4 flex justify-end"></div>
 
                 <form
-                  className="flex flex-col p-12 gap-2 font-gamebold"
+                  className="flex flex-col p-12 pt-0 gap-2 font-gamebold"
                   id="log-in"
                   noValidate
                   onSubmit={handleLogIn}
                 >
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="username">Username / Email</label>
                   <input
                     className="bg-gray-100 dark:bg-gray-400 font-gamebold outline outline-1 rounded-md p-1 "
                     name="username"
@@ -226,7 +218,7 @@ function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
                 </form>
                 <div className="button text-center m-2 font-game flex justify-center">
                   <button
-                    className="inline-flex dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent bg-white px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex bg-gray-200 dark:bg-gray-600 font-gamebold justify-center rounded-md border border-transparent px-3 py-1 text-sm text-indigo-600 font-bold hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={e => {
                       e.stopPropagation();
                       setFormErrors({
@@ -237,6 +229,17 @@ function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
                     }}
                   >
                     Sign Up
+                  </button>
+                </div>
+                <div className="w-full flex justify-center">
+                  <button
+                    type="button"
+                    className="inline-flex mt-1 justify-self-end rounded-md border border-transparent bg-gray-200 dark:bg-gray-600 px-2 py-1 font-gamebold text-sm font-medium text-black hover:bg-gray-400"
+                    onClick={() => {
+                      setShowModal('');
+                    }}
+                  >
+                    Close
                   </button>
                 </div>
               </Dialog.Panel>
@@ -287,20 +290,10 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                   className="text-lg dark:text-white font-bold leading-6 text-gray-900 flex justify-center items-center border-b-2 pb-3"
                 >
                   Sign Up
-                  {/* <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-red-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={() => {
-                      setShowModal('');
-                      setError('');
-                    }}
-                  >
-                    Close
-                  </button> */}
                 </Dialog.Title>
-                <div className="mt-4 flex justify-end"></div>
+                {OAuthSignUp()}
                 <form
-                  className="flex flex-col p-4 md:p-12 gap-2 font-gamebold"
+                  className="flex flex-col px-4 pb-3 md:px-12 md:pb-3 gap-2 font-gamebold"
                   noValidate
                   id="sign-up"
                   onSubmit={handleSignUp}
@@ -361,7 +354,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                       <NavLink
                         to="/terms-of-service"
                         onClick={() => setShowModal('')}
-                        className="text-blue-700 w-4/5 md:w-1/2"
+                        className="text-blue-700 dark:text-blue-300 w-4/5 md:w-1/2"
                       >
                         Terms of Service
                       </NavLink>{' '}
@@ -369,7 +362,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                       <NavLink
                         to="/privacy-policy"
                         onClick={() => setShowModal('')}
-                        className="text-blue-700 w-4/5 md:w-1/2 text-right"
+                        className="text-blue-700 dark:text-blue-300 w-4/5 md:w-1/2 text-right"
                       >
                         Privacy Policy
                       </NavLink>
@@ -398,11 +391,116 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                     Log In
                   </button>
                 </div>
+                <div className="w-full flex justify-center">
+                  <button
+                    type="button"
+                    className="inline-flex mt-1 justify-self-end rounded-md border border-transparent bg-gray-200 dark:bg-gray-600 px-2 py-1 font-gamebold text-sm font-medium text-black hover:bg-gray-400"
+                    onClick={() => {
+                      setShowModal('');
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
         </div>
       </Dialog>
     </Transition>
+  );
+}
+
+function OAuthLogin() {
+  function handleGoogleLogIn() {
+    const url =
+      import.meta.env.MODE === 'production'
+        ? 'https://api.ismystreameronline.com/auth/google'
+        : 'http://localhost:8000/auth/google';
+    window.location.href = url;
+  }
+  function handleTwitchLogIn() {
+    const url =
+      import.meta.env.MODE === 'production'
+        ? 'https://api.ismystreameronline.com/auth/twitch'
+        : 'http://localhost:8000/auth/twitch';
+    window.location.href = url;
+  }
+  return (
+    <>
+      <div className="mt-5 w-full flex flex-col justify-center items-center">
+        <button
+          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-400 font-gamebold rounded-lg mb-5 flex w-3/4 items-center justify-center space-x-2 p-1 font-bold"
+          onClick={() => handleGoogleLogIn()}
+        >
+          <div className="base-icon w-[16px] h-[16px]">
+            <GoogleIcon />
+          </div>
+          <span>Log In with Google</span>
+        </button>
+        <button
+          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-400 font-gamebold rounded-lg mb-5 flex w-3/4 items-center justify-center space-x-1 p-1 font-bold"
+          onClick={() => handleTwitchLogIn()}
+        >
+          <div className="base-icon w-[20px] h-[20px] flex items-center justify-center mr-1">
+            <TwitchIcon />
+          </div>
+          <span>Log In with Twitch</span>
+        </button>
+      </div>
+      <div className="my-5 flex w-full items-center justify-between space-x-3.5">
+        <div className="h-[1px] grow bg-gray-200"></div>
+        <div className="shrink-0 font-medium uppercase text-gray-400">Or</div>
+        <div className="h-[1px] grow bg-gray-200"></div>
+      </div>
+      <div className="mt-4 flex justify-end"></div>
+    </>
+  );
+}
+
+function OAuthSignUp() {
+  function handleGoogleSignUp() {
+    const url =
+      import.meta.env.MODE === 'production'
+        ? 'https://api.ismystreameronline.com/auth/google'
+        : 'http://localhost:8000/auth/google';
+    window.location.href = url;
+  }
+  function handleTwitchLogIn() {
+    const url =
+      import.meta.env.MODE === 'production'
+        ? 'https://api.ismystreameronline.com/auth/twitch'
+        : 'http://localhost:8000/auth/twitch';
+    window.location.href = url;
+  }
+  return (
+    <>
+      <div className="mt-5 w-full flex flex-col justify-center items-center">
+        <button
+          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-400 font-gamebold rounded-lg mb-5 flex w-3/4 items-center justify-center space-x-2 p-1 font-bold"
+          onClick={() => handleGoogleSignUp()}
+        >
+          <div className="base-icon w-[16px] h-[16px]">
+            <GoogleIcon />
+          </div>
+          <span>Sign up with Google</span>
+        </button>
+        <button
+          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-400 font-gamebold rounded-lg mb-5 flex w-3/4 items-center justify-center space-x-1 p-1 font-bold"
+          onClick={() => handleTwitchLogIn()}
+        >
+          <div className="base-icon w-[20px] h-[20px] flex items-center justify-center mr-1">
+            <TwitchIcon />
+          </div>
+          <span>Sign up with Twitch</span>
+        </button>
+      </div>
+      <div className="my-5 flex w-full items-center justify-between space-x-3.5">
+        <div className="h-[1px] grow bg-gray-200"></div>
+        <div className="shrink-0 font-medium uppercase text-gray-400">Or</div>
+        <div className="h-[1px] grow bg-gray-200"></div>
+      </div>
+      <div className="mt-4 flex justify-end"></div>
+    </>
   );
 }

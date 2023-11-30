@@ -19,4 +19,5 @@ export const API_ROUTES = {
   signUp: `${BASE_URL}/sign-up`,
   search: `${BASE_URL}/search`,
   favoritesData: `${BASE_URL}/favorites-data`,
+  google: `${BASE_URL}/auth/google`,
 };
