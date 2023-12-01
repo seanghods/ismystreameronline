@@ -35,7 +35,14 @@ export default function StreamList({
   if (filter == 'favorites') {
     streamerData = favoritesData;
   } else if (filter == 'search') {
-    streamerData = results;
+    streamerData = results
+      .filter(each => each.platform)
+      .sort((a, b) => {
+        if (a.online === b.online) {
+          return b.viewers - a.viewers;
+        }
+        return b.online - a.online;
+      });
   } else {
     streamerData = contextStreamerData;
   }
@@ -57,7 +64,9 @@ export default function StreamList({
   return (
     <>
       <div className="streamer-list flex flex-col gap-4 items-center">
-        <h2 className="font-logo text-3xl">{title || 'Unavailable'}</h2>
+        <h2 className="font-logo text-3xl cursor-default">
+          {title || 'Unavailable'}
+        </h2>
         <div className="w-full lg:w-4/5 ">
           <MultiToggle
             options={groupOptions}
@@ -114,7 +123,7 @@ export default function StreamList({
               <div className="w-full mb-24">
                 <InfiniteScroll
                   dataLength={streamerData.length}
-                  className="flex flex-col pt-1 gap-3 items-center mx-2 2xl:mx-0"
+                  className="flex flex-col select-none pt-1 gap-3 items-center mx-2 2xl:mx-0"
                   next={() => {
                     if (filter == 'favorites' || filter == 'search') {
                       null;
@@ -147,7 +156,7 @@ export default function StreamList({
                 >
                   {streamerData.length == 0 && filter == 'game' && (
                     <div className="font-game italic">
-                      No streamers we are tracking are currenlty playing this
+                      No streamers we are tracking are currently playing this
                       game...
                     </div>
                   )}

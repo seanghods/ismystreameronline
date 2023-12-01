@@ -16,7 +16,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import useStream from './Context/useStream';
 import { API_ROUTES } from './utils/constants';
-import { removeUndefinedValues } from './utils/helpers';
+import { removeUndefinedValues, ScrollToTop } from './utils/helpers';
 function App() {
   const {
     streamerData,
@@ -154,6 +154,7 @@ function App() {
   }
   return (
     <>
+      <ScrollToTop />
       {fullLoadingPage && <LoadingPage />}
       {showModal ? (
         <AccountModal

@@ -104,7 +104,10 @@ export default function FavoriteButton({ streamer, stop }) {
     >
       <button
         onClick={e => {
-          if (stop) e.stopPropagation();
+          if (stop) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           if (loggedIn) {
             if (favorites.includes(streamer.id)) {
               deleteFavorite(streamer, favorites, favoritesData);

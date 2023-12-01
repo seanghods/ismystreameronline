@@ -5,6 +5,7 @@ import { TwitchIcon, YouTubeIcon, KickIcon } from './sub-components/Icons';
 import { useEffect } from 'react';
 import OnlineDot from '../assets/green-dot.png';
 import OfflineDot from '../assets/gray-dot.png';
+import { convertToK } from '../utils/helpers';
 import { useState } from 'react';
 
 export default function StreamerItem({ streamer, index }) {
@@ -62,21 +63,9 @@ export default function StreamerItem({ streamer, index }) {
       setShouldRenderContent({});
     };
   }, []);
-  function convertToK(number) {
-    if (number < 1000) {
-      return (number / 1000).toFixed(1) + 'K';
-    } else {
-      return Math.round(number / 1000) + 'K';
-    }
-  }
 
   return (
     <>
-      {/* <div className="fix-hover">
-        <div className="hover:bg-purple-300">Test</div>
-        <div className="hover:bg-green-100">Test</div>
-        <div className="hover:bg-red-200">Test</div>
-      </div> */}
       <Tooltip
         title={streamer.title}
         key={index}

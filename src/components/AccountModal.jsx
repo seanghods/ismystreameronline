@@ -185,6 +185,7 @@ function LogInForm({ handleLogIn, setShowModal, formErrors, setFormErrors }) {
                     type="text"
                     placeholder="user"
                     required
+                    autoComplete="off"
                   />
                   {formErrors.logIn.username && (
                     <div className="error-message">
@@ -304,6 +305,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                     name="username"
                     type="text"
                     placeholder="user"
+                    autoComplete="off"
                     required
                     minLength="3"
                   />
@@ -331,6 +333,7 @@ function SignUpForm({ handleSignUp, setShowModal, formErrors, setFormErrors }) {
                     className="bg-gray-100 font-gamebold dark:bg-gray-400 outline-1 outline rounded-md p-1"
                     name="email"
                     type="email"
+                    autoComplete="off"
                     required
                     placeholder="user@gmail.com"
                   />
