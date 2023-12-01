@@ -20,4 +20,5 @@ export const API_ROUTES = {
   search: `${BASE_URL}/search`,
   favoritesData: `${BASE_URL}/favorites-data`,
   google: `${BASE_URL}/auth/google`,
+  findGame: `${BASE_URL}/find-game`,
 };

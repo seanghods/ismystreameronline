@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { StreamList } from '../components';
 import { useEffect, useState } from 'react';
 import { LoadingIcon } from '../components/sub-components/Icons';
+import { API_ROUTES } from '../utils/constants';
 
 export default function GamePage({ fetchStreamers, fetchMoreStreamers }) {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,7 @@ export default function GamePage({ fetchStreamers, fetchMoreStreamers }) {
 
   const gameSlug = useParams().name;
   async function findGameName(gameSlug) {
-    const response = await fetch(`/api/find-game?slug=${gameSlug}`);
+    const response = await fetch(`${API_ROUTES.findGame}?slug=${gameSlug}`);
     const data = await response.json();
     setGameName(data.name);
   }
