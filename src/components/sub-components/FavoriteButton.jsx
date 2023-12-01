@@ -107,6 +107,7 @@ export default function FavoriteButton({ streamer, stop }) {
           if (stop) {
             e.preventDefault();
             e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
           }
           if (loggedIn) {
             if (favorites.includes(streamer.id)) {

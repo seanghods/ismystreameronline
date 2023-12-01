@@ -108,61 +108,67 @@ export default function Search() {
             </div>
           )}
           {results.map((result, index) => (
-            <NavLink
+            <div
               key={index}
-              to={result.platform ? '/search' : `/game/${result.slugName}`}
-              className={`search-result-item rounded-lg font-gamebold p-3 flex justify-between ${getHoverColor(
+              className={`search-result-item rounded-lg font-gamebold p-2 flex justify-between ${getHoverColor(
                 result.platform,
               )}`}
             >
-              <div className="flex gap-2 items-center">
-                {result.platform ? (
-                  <FavoriteButton streamer={result} />
-                ) : (
-                  <SportsEsports />
-                )}
-                {result.online ? (
-                  <img
-                    src={OnlineDot}
-                    alt="Online Symbol"
-                    className="h-[20px]"
-                    width="20"
-                  />
-                ) : result.platform ? (
-                  <img
-                    src={OfflineDot}
-                    alt="Offline Symbol"
-                    className="h-[20px]"
-                    width="20"
-                  />
-                ) : null}
-                {result.thumbnailUrl ? (
-                  <div className="w-[33px] h-[33px]">
+              {result.platform ? (
+                <FavoriteButton streamer={result} />
+              ) : (
+                <SportsEsports />
+              )}
+              <NavLink
+                to={result.platform ? '/search' : `/game/${result.slugName}`}
+                className={`search-result-item w-full rounded-lg font-gamebold p-1 flex justify-between ${getHoverColor(
+                  result.platform,
+                )}`}
+              >
+                <div className="flex gap-2 items-center">
+                  {result.online ? (
                     <img
-                      src={result.thumbnailUrl}
-                      className="rounded-2xl"
-                      alt=""
+                      src={OnlineDot}
+                      alt="Online Symbol"
+                      className="h-[20px]"
+                      width="20"
                     />
+                  ) : result.platform ? (
+                    <img
+                      src={OfflineDot}
+                      alt="Offline Symbol"
+                      className="h-[20px]"
+                      width="20"
+                    />
+                  ) : null}
+                  {result.thumbnailUrl ? (
+                    <div className="w-[33px] h-[33px]">
+                      <img
+                        src={result.thumbnailUrl}
+                        className="rounded-2xl"
+                        alt=""
+                      />
+                    </div>
+                  ) : null}
+                  <div
+                    className={`whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
+                      result.platform,
+                    )}`}
+                  >
+                    {result.name}{' '}
                   </div>
-                ) : null}
-                <div
-                  className={`whitespace-nowrap overflow-ellipsis overflow-hidden ${getTextColor(
-                    result.platform,
-                  )}`}
-                >
-                  {result.name}{' '}
                 </div>
-              </div>
-              <div className="flex justify-center items-center">
-                {result.platform == 'Twitch' ? (
-                  <TwitchIcon />
-                ) : result.platform == 'YouTube' ? (
-                  <YouTubeIcon />
-                ) : result.platform == 'Kick' ? (
-                  <KickIcon />
-                ) : null}
-              </div>
-            </NavLink>
+                <div className="flex justify-center items-center">
+                  {result.platform == 'Twitch' ? (
+                    <TwitchIcon />
+                  ) : result.platform == 'YouTube' ? (
+                    <YouTubeIcon />
+                  ) : result.platform == 'Kick' ? (
+                    <KickIcon />
+                  ) : null}
+                </div>
+              </NavLink>
+            </div>
           ))}
         </ul>
       )}
