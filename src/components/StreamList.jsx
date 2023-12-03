@@ -24,6 +24,7 @@ export default function StreamList({
   fetchMoreStreamers,
 }) {
   const [toggleValue, setToggleValue] = useState('');
+  const [showOffline, setShowOffline] = useState(false);
   const {
     streamerData: contextStreamerData,
     favoritesData,
@@ -172,6 +173,7 @@ export default function StreamList({
                         return true;
                       }
                     })
+                    .filter(streamer => (showOffline ? true : streamer.online))
                     .map((streamer, index) => {
                       return (
                         <div
@@ -186,6 +188,23 @@ export default function StreamList({
                         </div>
                       );
                     })}
+                  {filter == 'favorites' ? (
+                    showOffline ? (
+                      <button
+                        onClick={() => setShowOffline(false)}
+                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250"
+                      >
+                        Hide Offline
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setShowOffline(true)}
+                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs text-gray-700 font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250"
+                      >
+                        Show Offline
+                      </button>
+                    )
+                  ) : null}
                 </InfiniteScroll>
               </div>
             </>
