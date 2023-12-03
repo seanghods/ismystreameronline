@@ -15,6 +15,8 @@ export default function RequestPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
+        withCredentials: true,
         body: JSON.stringify({
           username: e.target.username.value,
           platform: e.target.platform.value,
