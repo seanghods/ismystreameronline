@@ -192,14 +192,14 @@ export default function StreamList({
                     showOffline ? (
                       <button
                         onClick={() => setShowOffline(false)}
-                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250"
+                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250 dark:hover:text-gray-200"
                       >
                         Hide Offline
                       </button>
                     ) : (
                       <button
                         onClick={() => setShowOffline(true)}
-                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs text-gray-700 font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250"
+                        className="font-gamebold flex items-center justify-center rounded-md tracking-wider px-3 py-1 text-xs text-gray-700 font-medium bg-gradient-to-r from-[#94adff] to-[#5ba1fd] hover:text-white transform transition duration-250 dark:hover:text-gray-200"
                       >
                         Show Offline
                       </button>
