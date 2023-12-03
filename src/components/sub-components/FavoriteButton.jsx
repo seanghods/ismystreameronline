@@ -36,6 +36,8 @@ export default function FavoriteButton({ streamer, stop }) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
+        withCredentials: true,
       });
       if (!response.ok) {
         throw new Error('Failed to like the streamer');
@@ -68,6 +70,8 @@ export default function FavoriteButton({ streamer, stop }) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
+        withCredentials: true,
       });
       if (!response.ok) {
         throw new Error('Failed to delete the streamer');
